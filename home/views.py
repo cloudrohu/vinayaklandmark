@@ -27,17 +27,11 @@ def index(request):
     residential_types = residential_type.get_descendants(include_self=True) if residential_type else PropertyType.objects.none()
     commercial_types = commercial_type.get_descendants(include_self=True) if commercial_type else PropertyType.objects.none()
 
-    new_launch_residential = Project.objects.filter(
-        active=True, construction_status__iexact="New Launch", propert_type__in=residential_types
-    ).select_related("city", "locality", "developer", "propert_type").prefetch_related("configurations").order_by("-create_at")[:10]
+    new_launch_residential = Project.objects.filter(active=True, construction_status__iexact="New Launch", propert_type__in=residential_types).select_related("city", "locality", "developer", "propert_type").prefetch_related("configurations").order_by("-create_at")[:10]
 
-    new_launch_commercial = Project.objects.filter(
-        active=True, construction_status__iexact="New Launch", propert_type__in=commercial_types
-    ).select_related("city", "locality", "developer", "propert_type").prefetch_related("configurations").order_by("-create_at")[:10]
+    new_launch_commercial = Project.objects.filter(active=True, construction_status__iexact="New Launch", propert_type__in=commercial_types).select_related("city", "locality", "developer", "propert_type").prefetch_related("configurations").order_by("-create_at")[:10]
 
-    project_featured = Project.objects.filter(
-        active=True, featured_property=True
-    ).select_related("city", "locality", "developer", "propert_type").prefetch_related("configurations").order_by("-create_at")[:6]
+    project_featured = Project.objects.filter(active=True, featured_property=True).select_related("city", "locality", "developer", "propert_type").prefetch_related("configurations").order_by("-create_at")[:6]
 
     featured_developers = Developer.objects.filter(featured_builder=True).order_by("-create_at")[:8]
     featured_locality = Locality.objects.filter(featured_locality=True).order_by("name")[:20]

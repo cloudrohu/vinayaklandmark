@@ -1,55 +1,120 @@
 {% load static %}
+<section class="hero-section relative min-h-[750px] lg:min-h-[85vh] overflow-hidden">
 
-{% load static %}
-<div id="carouselExampleCaptions"
-     class="carousel slide"
-     data-bs-ride="carousel">
+    <!-- Background -->
+    <div class="absolute inset-0">
+        <img src="{{settings_obj.search_bg.url}}" alt="Vinayak Sapphire" class="w-full h-full object-cover">
 
-  <!-- ================= INDICATORS ================= -->
-  <div class="carousel-indicators">
-    {% for slide in slider %}
-      <button
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide-to="{{ forloop.counter0 }}"
-        class="{% if forloop.first %}active{% endif %}"
-        {% if forloop.first %}aria-current="true"{% endif %}
-        aria-label="Slide {{ forloop.counter }}">
-      </button>
-    {% endfor %}
-  </div>
+        <div class="absolute inset-0 bg-[#2c2117]/45"></div>
 
-  <!-- ================= SLIDER IMAGES ================= -->
-  <div class="carousel-inner">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#2c2117]/80 via-[#2c2117]/45 to-transparent"></div>
+    </div>
 
-    {% for slide in slider %}
-      <div class="carousel-item {% if forloop.first %}active{% endif %}">
-        <img
-          src="{{ slide.image.url }}"
-          class="d-block w-100"
-          alt="Slider Image"
-          style="height: 80vh; object-fit: cover;">
-      </div>
-    {% endfor %}
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl px-6 lg:px-10 pl-[60px]">
 
-  </div>
+        <div class="min-h-[750px] lg:min-h-[85vh] flex items-center">
 
-  <!-- ================= PREV / NEXT ================= -->
-  <button class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
+            <div class="max-w-4xl">
 
-  <button class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+                <!-- Badge -->
+                <div class="inline-flex items-center border border-[#c9972d]/40 bg-[#c9972d]/10 backdrop-blur-sm rounded-full px-5 py-2 mb-8">
 
-</div>
+                    <span class="text-[#dca63a] font-medium text-sm md:text-base">
+                        Premium 3 BHK Residences in Gandhinagar
+                    </span>
+
+                </div>
+
+                <!-- Heading -->
+                <h1 class="font-serif font-bold leading-[1.1]">
+
+                    <span class="block mb-3 text-white text-4xl md:text-5xl lg:text-6xl">
+                        Live Large.
+                    </span>
+
+                    <span class="block mb-3 text-white text-4xl md:text-5xl lg:text-6xl">
+                        Live Luxurious.
+                    </span>
+
+                    <span class="block mb-4 text-[#dca63a] text-4xl md:text-5xl lg:text-6xl">
+                        Live at Vinayak Sapphire.
+                    </span>
+
+                </h1>
+
+                <!-- Description -->
+                <p class="mt-6 text-white/90 text-lg md:text-xl leading-relaxed max-w-2xl font-medium tracking-normal">
+                    Experience the epitome of modern living with spacious <br> apartments, world-class amenities, and a prime location near SG Highway, <br>Gandhinagar.
+                </p>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+
+                    <a href="#" class="h-14 px-7 bg-[#d39a2d] text-white text-2xl rounded-lg font-semibold text-base flex items-center gap-3 hover:bg-[#98641B] transition-all duration-300">
+                        <i class="fa-solid fa-download text-xl"></i>
+                        Download Brochure
+                    </a>
+
+                   <button class="h-14 px-7 border border-white/70 text-white rounded-lg font-semibold flex items-center gap-3 backdrop-blur-[1px] hover:bg-white/10 hover:backdrop-blur-md hover:border-white transition-all duration-300">
+                        <i class="fa-regular fa-calendar text-xl"></i>
+                        Schedule Visit
+                    </button>
+
+                    <a href="tel:+919415086504" class="h-14 px-7 border text-2xl border-white/70 text-white rounded-lg font-semibold text-base flex items-center gap-3 backdrop-blur-sm hover:bg-white hover:text-[#2c2117] transition-all duration-300">
+                        <i class="fa-solid fa-phone text-2xl"></i>
+                        Call Now
+                    </a>
+
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-14 flex flex-wrap gap-8 lg:gap-16">
+
+                    <div>
+                        <h3 class="text-[#dca63a] text-4xl font-serif font-bold">
+                            500+
+                        </h3>
+                        <p class="text-white/90">
+                            Happy Families
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-[#dca63a] text-4xl font-serif font-bold">
+                            2
+                        </h3>
+                        <p class="text-white/90">
+                            Iconic Projects
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-[#dca63a] text-4xl font-serif font-bold">
+                            8+
+                        </h3>
+                        <p class="text-white/90">
+                            Years of Trust
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+
+        <div class="w-8 h-14 border-2 border-[#dca63a]/70 rounded-full flex justify-center">
+
+            <div class="w-1 h-3 bg-[#dca63a] rounded-full mt-2 animate-bounce"></div>
+
+        </div>
+
+    </div>
+
+</section>
 
