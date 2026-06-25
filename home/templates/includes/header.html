@@ -9,21 +9,21 @@
     <div class="flex items-center gap-6">
 
       <!-- Phone -->
-    <a href="tel:+919415086504" class="flex items-center gap-2 group">
+    <a href="tel:+91{{settings_obj.phone}}" class="flex items-center gap-2 group">
         <i class="fa-solid fa-phone-volume text-white group-hover:text-[#d8b16a] transition duration-300"></i>
 
         <span class="text-lg text-white group-hover:text-[#d8b16a] transition duration-300 tracking-wider">
-           +91 9415086504
+           +91 {{settings_obj.phone}}
         </span>
     </a>
 
       <!-- Email -->
-    <a href="mailto:vinayaklandmark@gmail.com" class="flex items-center gap-2 group">
+    <a href="mailto:{{settings_obj.email}}" class="flex items-center gap-2 group">
 
         <i class="fa-solid fa-envelope text-white group-hover:text-[#DBA747] transition-all duration-300"></i>
 
         <span class="text-lg text-white group-hover:text-[#DBA747] transition-all duration-300 tracking-wider">
-            vinayaklandmark@gmail.com
+            {{settings_obj.email}}
         </span>
     </a>
 
