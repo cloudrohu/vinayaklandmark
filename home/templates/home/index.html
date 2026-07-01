@@ -8,7 +8,6 @@
 
 
 <!-- ================= About Us SECTION ================= -->
-
 <section class="bg-[#F6F4EE] py-24">
 
     <div class="max-w-7xl mx-auto px-6">
@@ -18,39 +17,7 @@
             <!-- LEFT CONTENT -->
             <div>
 
-                <p class="uppercase tracking-[3px] text-[#c9972d] text-sm font-medium mb-4">
-                    About Vinayak Group
-                </p>
-
-                <h2 class="text-5xl leading-tight font-serif text-[#2d2217] mb-8">
-                    Building A <br>
-                    <span class="text-[#c9972d]">
-                        Better Life
-                    </span>
-                </h2>
-
-                <p class="text-lg leading-9 text-[#6f6256] mb-6">
-                    We believe real estate is more than just constructing buildings.
-                    It is about creating timeless spaces that elevate everyday life.
-                </p>
-
-                <p class="text-lg leading-9 text-[#6f6256]">
-                    With years of experience and commitment to excellence,
-                    we create residences that blend luxury, comfort and legacy.
-                </p>
-
-                <!-- Fade Bottom -->
-                <div class="relative mt-6">
-
-                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#f7f3ed] h-24 pointer-events-none"></div>
-
-                    <p class="text-lg leading-9 text-[#6f6256] h-20 overflow-hidden">
-                        The story began decades ago with a vision to redefine
-                        urban living through thoughtful architecture and unwavering
-                        dedication to quality...
-                    </p>
-
-                </div>
+                    {{about_page.content}}
 
                 <button id="openLegacy" class="mt-8 px-8 py-3.5 border border-[#c9972d] text-[#c9972d] rounded-md font-medium hover:bg-[#c9972d] hover:text-white transition">
                    Read The Legacy
@@ -58,26 +25,45 @@
 
             </div>
 
-            <!-- RIGHT IMAGES -->
-            <div class="grid grid-cols-2 gap-5">
+           <!-- RIGHT SECTION -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
 
-                <div class="h-56 rounded-3xl bg-[#efe5d4] flex items-center justify-center">
-                    <div class="text-center">
-                        <h3 class="text-5xl text-[#c9972d] font-serif">500+</h3>
-                        <p>Happy Families</p>
+                <!-- Happy Families -->
+                <div class="rounded-3xl bg-[#efe5d4] flex items-center justify-center h-52 sm:h-56 lg:h-64">
+
+                    <div class="text-center px-4">
+                        <h3 class="text-4xl lg:text-5xl text-[#c9972d] font-serif font-semibold">
+                            500+
+                        </h3>
+                        <p class="mt-2 text-gray-700 text-sm md:text-base">
+                            Happy Families
+                        </p>
                     </div>
+
                 </div>
 
-                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d" class="rounded-3xl h-56 w-full object-cover">
+                <!-- Image -->
+                <img
+                    src="https://images.unsplash.com/photo-1600585154526-990dced4db0d"
+                    class="rounded-3xl w-full h-52 sm:h-56 lg:h-64 object-cover"
+                    alt="Luxury Home">
 
-                <img src="https://images.unsplash.com/photo-1460317442991-0ec209397118" class="rounded-3xl h-72 w-full object-cover">
+                <!-- Image -->
+                <img
+                    src="https://images.unsplash.com/photo-1460317442991-0ec209397118"
+                    class="rounded-3xl w-full h-52 sm:h-56 lg:h-80 object-cover"
+                    alt="Luxury Building">
 
-                <div
-                    class="h-72 rounded-3xl bg-[#4b433b] text-white flex items-center justify-center">
+                <!-- Years -->
+                <div class="rounded-3xl bg-[#4b433b] text-white flex items-center justify-center h-52 sm:h-56 lg:h-80">
 
-                    <div class="text-center">
-                        <h3 class="text-5xl font-serif">8+</h3>
-                        <p>Years of Excellence</p>
+                    <div class="text-center px-4">
+                        <h3 class="text-4xl lg:text-5xl font-serif font-semibold">
+                            8+
+                        </h3>
+                        <p class="mt-2 text-sm md:text-base">
+                            Years of Excellence
+                        </p>
                     </div>
 
                 </div>
@@ -141,38 +127,15 @@
 
             <!-- Content -->
 
-            <div class="space-y-8 text-lg leading-10 text-[#5f5347]">
-
-                <p>
-                    Vinayak Landmark was founded with a singular vision —
-                    to craft residences that transcend time and become
-                    landmarks of pride for generations.
-                </p>
-
-                <p>
-                    Every project reflects meticulous attention to detail,
-                    architectural elegance and an unwavering commitment
-                    to excellence.
-                </p>
-
-                <p>
-                    Through years of trust and dedication, we have
-                    transformed aspirations into addresses that symbolize
-                    prestige, comfort and enduring value.
-                </p>
-
-                <p>
-                    Today our legacy continues through thoughtfully designed
-                    developments that redefine luxury living.
-                </p>
-
-            </div>
+           <div class="leading-8 [&_p]:my-2 [&_h1]:mb-3 [&_h2]:mb-3 [&_h3]:mb-3">
+                    {{ about_page.read_legacy|safe }}
+                </div>
 
 
             <!-- Close Button -->
                 <div class="flex justify-center mt-10">
 
-                    <button id="closeLegacy" class="px-8 py-3 rounded-full border border-[#b88933] text-[#8b6a2f] font-medium bg-white/40 backdrop-blur-sm hover:bg-[#b88933] hover:text-white transition-all duration-300">
+                    <button id="closeLegacy" class="px-8 py-3 rounded-lg border border-[#b88933] text-[#8b6a2f] font-medium bg-white/40 backdrop-blur-sm hover:bg-[#b88933] hover:text-white transition-all duration-300">
                         Roll The Scroll
                     </button>
 
@@ -182,7 +145,6 @@
     </div>
 
 </div>
-
 <!-- ================= About Us SECTION ================= -->
 
 <!-- ================= OUR PROJECTS SECTION ================= -->
@@ -293,7 +255,6 @@
                 </div>
 
             </div>
-
             
             <!-- CARD 2 -->
             <div class="group bg-white rounded-[18px] overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,.08)] hover:-translate-y-2 hover:shadow-[0_25px_70px_rgba(0,0,0,.12)] transition-all duration-500">
@@ -301,7 +262,7 @@
                 <!-- Image -->
                 <div class="relative h-[360px] overflow-hidden">
 
-                    <img src="{% static '' %}assets/images/sapphire2-hero-BqckbKu9.jpg" class="w-full h-full object-cover group-hover:scale-110 duration-700">
+                    <img src="{% static '' %}assets/images/Vinayak_View_06.tif" class="w-full h-full object-cover group-hover:scale-110 duration-700">
 
                     <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
 
@@ -316,7 +277,7 @@
                     <div class="absolute bottom-7 left-7">
 
                         <h3 class="text-white text-[42px] font-serif leading-none">
-                            Vinayak Sapphire
+                            Vinayak Sapphire II
                         </h3>
 
                         <p class="text-white/90 mt-3 flex items-center gap-2">
@@ -383,14 +344,618 @@
 
             </div>
 
-
         </div>
 
     </div>
 </section>
-
-
 <!-- ================= OUR PROJECTS SECTION ================= -->
 
+<!-- ================= WHY CHOOSE SECTION ================= -->
+<section class="bg-[#3b3530] py-24">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <!-- Heading -->
+        <div class="text-center max-w-4xl mx-auto mb-16">
+
+            <span class="uppercase tracking-[4px] text-[#d49b2a] text-sm font-semibold">
+                WHY CHOOSE US
+            </span>
+
+            <h2 class="mt-3 text-4xl md:text-6xl font-serif font-medium text-white leading-tight">
+                The
+                <span class="text-[#d49b2a]">Vinayak</span>
+                Advantage
+            </h2>
+
+            <p class="mt-8 text-gray-300 text-lg leading-9">
+                Every detail is crafted with care to ensure your home offers comfort,
+                convenience, and a lifestyle you deserve.
+            </p>
+
+        </div>
+
+        <!-- Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="card1 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+
+                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-location-dot text-4xl text-[#C48D2F]"></i>
+                </div>
+
+                <div class="text">
+
+                    <h1 class="font-serif text-white text-xl mt-4">Prime Location</h1>
+                    
+                    <p class="text-md mt-3 text-[#A3A5A3]">Near SG Highway & Kudasan, excellent <br> connectivity to GIFT City, schools & hospitals</p>
+
+                </div>
+
+            </div>
+            
+
+            <div class="card2 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+
+               <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-building text-4xl text-[#C48D2F]"></i>
+                </div>
+
+                <div class="text">
+
+                    <h1 class="font-serif text-white text-xl mt-4">Spacious 3 BHK</h1>
+                    
+                    <p class="text-md mt-3 text-[#A3A5A3]">Thoughtfully designed apartments with large balconies and premium finishes</p>
+
+                </div>
+
+            </div>
+
+            <div class="card3 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+
+               <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-dumbbell text-4xl text-[#C48D2F]"></i>
+                </div>
+
+                <div class="text">
+
+                    <h1 class="font-serif text-white text-xl mt-4">32+ Amenities</h1>
+                    
+                    <p class="text-md mt-3 text-[#A3A5A3]">Gym, swimming pool, yoga deck, library, multipurpose hall & more</p>
+
+                </div>
+
+            </div>
+
+            <div class="card4 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+
+                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-car text-4xl text-[#C48D2F]"></i>
+                </div>
+
+                <div class="text">
+
+                    <h1 class="font-serif text-white text-xl mt-4">EV Ready</h1>
+                    
+                    <p class="text-md mt-3 text-[#A3A5A3]">Future-ready with electric vehicle charging points and ample parking</p>
+
+                </div>
+
+            </div>
+
+            <div class="card5 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+
+                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-tree text-4xl text-[#C48D2F]"></i>
+                </div>
+
+                <div class="text">
+
+                    <h1 class="font-serif text-white text-xl mt-4">Green Living</h1>
+                    
+                    <p class="text-md mt-3 text-[#A3A5A3]">Landscaped gardens, open spaces, and eco-friendly design throughout</p>
+
+                </div>
+
+            </div>
+
+            <div class="card6 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+
+                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
+                    <i class="fa-solid fa-shield text-4xl text-[#C48D2F]"></i>
+                </div>
+
+                <div class="text">
+
+                    <h1 class="font-serif text-white text-xl mt-4">24/7 Security</h1>
+                    
+                    <p class="text-md mt-3 text-[#A3A5A3]">CCTV surveillance, intercom, and round-the-clock security personnel</p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        
+
+    </div>
+</section>
+<!-- ================= WHY CHOOSE SECTION ================= -->
+
+<!-- ================= LOCATIONS SECTION ================= -->
+<section class="py-24 bg-[#F6F4EE]">
+    <div class="container">
+
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-10">
+
+            <div class="w-full h-[350px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-[20px] shadow-lg">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.1374722701416!2d72.6362314!3d23.169427099999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2b001bdd31d5%3A0x3f5c6c759723653e!2sVinayak%20sapphire%202!5e1!3m2!1sen!2sin!4v1782544078155!5m2!1sen!2sin" class="w-full h-full border-0" loading="lazy" allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="right-content">
+                
+                <div class="heading tracting-wider pl-6">
+                    <h1 class="text-[#D39831] uppercase text-lg font-semibold mb-2 tracking-normal">Location & Connectivity</h1>
+
+                    <h1 class="text-[#000] text-6xl font-bold font-['Cormorant_Garamond']">Perfectly <span class="text-[#D39831]">Connected</span></h1>
+                    
+                    <p class="text-gray-600 text-xl mt-4 tracking-normal">Strategically located near SG Highway in Sargasan/Kudasan, Gandhinagar, our <br>
+                    projects offer unmatched connectivity to everything that matters.</p>
+                
+                </div>
+
+                <div class="site-visit bg-white rounded-2xl p-4 shadow-sm flex items-start gap-5 mt-3">
+
+                    <!-- Icon -->
+                    <div class="icon flex text-[#DBAC5A]">
+                        <i class="fa-solid fa-location-dot text-3xl"></i>
+                    </div>
+
+                    <div class="content">
+
+                        <h3 class="text-[#1F1F1F] font-semibold text-2xl leading-none">Site Address</h3>
+
+                            <p class="mt-3 text-[20px] leading-[28px] text-[#666666] font-normal tracking-[0.01em]">
+                                Opp. Madhuram Greens, Near Swagat Blossom,<br>
+                                Sargasan, Gandhinagar, Gujarat - 382421
+                            </p>
+
+                    </div>
+
+                   
+
+                </div>
+
+
+                <div class="relative mt-6">
+
+                    <!-- Previous -->
+                    <button id="prevBtn"
+                        class="hidden absolute left-[-25px] top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full w-12 h-12">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+
+                    <!-- Cards -->
+                    <div id="connectivityGrid" class="grid grid-cols-2 xl:grid-cols-2 md:grid-cols-2 gap-3">
+
+                        <!-- Card 1 -->
+                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                <i class="fa-solid fa-building text-3xl"></i>
+                            </div>
+
+                            <div class="distance p-3">
+                                <h1 class="text-black text-lg font-semibold">SG Highway</h1>
+                                <h4 class="text-[#E0B872] font-semibold">2 min</h4>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                <i class="fa-solid fa-building text-3xl"></i>
+                            </div>
+
+                            <div class="distance p-3">
+                                <h1 class="text-black text-lg font-semibold">Proposed Metro Station</h1>
+                                <h4 class="text-[#E0B872] font-semibold">5 min</h4>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                <i class="fa-solid fa-building text-3xl"></i>
+                            </div>
+
+                            <div class="distance p-3">
+                                <h1 class="text-black text-lg font-semibold">Schools & Colleges</h1>
+                                <h4 class="text-[#E0B872] font-semibold">5 min</h4>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                <i class="fa-solid fa-building text-3xl"></i>
+                            </div>
+
+                            <div class="distance p-3">
+                                <h1 class="text-black text-lg font-semibold">Hospitals</h1>
+                                <h4 class="text-[#E0B872] font-semibold">10 min</h4>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                <i class="fa-solid fa-building text-3xl"></i>
+                            </div>
+
+                            <div class="distance p-3">
+                                <h1 class="text-black text-lg font-semibold">GIFT City</h1>
+                                <h4 class="text-[#E0B872] font-semibold">15 min</h4>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                <i class="fa-solid fa-building text-3xl"></i>
+                            </div>
+
+                            <div class="distance p-3">
+                                <h1 class="text-black text-lg font-semibold">International Airport</h1>
+                                <h4 class="text-[#E0B872] font-semibold">10 min</h4>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Next -->
+                    <button id="nextBtn"
+                        class="absolute right-[-25px] top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full w-12 h-12">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            
+        </div>
+
+    </div>
+</section>
+<!-- ================= Location SECTION ================= -->
+
+<!-- ================= FAQ SECTION ================= -->
+<section class="py-24 bg-[#FAF8F5]">
+
+    <div class="max-w-5xl mx-auto px-6">
+
+        <div class="text-center">
+
+            <p class="uppercase tracking-[3px] text-[#D6A34A] font-semibold text-sm">
+                Frequently Asked Questions
+            </p>
+
+            <h2 class="text-5xl font-serif mt-4">
+                Have <span class="text-[#D6A34A]">Questions?</span>
+            </h2>
+
+            <p class="mt-5 text-gray-500 text-lg">
+                Find answers to common questions about our projects,
+                amenities, and buying process.
+            </p>
+
+        </div>
+
+        <div class="mt-16 space-y-5">
+
+            <!-- FAQ -->
+            <div class="faq border border-[#eadcc7] rounded-2xl bg-white overflow-hidden">
+
+                <button class="faq-btn w-full flex justify-between items-center px-8 py-7">
+
+                    <span class="text-xl font-serif">
+                        Is Vinayak Sapphire II RERA approved?
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down duration-300"></i>
+
+                </button>
+
+                <div class="faq-content">
+
+                    <div class="px-8 pb-8 text-gray-500 leading-8">
+
+                        Yes. Vinayak Sapphire II is a RERA-approved project.
+                        You can verify the registration details on the official
+                        Gujarat RERA website.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq border border-[#eadcc7] rounded-2xl bg-white overflow-hidden">
+
+                <button class="faq-btn w-full flex justify-between items-center px-8 py-7">
+
+                    <span class="text-xl font-serif">
+                        What amenities are available?
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down duration-300"></i>
+
+                </button>
+
+                <div class="faq-content">
+
+                    <div class="px-8 pb-8 text-gray-500 leading-8">
+
+                        Clubhouse, Gym, Garden, Children's Play Area,
+                        Indoor Games, Security, Parking and more.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq border border-[#eadcc7] rounded-2xl bg-white overflow-hidden">
+
+                <button class="faq-btn w-full flex justify-between items-center px-8 py-7">
+
+                    <span class="text-xl font-serif">
+                        Where is Vinayak Sapphire II located?
+                    </span>
+
+                    <i class="fa-solid fa-chevron-down duration-300"></i>
+
+                </button>
+
+                <div class="faq-content">
+
+                    <div class="px-8 pb-8 text-gray-500 leading-8">
+
+                        The project is located at Jagatpur, Ahmedabad
+                        with excellent connectivity to SG Highway,
+                        GIFT City and Metro Station.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= FAQ SECTION ================= -->
+
+<!-- ================= CONTACT SECTION ================= -->
+<section class="py-24 bg-[#FCFBF8]">
+
+    <div class="max-w-6xl mx-auto px-6 text-center">
+
+        <!-- Small Heading -->
+        <h5 class="uppercase tracking-[3px] text-[#D69C2F] font-semibold text-sm">
+            Ready To Begin?
+        </h5>
+
+        <!-- Heading -->
+        <h2 class="mt-5 text-4xl md:text-6xl font-serif leading-tight">
+            Your Dream Home
+            <span class="text-[#D69C2F]">Awaits</span>
+        </h2>
+
+        <!-- Description -->
+        <p class="max-w-3xl mx-auto mt-6 text-lg text-gray-500 leading-8">
+            Take the first step towards luxury living. Schedule a site visit,
+            download our brochure, or speak with our experts today.
+        </p>
+
+        <!-- Buttons -->
+        <div class="mt-12 flex flex-wrap justify-center gap-5">
+
+            <a href="#"
+                class="group flex items-center gap-3 bg-gradient-to-r from-[#D69C2F] to-[#E8C77B] text-white px-10 py-3 rounded-lg shadow-xl hover:text-[#9E691D] duration-300">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <span class="font-semibold">
+                    Schedule Site Visit
+                </span>
+
+            </a>
+
+            <a href="tel:+919512663636" class="flex items-center gap-3 border-2 border-[#D69C2F] text-[#D69C2F] px-10 py-3 rounded-xl hover:bg-[#D2962D] hover:text-white transition-all duration-300">
+
+                <i class="fa-solid fa-phone"></i>
+
+                <span class="font-semibold">
+                    Call +91 95 12 66 6363
+                </span>
+
+            </a>
+
+            <a href="https://wa.me/919512663636?text=Hi,%20I'm%20interested%20in%20this%20project.%20Please%20share%20more%20details."
+                target="_blank"
+                class="group flex items-center gap-3 border-2 border-[#D2962D] text-[#D2962D] px-10 py-3 rounded-xl transition-all duration-300 hover:bg-[#D2962D] hover:text-white hover:shadow-xl hover:shadow-yellow-500/30 hover:-translate-y-1">
+
+                <i class="fa-brands fa-whatsapp text-xl transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12"></i>
+
+                <span class="font-semibold">
+                    WhatsApp Us
+                </span>
+
+            </a>
+
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="mt-16 flex flex-wrap justify-center gap-12 text-gray-600">
+
+            <div class="flex items-center gap-3">
+                <span class="w-4 h-4 rounded-full bg-green-500"></span>
+                <span>RERA Registered</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="w-4 h-4 rounded-full bg-[#D69C2F]"></span>
+                <span>Bank Loan Approved</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <span class="w-4 h-4 rounded-full bg-blue-500"></span>
+                <span>Clear Title</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= CONTACT SECTION ================= -->
+
+
+<style>
+a{
+    transition: all .35s cubic-bezier(.22,.61,.36,1);
+}
+
+a:hover{
+    transform: translateY(-4px);
+    box-shadow:0 20px 40px rgba(214,156,47,.25);
+}
+.faq-content{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .45s ease;
+}
+
+.faq.active .faq-content{
+    max-height:250px;
+}
+
+.faq.active i{
+    transform:rotate(180deg);
+}
+</style>
+
+<script>
+    const cards = document.querySelectorAll(".card-item");
+
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    let page = 0;
+
+    function cardsPerPage() {
+        return window.innerWidth >= 1024 ? 4 : 2;
+    }
+
+    function showPage() {
+
+        const perPage = cardsPerPage();
+
+        const totalPages = Math.ceil(cards.length / perPage);
+
+        cards.forEach((card, index) => {
+
+            const start = page * perPage;
+            const end = start + perPage;
+
+            if (index >= start && index < end) {
+
+                card.style.display = "flex";
+
+                card.style.opacity = "0";
+                card.style.transform = "translateX(30px)";
+
+                setTimeout(() => {
+                    card.style.transition = "all .45s ease";
+                    card.style.opacity = "1";
+                    card.style.transform = "translateX(0)";
+                }, 50);
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+        prevBtn.classList.toggle("hidden", page === 0);
+        nextBtn.classList.toggle("hidden", page >= totalPages - 1);
+
+    }
+
+    nextBtn.onclick = () => {
+
+        const totalPages = Math.ceil(cards.length / cardsPerPage());
+
+        if (page < totalPages - 1) {
+
+            page++;
+            showPage();
+
+        }
+
+    }
+
+    prevBtn.onclick = () => {
+
+        if (page > 0) {
+
+            page--;
+            showPage();
+
+        }
+
+    }
+
+    window.addEventListener("resize", () => {
+
+        page = 0;
+        showPage();
+
+    });
+
+    showPage();  
+    const faqs = document.querySelectorAll(".faq");
+
+    faqs.forEach(faq=>{
+
+        const btn = faq.querySelector(".faq-btn");
+
+        btn.addEventListener("click",()=>{
+
+            faqs.forEach(item=>{
+
+                if(item!==faq){
+
+                    item.classList.remove("active");
+
+                }
+
+            });
+
+            faq.classList.toggle("active");
+
+        });
+
+    });
+</script>
 
 {% endblock %}

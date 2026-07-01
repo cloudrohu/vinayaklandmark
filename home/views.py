@@ -39,7 +39,7 @@ def index(request):
 
     about_page = About.objects.filter(is_active=True).first()
     impactmetric = ImpactMetric.objects.all()
-    slider = Slider.objects.all()
+    slider = Slider.objects.first()
     why_choose_items = Why_Choose.objects.filter(is_active=True).order_by("order")
     testimonials = Testimonial.objects.all().order_by("-id")
     faqs = FAQ.objects.all().order_by("id")

@@ -3,7 +3,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils.safestring import mark_safe
 from utility.compress_mixin import ImageCompressionMixin
 
-
 class Setting(ImageCompressionMixin, models.Model):    
     site_name = models.CharField(max_length=150)
     logo = models.ImageField(upload_to='settings/', blank=True, null=True)
@@ -69,22 +68,42 @@ class Setting(ImageCompressionMixin, models.Model):
         if self.logo and self.logo.name:
             return self.logo.url
         return None
-
 class Slider(models.Model):
-    title = models.CharField(max_length=200)
+
+    #################### BASIC INFO ####################
+
+    title1 = models.CharField(max_length=200)
+
+    title2 = models.CharField(max_length=300, blank=True, null=True)
+
+    title3 = models.CharField(max_length=300, blank=True, null=True)
+
     subtitle = models.CharField(max_length=300, blank=True, null=True)
-    image = models.ImageField(upload_to='slider/')
+    
+    badge_title = models.CharField(max_length=300, blank=True, null=True)
+
+    descriptions = models.CharField(max_length=1000, blank=True, null=True)
+
+    image = models.ImageField(upload_to='hero/')
+
     button_text = models.CharField(max_length=100, blank=True, null=True)
+
     button_link = models.URLField(blank=True, null=True)
+    
+    #################### BASIC INFO END ####################
+
+    
+
     order = models.PositiveIntegerField(default=0)
+
     is_active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['order']
-        verbose_name_plural = '1. Slider Section'
+        verbose_name_plural = 'Slider Section'
 
     def __str__(self):
-        return self.title
+        return self.title1
 
 class Leadership(models.Model):
     name = models.CharField(max_length=100, help_text="Full name of the team member")
@@ -122,76 +141,36 @@ class Why_Choose(models.Model):
         return self.title
 
 class About(models.Model):
-    # =============================
-    # 🎨 Background / Banner Section
-    # =============================
-    search_bg = models.ImageField(
-        upload_to='about/backgrounds/',
-        blank=True, null=True,
-        help_text="Background image for the top search banner (optional)"
-    )
-    home_bg = models.ImageField(
-        upload_to='about/backgrounds/',
-        blank=True, null=True,
-        help_text="Background image for home about section"
-    )
 
-    # =============================
-    # 🏠 Main About Section
-    # =============================
-    title = models.CharField(max_length=200, help_text="Main heading (e.g., 'About Makaan Hub')")
+
+    ################ HOME CONTENT ################
+    title = models.CharField(max_length=200,)
     subtitle = models.CharField(max_length=300, blank=True, null=True, help_text="Subtitle or tagline")
-    content = RichTextUploadingField(blank=True, null=True, help_text="Detailed About Us content with formatting")
+    content = RichTextUploadingField(blank=True, null=True,)
+    read_legacy = RichTextUploadingField(blank=True, null=True,)
     image = models.ImageField(upload_to='about/', blank=True, null=True, help_text="Main image for About section")
 
-    # =============================
-    # 🧑‍💼 Who We Are Section
-    # =============================
-    who_we_are_title = models.CharField(max_length=200, default="Who We Are")
-    who_we_are_subtitle = models.CharField(max_length=300, blank=True, null=True)
-    who_we_are_description = RichTextUploadingField(blank=True, null=True, help_text="Description about company identity")
+    ################ ABOUT CONTENT ################
+    about_title = models.CharField(max_length=200, blank=True, null=True,)
+    about_subtitle = models.CharField(max_length=300, blank=True, null=True, help_text="Subtitle or tagline")
+    about_content = RichTextUploadingField(blank=True, null=True,)
 
-    # =============================
-    # 📊 Achievements / Highlights
-    # =============================
-    projects_delivered = models.PositiveIntegerField(default=0)
-    happy_families = models.PositiveIntegerField(default=0)
-    years_of_excellence = models.PositiveIntegerField(default=0)
-    awards_recognitions = models.PositiveIntegerField(default=0)
-    highlight_icon_color = models.CharField(max_length=50, blank=True, null=True, help_text="Optional color for highlight icons (e.g., #0066ff)")
+    ################ MISSION OR VISION CONTENT ################
+    mission_title = models.CharField(max_length=200, blank=True, null=True)
+    mission_content = RichTextUploadingField(blank=True, null=True,)
+    vision_title = models.CharField(max_length=200, blank=True, null=True)
+    vision_content = RichTextUploadingField(blank=True, null=True,)
 
-    # =============================
-    # 🎯 Mission & Vision
-    # =============================
-    our_mission_title = models.CharField(max_length=200, default="Our Mission")
-    our_mission = RichTextUploadingField(blank=True, null=True)
-    our_vision_title = models.CharField(max_length=200, default="Our Vision")
-    our_vision = RichTextUploadingField(blank=True, null=True)
+    ################ SEO  CONTENT ################
+    seo_title = models.CharField(max_length=200, blank=True, null=True)
+    seo_description = models.TextField(blank=True, null=True)
 
-    # =============================
-    # 💼 Looking To Section
-    # =============================
-    looking_to_title = models.CharField(max_length=200, help_text="Title for 'Looking To...' section")
-    looking_to_description = RichTextUploadingField(blank=True, null=True)
-    looking_to_button_text = models.CharField(max_length=50, default="Contact Us", help_text="Call-to-action button text")
-    looking_to_button_link = models.URLField(blank=True, null=True, help_text="Button link (e.g., contact page)")
-
-    # =============================
-    # 🌐 SEO + Meta Info
-    # =============================
-    meta_title = models.CharField(max_length=255, blank=True, null=True, help_text="SEO meta title")
-    meta_description = models.TextField(blank=True, null=True, help_text="SEO meta description")
-    meta_keywords = models.TextField(blank=True, null=True, help_text="SEO keywords separated by commas")
-
-    # =============================
-    # ⚙️ Admin Settings
-    # =============================
     is_active = models.BooleanField(default=True, help_text="If disabled, this section won't appear on site")
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name_plural = "2. About Section"
+        verbose_name_plural = "About Section"
         ordering = ['-created_at']
 
     def __str__(self):

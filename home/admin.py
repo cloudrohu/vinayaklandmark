@@ -113,9 +113,9 @@ class SettingAdmin(ImportExportModelAdmin):
 
 @admin.register(Slider)
 class SliderAdmin(ImportExportModelAdmin):
-    list_display = ("title", "order", "is_active")
+    list_display = ("title1","descriptions", "order", "is_active")
     list_editable = ("order", "is_active")
-    search_fields = ("title", "subtitle")
+    search_fields = ("title1", "descriptions")
     list_filter = ("is_active",)
     ordering = ("order",)
 
@@ -148,8 +148,6 @@ class LeadershipAdmin(ImportExportModelAdmin):
             )
         }),
     )
-
-
 @admin.register(Why_Choose)
 class WhyChooseAdmin(ImportExportModelAdmin):
     list_display = ("title", "order", "is_active")
@@ -172,63 +170,42 @@ class AboutAdmin(ImportExportModelAdmin):
 
     fieldsets = (
 
-        ("🏠 Main About", {
+        ("Main About", {
             "fields": (
                 "title",
                 "subtitle",
                 "content",
-                "image",
+                "read_legacy",
             )
         }),
 
-        ("👥 Who We Are", {
+        ("About Details", {
             "fields": (
-                "who_we_are_title",
-                "who_we_are_subtitle",
-                "who_we_are_description",
+                "about_title",
+                "about_subtitle",
+                "about_content",
             )
         }),
 
-        ("📊 Highlights", {
+        ("Mission & Vision", {
             "fields": (
-                "projects_delivered",
-                "happy_families",
-                "years_of_excellence",
-                "awards_recognitions",
-                "highlight_icon_color",
+                "mission_title",
+                "mission_content",
+                "vision_title",
+                "vision_content",
             )
         }),
 
-        ("🎯 Mission & Vision", {
+        ("SEO Content", {
             "fields": (
-                "our_mission_title",
-                "our_mission",
-                "our_vision_title",
-                "our_vision",
+                "seo_title",
+                "seo_description",
             )
         }),
 
-        ("💼 Looking To", {
-            "fields": (
-                "looking_to_title",
-                "looking_to_description",
-                "looking_to_button_text",
-                "looking_to_button_link",
-            )
-        }),
 
-        ("🌐 SEO", {
+        ("Background & Status", {
             "fields": (
-                "meta_title",
-                "meta_description",
-                "meta_keywords",
-            )
-        }),
-
-        ("⚙️ Background & Status", {
-            "fields": (
-                "home_bg",
-                "search_bg",
                 "is_active",
                 "created_at",
                 "updated_at",
@@ -251,7 +228,6 @@ class TestimonialAdmin(ImportExportModelAdmin):
     list_display = ("name", "designation", "rating")
     list_filter = ("rating",)
     search_fields = ("name", "designation", "message")
-
 
 @admin.register(FAQ)
 class FAQAdmin(ImportExportModelAdmin):
