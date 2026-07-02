@@ -68,6 +68,16 @@ class Setting(ImageCompressionMixin, models.Model):
         if self.logo and self.logo.name:
             return self.logo.url
         return None
+
+    def __str__(self):
+        return self.title1
+        
+        def save(self, *args, **kwargs):
+            if self.image:
+             self.image = compress_image(self.image)
+
+            super().save(*args, **kwargs)
+
 class Slider(models.Model):
 
     #################### BASIC INFO ####################
@@ -107,6 +117,12 @@ class Slider(models.Model):
 
     def __str__(self):
         return self.title1
+        
+        def save(self, *args, **kwargs):
+            if self.image:
+             self.image = compress_image(self.image)
+
+            super().save(*args, **kwargs)
 
 class Leadership(models.Model):
     name = models.CharField(max_length=100, help_text="Full name of the team member")
@@ -129,6 +145,15 @@ class Leadership(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.designation})"
+
+    def __str__(self):
+        return self.title1
+        
+        def save(self, *args, **kwargs):
+            if self.image:
+             self.image = compress_image(self.image)
+
+            super().save(*args, **kwargs)    
 
 class Why_Choose(models.Model):
     icons = models.CharField(max_length=20, blank=True, null=True, help_text="Font Awesome icon class (e.g., 'fa-solid fa-star')")
@@ -194,6 +219,13 @@ class Contact_Page(models.Model):
     def __str__(self):
         return self.heading
 
+        
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = compress_image(self.image)
+
+        super().save(*args, **kwargs)    
+
 class Enquiry(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
@@ -217,6 +249,13 @@ class Our_Team(models.Model):
     def __str__(self):
         return self.name
 
+        
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = compress_image(self.image)
+
+        super().save(*args, **kwargs)         
+
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=100, blank=True, null=True)
@@ -230,6 +269,13 @@ class Testimonial(models.Model):
     def __str__(self):
         return f"{self.name} ({self.rating}⭐)"
 
+        
+    def save(self, *args, **kwargs):
+            if self.image:
+             self.image = compress_image(self.image)
+
+            super().save(*args, **kwargs)    
+
 class FAQ(models.Model):
     question = models.CharField(max_length=300)
     answer = RichTextUploadingField()
@@ -239,6 +285,12 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = compress_image(self.image)
+
+        super().save(*args, **kwargs)     
 
 class ImpactMetric(models.Model):
     title = models.CharField(max_length=255)
@@ -252,3 +304,9 @@ class ImpactMetric(models.Model):
 
     def __str__(self):
         return f"{self.title}: {self.value}"
+    
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = compress_image(self.image)
+
+        super().save(*args, **kwargs)  
