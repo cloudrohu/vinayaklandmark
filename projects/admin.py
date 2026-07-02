@@ -195,7 +195,9 @@ class ProjectAdmin(MPTTModelAdmin):
                 'construction_status',
                 'bhk_type',
                 'floor',
+                'towers',
                 'land_parce',
+                'rera_approved',
                 'luxurious',
                 'priceing',
             )

@@ -92,6 +92,9 @@ class Slider(models.Model):
     
     #################### BASIC INFO END ####################
 
+    #################### IMAGES ####################
+    
+
     
 
     order = models.PositiveIntegerField(default=0)
@@ -128,6 +131,7 @@ class Leadership(models.Model):
         return f"{self.name} ({self.designation})"
 
 class Why_Choose(models.Model):
+    icons = models.CharField(max_length=20, blank=True, null=True, help_text="Font Awesome icon class (e.g., 'fa-solid fa-star')")
     title = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=300, blank=True, null=True)
     order = models.PositiveIntegerField(default=0, help_text="Order of appearance on frontend")

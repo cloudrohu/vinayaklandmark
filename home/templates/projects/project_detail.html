@@ -5,11 +5,11 @@
 
 <style>
     /* Popup open hone par header ke upar ke chips hide */
-body.popup-open .project-badges,
-body.popup-open .header-badges,
-body.popup-open .rera-badges {
-  display: none !important;
-}
+    body.popup-open .project-badges,
+    body.popup-open .header-badges,
+    body.popup-open .rera-badges {
+    display: none !important;
+    }
 
 </style>
 
@@ -31,147 +31,147 @@ body.popup-open .rera-badges {
 
 <!-- ================= PROJECT HEADER ================= -->
 <section class="border-b bg-white">
-<div class="max-w-6xl mx-auto px-4 py-4 lg:py-6 sticky top-0 z-[999]">
+    <div class="max-w-6xl mx-auto px-4 py-4 lg:py-6 sticky top-0 z-[999]">
 
-    <!-- BREADCRUMB -->
-    <nav class="text-xs sm:text-sm text-gray-500 flex flex-wrap gap-1 mb-3">
-        <a href="/" class="hover:underline">Home</a>
-        <span>/</span>
+        <!-- BREADCRUMB -->
+        <nav class="text-xs sm:text-sm text-gray-500 flex flex-wrap gap-1 mb-3">
+            <a href="/" class="hover:underline">Home</a>
+            <span>/</span>
 
-        <a href="#" class="hover:underline">{{ project.city }}</a>
-        <span>/</span>
+            <a href="#" class="hover:underline">{{ project.city }}</a>
+            <span>/</span>
 
 
-        <a href="#" class="hover:underline">
-            New Projects in {{ project.locality }}
-        </a>
-        <span>/</span>
+            <a href="#" class="hover:underline">
+                New Projects in {{ project.locality }}
+            </a>
+            <span>/</span>
 
-        <span class="text-gray-700 font-medium">
-            {{ project.project_name }}
-        </span>
-    </nav>
-
-    <!-- MAIN ROW -->
-    <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6">
-
-        <!-- LEFT: TITLE + ADDRESS -->
-        <div class="flex-1">
-            <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
+            <span class="text-gray-700 font-medium">
                 {{ project.project_name }}
-            </h1>
+            </span>
+        </nav>
 
-            <p class="text-sm sm:text-base text-gray-700">
-                by
-                <span class="text-orange-500 font-semibold">
-                    {{ project.developer }}
-                </span>
-                at {{ project.locality }}, {{ project.city }}
-            </p>
+        <!-- MAIN ROW -->
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6">
 
-            <!-- RERA TAGS -->
-            <div class="mt-3 flex flex-wrap items-center gap-2 project-badges">
+            <!-- LEFT: TITLE + ADDRESS -->
+            <div class="flex-1">
+                <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
+                    {{ project.project_name }}
+                </h1>
 
-                {% if project.rera.exists %}
-                <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
-                    <i class="fa-solid fa-check-double text-green-500"></i>
-                    RERA Registered
-                </span>
-                {% endif %}
-
-                {% for r in project.rera.all %}
-                <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
-                    {{ r.registration_no }}
-                </span>
-                {% endfor %}
-
-                
-
-                <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
-                    <i class="fa-solid fa-xmark text-xs"></i>
-                    No Brokerage
-                </span>
-
-            </div>
-        </div>
-
-        <!-- RIGHT: PRICE + BUTTONS (DESKTOP) -->
-        <div class="lg:text-right flex flex-col items-start lg:items-end gap-3">
-
-            <!-- PRICE -->
-            <div class="hidden md:block">
-                <p class="text-xs text-gray-500 uppercase tracking-wide">Price</p>
-                <p class="text-xl sm:text-2xl font-semibold text-gray-900">
-                    {{ project.priceing }}
+                <p class="text-sm sm:text-base text-gray-700">
+                    by
+                    <span class="text-orange-500 font-semibold">
+                        {{ project.developer }}
+                    </span>
+                    at {{ project.locality }}, {{ project.city }}
                 </p>
-                <p class="text-xs text-gray-500">Onwards</p>
+
+                <!-- RERA TAGS -->
+                <div class="mt-3 flex flex-wrap items-center gap-2 project-badges">
+
+                    {% if project.rera.exists %}
+                    <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
+                        <i class="fa-solid fa-check-double text-green-500"></i>
+                        RERA Registered
+                    </span>
+                    {% endif %}
+
+                    {% for r in project.rera.all %}
+                    <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
+                        {{ r.registration_no }}
+                    </span>
+                    {% endfor %}
+
+                    
+
+                    <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
+                        <i class="fa-solid fa-xmark text-xs"></i>
+                        No Brokerage
+                    </span>
+
+                </div>
             </div>
 
-            <!-- BUTTONS DESKTOP -->
-            <div class="hidden lg:flex items-center gap-2 mt-1">
+            <!-- RIGHT: PRICE + BUTTONS (DESKTOP) -->
+            <div class="lg:text-right flex flex-col items-start lg:items-end gap-3">
 
-                <!-- wishlist -->
-                <button class="w-9 h-9 flex items-center justify-center border text-gray-600 hover:bg-gray-50">
-                    <i class="fa-regular fa-heart text-sm"></i>
-                </button>
+                <!-- PRICE -->
+                <div class="hidden md:block">
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Price</p>
+                    <p class="text-xl sm:text-2xl font-semibold text-gray-900">
+                        {{ project.priceing }}
+                    </p>
+                    <p class="text-xs text-gray-500">Onwards</p>
+                </div>
 
-                <!-- share -->
-                <button class="w-9 h-9 flex items-center justify-center border text-gray-600 hover:bg-gray-50">
-                    <i class="fa-solid fa-arrow-up-from-bracket text-sm"></i>
-                </button>
+                <!-- BUTTONS DESKTOP -->
+                <div class="hidden lg:flex items-center gap-2 mt-1">
 
-                <!-- brochure -->
-                <a href="#" class="inline-flex items-center gap-2 border px-4 h-9 text-sm text-gray-700 hover:bg-gray-50">
-                    <i class="fa-solid fa-download text-xs"></i>
-                    Brochure
-                </a>
+                    <!-- wishlist -->
+                    <button class="w-9 h-9 flex items-center justify-center border text-gray-600 hover:bg-gray-50">
+                        <i class="fa-regular fa-heart text-sm"></i>
+                    </button>
 
-                 <!-- Contact Us -->
-                      <a href="javascript:void(0)"
-                        data-project="{{ project.project_name }}"
-                        data-project-id="{{ project.id }}"
-                        class="openContactPopup flex-1 md:flex-none inline-flex items-center justify-center gap-2
-                                px-4 py-2 border border-orange-500 text-orange-600
-                                text-sm font-semibold rounded-3xl hover:bg-orange-50 transition">
-                        Contact Us
-                      </a>
+                    <!-- share -->
+                    <button class="w-9 h-9 flex items-center justify-center border text-gray-600 hover:bg-gray-50">
+                        <i class="fa-solid fa-arrow-up-from-bracket text-sm"></i>
+                    </button>
 
+                    <!-- brochure -->
+                    <a href="#" class="inline-flex items-center gap-2 border px-4 h-9 text-sm text-gray-700 hover:bg-gray-50">
+                        <i class="fa-solid fa-download text-xs"></i>
+                        Brochure
+                    </a>
+
+                    <!-- Contact Us -->
+                        <a href="javascript:void(0)"
+                            data-project="{{ project.project_name }}"
+                            data-project-id="{{ project.id }}"
+                            class="openContactPopup flex-1 md:flex-none inline-flex items-center justify-center gap-2
+                                    px-4 py-2 border border-orange-500 text-orange-600
+                                    text-sm font-semibold rounded-3xl hover:bg-orange-50 transition">
+                            Contact Us
+                        </a>
+
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- MOBILE BUTTON BAR -->
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-3 flex items-center gap-2 sm:hidden z-50">
+        <!-- MOBILE BUTTON BAR -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-3 flex items-center gap-2 sm:hidden z-50">
 
-        <!-- Wishlist -->
-        <button class="w-10 h-10 flex items-center justify-center border text-gray-600">
-            <i class="fa-regular fa-heart text-lg"></i>
-        </button>
+            <!-- Wishlist -->
+            <button class="w-10 h-10 flex items-center justify-center border text-gray-600">
+                <i class="fa-regular fa-heart text-lg"></i>
+            </button>
 
-        <!-- Share -->
-        <button class="w-10 h-10 flex items-center justify-center border text-gray-600">
-            <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
-        </button>
+            <!-- Share -->
+            <button class="w-10 h-10 flex items-center justify-center border text-gray-600">
+                <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
+            </button>
 
-        <!-- Brochure -->
-        <a href="#" class="flex-1 h-10 flex items-center justify-center gap-2 border text-gray-700 font-medium">
-            <i class="fa-solid fa-download text-sm"></i>
-            Brochure
-        </a>
-
-          <!-- Contact Us -->
-            <a href="javascript:void(0)"
-                data-project="{{ project.project_name }}"
-                data-project-id="{{ project.id }}"
-                class="openContactPopup flex-1 md:flex-none inline-flex items-center justify-center gap-2
-                        px-4 py-2 border border-orange-500 text-orange-600
-                        text-sm font-semibold rounded-3xl hover:bg-orange-50 transition">
-                Contact Us
+            <!-- Brochure -->
+            <a href="#" class="flex-1 h-10 flex items-center justify-center gap-2 border text-gray-700 font-medium">
+                <i class="fa-solid fa-download text-sm"></i>
+                Brochure
             </a>
 
-    </div>
+            <!-- Contact Us -->
+                <a href="javascript:void(0)"
+                    data-project="{{ project.project_name }}"
+                    data-project-id="{{ project.id }}"
+                    class="openContactPopup flex-1 md:flex-none inline-flex items-center justify-center gap-2
+                            px-4 py-2 border border-orange-500 text-orange-600
+                            text-sm font-semibold rounded-3xl hover:bg-orange-50 transition">
+                    Contact Us
+                </a>
 
-</div>
+        </div>
+
+    </div>
 </section>
 
 <SECTION-FIRST>
@@ -185,8 +185,8 @@ body.popup-open .rera-badges {
              class="w-full h-[530px] object-cover cursor-pointer gallery-img"
              data-index="0">
         {% endif %}
-    </div>
-
+        </div>
+ 
         <!-- RIGHT SIDE SMALL IMAGES -->
         <div class="flex flex-col gap-4 hidden md:block">
 
@@ -222,7 +222,7 @@ body.popup-open .rera-badges {
 
         </div>
 
-<!-- POPUP -->
+    <!-- POPUP -->
     <div id="popup" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[9999] backdrop-blur-sm transition">
 
         <!-- CLOSE BUTTON -->

@@ -1,6 +1,8 @@
 {% extends 'base.html' %} 
 {% load static %}
 {% load utility_tags %} 
+{% load price_filters %}
+
 {% load humanize %} 
 {% block title %}{{ site_settings.site_name|default:'Best Real Estate Deals' }}{% endblock %}
 {% block content %}
@@ -17,7 +19,7 @@
             <!-- LEFT CONTENT -->
             <div>
 
-                    {{about_page.content}}
+                    {{about_page.content|safe}}
 
                 <button id="openLegacy" class="mt-8 px-8 py-3.5 border border-[#c9972d] text-[#c9972d] rounded-md font-medium hover:bg-[#c9972d] hover:text-white transition">
                    Read The Legacy
@@ -168,181 +170,149 @@
 
         <div class="grid lg:grid-cols-2 gap-10">
 
-            <!-- CARD 1 -->
-            <div class="group bg-white rounded-[18px] overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,.08)] hover:-translate-y-2 hover:shadow-[0_25px_70px_rgba(0,0,0,.12)] transition-all duration-500">
 
-                <!-- Image -->
-                <div class="relative h-[360px] overflow-hidden">
+            {% for rs in project %}
 
-                    <img src="{% static '' %}assets/images/sapphire2-hero-BqckbKu9.jpg" class="w-full h-full object-cover group-hover:scale-110 duration-700">
+                <div class="group bg-white rounded-[28px] overflow-hidden border border-gray-200 shadow-lg hover:shadow-2xl hover:-translate-y-3 duration-500">
 
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                    <!-- Image -->
+                    <div class="relative overflow-hidden rounded-t-[28px]">
 
-                    <!-- Badge -->
-                    <span class="absolute top-6 left-6 flex items-center gap-2 bg-[#19c45b] text-white px-3 py-2 rounded-lg text-sm font-semibold shadow-lg">
-                        <i class="fa-solid fa-circle-check"></i>
-                        Completed
-                    </span>
+                        <img src="{{ rs.image.url }}" class="w-full h-[380px] object-cover duration-700 group-hover:scale-110">
 
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
 
-                    <!-- Bottom -->
-                    <div class="absolute bottom-7 left-7">
+                        <div class="absolute top-6 left-6 flex gap-3">
 
-                        <h3 class="text-white text-[42px] font-serif leading-none">
-                            Vinayak Sapphire
-                        </h3>
+                            <span class="bg-green-500 text-white px-4 py-2 text-sm font-semibold">
+                                {{ rs.construction_status }}
+                            </span>
 
-                        <p class="text-white/90 mt-3 flex items-center gap-2">
-                            <i class="fa-solid fa-location-dot text-[#d7b062]"></i>
-                            Sargasan, Gandhinagar
+                            {% if rs.rera_approved %}
+                                <span class="bg-[#c89b2c] text-white px-4 py-2 text-sm font-semibold">
+                                    RERA Approved
+                                </span>
+                            {% else %}
+                                <span class="bg-gray-400 text-white px-4 py-2 text-sm font-semibold">
+                                    RERA Not Approved
+                                </span>
+                            {% endif %}
+                            
+
+                        </div>
+
+                        <div class="absolute top-6 right-6 flex gap-2">
+
+                            <button class="w-11 h-11 rounded-full bg-white/90 backdrop-blur hover:bg-[#C89B2C] hover:text-white duration-300">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+
+                            <button id="shareBtn" class="w-11 h-11 rounded-full bg-white/90 backdrop-blur hover:bg-[#C89B2C] hover:text-white duration-300 flex items-center justify-center">
+
+                                <i class="fa-solid fa-share-nodes"></i>
+
+                            </button>
+
+                        </div>
+
+                        <div class="absolute bottom-8 left-8">
+
+                            <h3 class="text-white text-5xl font-serif">
+                                {{ rs.project_name }}
+                            </h3>
+
+                            <div class="flex items-center mt-3 text-white">
+
+                                <i class="fa-solid fa-location-dot text-[#d7b062] mr-2"></i>
+
+                                {{ rs.locality.name }}, {{ rs.city.name }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-7">
+
+                        <p class="text-gray-600 leading-7">
+                            {{ rs.small_description }}
                         </p>
 
-                    </div>
+                        <!-- Features -->
+                        <div class="grid grid-cols-2 gap-4 mt-7">
 
-                </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
+                                    <i class="fa-solid fa-bed text-[#c79d4b]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Configuration</p>
+                                    <p class="font-semibold">{{ rs.bhk_type }}</p>
+                                </div>
+                            </div>
 
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
+                                    <i class="fa-solid fa-ruler-combined text-[#c79d4b]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Carpet Area</p>
+                                    <p class="font-semibold">{{ rs.get_carpet_area_range }}</p>
+                                </div>
+                            </div>
 
-                <div class="p-8">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
+                                    <i class="fa-solid fa-building text-[#c79d4b]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Towers</p>
+                                    <p class="font-semibold">{{ rs.towers }}</p>
+                                </div>
+                            </div>
 
-                    <p class="text-gray-600 leading-8 text-lg">
-                        A completed masterpiece of luxury living with premium 3 BHK apartments, world-class amenities, and a thriving communit
-                    </p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
+                                    <i class="fa-solid fa-car text-[#c79d4b]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500">Parking</p>
+                                    <p class="font-semibold">Covered</p>
+                                </div>
+                            </div>
 
-                    <!-- Info -->
-
-                    <div class="flex flex-wrap gap-7 mt-7 text-[16px]">
-
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-house text-[#c89b2c]"></i>
-                            3 BHK Apartments
                         </div>
 
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-building text-[#c89b2c]"></i>
-                            2 Blocks
+
+                        <!-- Bottom -->
+                        <div class="flex justify-between items-center mt-4 pt-6 border-t">
+
+                            <div>
+
+                                <p class="text-gray-500 text-sm">
+                                    Starting Price
+                                </p>
+
+                                <h4 class="text-3xl font-bold text-[#c79d4b]">
+                                    {{ rs.get_price_range }}*
+                                </h4>
+
+                            </div>
+
+                            <a href="{{ rs.get_absolute_url }}" target="_blank" class="px-6 py-2 rounded-xl bg-gradient-to-r from-[#be8d2c] to-[#e2be67] text-white font-semibold hover:scale-105 duration-300">
+                                Explore →
+                            </a>
+
                         </div>
-
-                    </div>
-
-                    <!-- Tags -->
-
-                    <div class="flex flex-wrap gap-3 mt-8">
-
-                        <span class="px-4 py-2 rounded-lg bg-[#f4f4f4] text-sm font-medium">
-                            Fully Delivered
-                        </span>
-
-                        <span class="px-4 py-2 rounded-lg bg-[#f4f4f4] text-sm font-medium">
-                            Ready to Move
-                        </span>
-
-                        <span class="px-4 py-2 rounded-lg bg-[#f4f4f4] text-sm font-medium">
-                            Established Community
-                        </span>
-
-                    </div>
-
-                    <!-- Button -->
-
-                    <a href="#" class="mt-8 flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gradient-to-r from-[#cb9527] to-[#e4c06b] text-white text-lg font-semibold shadow-lg hover:shadow-xl transition">
-
-                        Explore Project
-
-                        <i class="fa-solid fa-arrow-right-long"></i>
-
-                    </a>
-
-                </div>
-
-            </div>
-            
-            <!-- CARD 2 -->
-            <div class="group bg-white rounded-[18px] overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,.08)] hover:-translate-y-2 hover:shadow-[0_25px_70px_rgba(0,0,0,.12)] transition-all duration-500">
-
-                <!-- Image -->
-                <div class="relative h-[360px] overflow-hidden">
-
-                    <img src="{% static '' %}assets/images/Vinayak_View_06.tif" class="w-full h-full object-cover group-hover:scale-110 duration-700">
-
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
-
-                    <!-- Badge -->
-                    <span class="absolute top-6 left-6 flex items-center gap-2 bg-[#19c45b] text-white px-3 py-2 rounded-lg text-sm font-semibold shadow-lg">
-                        <i class="fa-solid fa-circle-check"></i>
-                        Completed
-                    </span>
-
-
-                    <!-- Bottom -->
-                    <div class="absolute bottom-7 left-7">
-
-                        <h3 class="text-white text-[42px] font-serif leading-none">
-                            Vinayak Sapphire II
-                        </h3>
-
-                        <p class="text-white/90 mt-3 flex items-center gap-2">
-                            <i class="fa-solid fa-location-dot text-[#d7b062]"></i>
-                            Sargasan, Gandhinagar
-                        </p>
 
                     </div>
 
                 </div>
 
+            {% endfor %}
 
-                <div class="p-8">
-
-                    <p class="text-gray-600 leading-8 text-lg">
-                        A completed masterpiece of luxury living with premium 3 BHK apartments, world-class amenities, and a thriving communit
-                    </p>
-
-                    <!-- Info -->
-
-                    <div class="flex flex-wrap gap-7 mt-7 text-[16px]">
-
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-house text-[#c89b2c]"></i>
-                            3 BHK Apartments
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-building text-[#c89b2c]"></i>
-                            2 Blocks
-                        </div>
-
-                    </div>
-
-                    <!-- Tags -->
-
-                    <div class="flex flex-wrap gap-3 mt-8">
-
-                        <span class="px-4 py-2 rounded-lg bg-[#f4f4f4] text-sm font-medium">
-                            Fully Delivered
-                        </span>
-
-                        <span class="px-4 py-2 rounded-lg bg-[#f4f4f4] text-sm font-medium">
-                            Ready to Move
-                        </span>
-
-                        <span class="px-4 py-2 rounded-lg bg-[#f4f4f4] text-sm font-medium">
-                            Established Community
-                        </span>
-
-                    </div>
-
-                    <!-- Button -->
-
-                    <a href="#" class="mt-8 flex items-center justify-center gap-3 w-full py-3 rounded-xl bg-gradient-to-r from-[#cb9527] to-[#e4c06b] text-white text-lg font-semibold shadow-lg hover:shadow-xl transition">
-
-                        Explore Project
-
-                        <i class="fa-solid fa-arrow-right-long"></i>
-
-                    </a>
-
-                </div>
-
-            </div>
 
         </div>
 
@@ -828,31 +798,87 @@
 <!-- ================= CONTACT SECTION ================= -->
 
 
+<!-- Share Menu -->
+<div id="shareMenu"
+    class="hidden absolute right-0 mt-3 bg-white rounded-2xl shadow-2xl border p-3 w-52 z-50">
+
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+        target="_blank"
+        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+
+        <i class="fab fa-facebook text-blue-600 text-xl"></i>
+        Facebook
+
+    </a>
+
+    <a href="https://wa.me/?text={{ request.build_absolute_uri }}"
+        target="_blank"
+        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+
+        <i class="fab fa-whatsapp text-green-500 text-xl"></i>
+        WhatsApp
+
+    </a>
+
+    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}"
+        target="_blank"
+        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+
+        <i class="fab fa-x-twitter text-black text-xl"></i>
+        X (Twitter)
+
+    </a>
+
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}"
+        target="_blank"
+        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
+
+        <i class="fab fa-linkedin text-blue-700 text-xl"></i>
+        LinkedIn
+
+    </a>
+
+</div>
+
+
 <style>
-a{
-    transition: all .35s cubic-bezier(.22,.61,.36,1);
-}
+    a{
+        transition: all .35s cubic-bezier(.22,.61,.36,1);
+    }
 
-a:hover{
-    transform: translateY(-4px);
-    box-shadow:0 20px 40px rgba(214,156,47,.25);
-}
-.faq-content{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .45s ease;
-}
+    a:hover{
+        transform: translateY(-4px);
+        box-shadow:0 20px 40px rgba(214,156,47,.25);
+    }
+    .faq-content{
+        max-height:0;
+        overflow:hidden;
+        transition:max-height .45s ease;
+    }
 
-.faq.active .faq-content{
-    max-height:250px;
-}
+    .faq.active .faq-content{
+        max-height:250px;
+    }
 
-.faq.active i{
-    transform:rotate(180deg);
-}
+    .faq.active i{
+        transform:rotate(180deg);
+    }
 </style>
 
 <script>
+    const shareBtn = document.getElementById("shareBtn");
+    const shareMenu = document.getElementById("shareMenu");
+
+    shareBtn.addEventListener("click", () => {
+        shareMenu.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
+            shareMenu.classList.add("hidden");
+        }
+    });
+
     const cards = document.querySelectorAll(".card-item");
 
     const prevBtn = document.getElementById("prevBtn");

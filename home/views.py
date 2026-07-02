@@ -16,7 +16,7 @@ from projects.models import Project
 
 def index(request):
 
-    project = Project.objects.filter(active=True, featured_property=True).first()
+    project = Project.objects.filter(active=True, featured_property=True)
 
     settings_obj = Setting.objects.first()
     cities = City.objects.filter(level_type="CITY").order_by("name")
