@@ -69,8 +69,7 @@ class Setting(ImageCompressionMixin, models.Model):
             return self.logo.url
         return None
 
-    def __str__(self):
-        return self.title1
+  
         
         def save(self, *args, **kwargs):
             if self.image:
@@ -146,8 +145,6 @@ class Leadership(models.Model):
     def __str__(self):
         return f"{self.name} ({self.designation})"
 
-    def __str__(self):
-        return self.title1
         
         def save(self, *args, **kwargs):
             if self.image:

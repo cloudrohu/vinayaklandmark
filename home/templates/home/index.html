@@ -10,85 +10,202 @@
 
 
 <!-- ================= About Us SECTION ================= -->
-<section class="bg-[#F6F4EE] py-24">
+<section class="bg-[#F8F5EF] py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8">
 
-    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center font-serif">
 
-        <div class="grid lg:grid-cols-2 gap-16 items-start">
-
-            <!-- LEFT CONTENT -->
+            <!-- ================= LEFT CONTENT ================= -->
             <div>
 
-                    {{about_page.content|safe}}
+                <span class="uppercase tracking-[3px] text-[#C89B2C] font-semibold text-sm">
+                    About {{about_page.title}}
+                </span>
 
-                <button id="openLegacy" class="mt-8 px-8 py-3.5 border border-[#c9972d] text-[#c9972d] rounded-md font-medium hover:bg-[#c9972d] hover:text-white transition">
-                   Read The Legacy
+                <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-serif font-semibold leading-tight text-[#222]">
+                  
+                    <span class="text-[#C89B2C]">
+                       {{about_page.subtitle}}
+                    </span>
+                </h2>
+
+                <p class="mt-8 text-gray-600 leading-9 text-lg">
+                    {{about_page.content | safe}}
+                </p>
+
+                <button id="openLegacy" class="mt-8 inline-flex items-center gap-3 text-[#C89B2C] font-semibold hover:gap-5 duration-300">
+                    Read More
+                    <i class="fa-solid fa-arrow-right"></i>
                 </button>
 
-            </div>
+                <!-- FEATURES -->
 
-           <!-- RIGHT SECTION -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                <div class="grid sm:grid-cols-2 gap-8 mt-14">
 
-                <!-- Happy Families -->
-                <div class="rounded-3xl bg-[#efe5d4] flex items-center justify-center h-52 sm:h-56 lg:h-64">
+                    <!-- Item -->
 
-                    <div class="text-center px-4">
-                        <h3 class="text-4xl lg:text-5xl text-[#c9972d] font-serif font-semibold">
-                            500+
-                        </h3>
-                        <p class="mt-2 text-gray-700 text-sm md:text-base">
-                            Happy Families
-                        </p>
+                    <div class="flex gap-5">
+
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#F7ECD3] flex items-center justify-center shrink-0">
+
+                            <i class="fa-solid fa-shield-halved text-[#C89B2C] text-xl"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="text-xl font-serif">
+                                RERA Registered
+                            </h4>
+
+                            <p class="text-gray-600 mt-2">
+                                Every project is approved with complete transparency.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-5">
+
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#F7ECD3] flex items-center justify-center shrink-0">
+
+                            <i class="fa-solid fa-award text-[#C89B2C] text-xl"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="text-xl font-serif">
+                                Quality Assurance
+                            </h4>
+
+                            <p class="text-gray-600 mt-2">
+                                Premium materials and luxury finishes.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-5">
+
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#F7ECD3] flex items-center justify-center shrink-0">
+
+                            <i class="fa-solid fa-users text-[#C89B2C] text-xl"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="text-xl font-serif">
+                                Customer First
+                            </h4>
+
+                            <p class="text-gray-600 mt-2">
+                                Dedicated support during your buying journey.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-5">
+
+                        <div
+                            class="w-14 h-14 rounded-xl bg-[#F7ECD3] flex items-center justify-center shrink-0">
+
+                            <i class="fa-solid fa-building text-[#C89B2C] text-xl"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="text-xl font-serif">
+                                Timely Delivery
+                            </h4>
+
+                            <p class="text-gray-600 mt-2">
+                                Proven record of delivering quality projects on time.
+                            </p>
+
+                        </div>
+
                     </div>
 
                 </div>
 
-                <!-- Image -->
-                <img
-                    src="https://images.unsplash.com/photo-1600585154526-990dced4db0d"
-                    class="rounded-3xl w-full h-52 sm:h-56 lg:h-64 object-cover"
-                    alt="Luxury Home">
+            </div>
 
-                <!-- Image -->
-                <img
-                    src="https://images.unsplash.com/photo-1460317442991-0ec209397118"
-                    class="rounded-3xl w-full h-52 sm:h-56 lg:h-80 object-cover"
-                    alt="Luxury Building">
+                <!-- ================= RIGHT IMAGES ================= -->
+                <div class="w-full">
 
-                <!-- Years -->
-                <div class="rounded-3xl bg-[#4b433b] text-white flex items-center justify-center h-52 sm:h-56 lg:h-80">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
 
-                    <div class="text-center px-4">
-                        <h3 class="text-4xl lg:text-5xl font-serif font-semibold">
-                            8+
-                        </h3>
-                        <p class="mt-2 text-sm md:text-base">
-                            Years of Excellence
-                        </p>
+                        <!-- Happy Families -->
+                        <div
+                            class="bg-gradient-to-br from-[#FFF8E8] to-[#F5E8C8] rounded-3xl flex items-center justify-center h-44 sm:h-52 shadow-lg order-1">
+
+                            <div class="text-center">
+
+                                <h3 class="text-4xl md:text-5xl font-serif text-[#C89B2C]">
+                                    500+
+                                </h3>
+
+                                <p class="text-gray-600 mt-2 text-sm md:text-base">
+                                    Happy Families
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Image 1 -->
+                        <div class="overflow-hidden rounded-3xl order-2">
+
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop" class="w-full h-64 sm:h-72 object-cover hover:scale-105 duration-500">
+
+                        </div>
+
+                        <!-- Image 2 -->
+                        <div class="overflow-hidden rounded-3xl order-3">
+
+                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop" class="w-full h-64 sm:h-72 object-cover hover:scale-105 duration-500">
+
+                        </div>
+
+                        <!-- Years -->
+                        <div
+                            class="bg-[#47403B] rounded-3xl flex items-center justify-center h-44 sm:h-52 shadow-xl order-4">
+
+                            <div class="text-center text-white">
+
+                                <h3 class="text-4xl md:text-5xl font-serif">
+                                    8+
+                                </h3>
+
+                                <p class="mt-2 text-gray-300 text-sm md:text-base">
+                                    Years Of Excellence
+                                </p>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
-
-            </div>
 
         </div>
 
     </div>
-
 </section>
 
 <div id="legacyScroll"  class="relative max-w-5xl mx-auto hidden">  
 
-    <!-- Left Roller -->
-    <div class="absolute left-0 top-8 -translate-x-1/2 z-20">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-b from-[#f4d58d] to-[#9c6a25] shadow-xl"></div>
-    </div>
-
-    <!-- Right Roller -->
-    <div class="absolute right-0 top-8 translate-x-1/2 z-20">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-b from-[#f4d58d] to-[#9c6a25] shadow-xl"></div>
-    </div>
 
     <!-- Main Paper -->
     <div id="scrollPaper" class="scale-y-0 opacity-0 rotate-[-2deg] origin-top transition-all duration-1000">
@@ -129,7 +246,7 @@
 
             <!-- Content -->
 
-           <div class="leading-8 [&_p]:my-2 [&_h1]:mb-3 [&_h2]:mb-3 [&_h3]:mb-3">
+                <div class="leading-8 [&_p]:my-2 [&_h1]:mb-3 [&_h2]:mb-3 [&_h3]:mb-3">
                     {{ about_page.read_legacy|safe }}
                 </div>
 
@@ -147,177 +264,321 @@
     </div>
 
 </div>
+
+<script>
+    const btn = document.getElementById("readBtn");
+    const content = document.getElementById("aboutContent");
+    const icon = document.getElementById("icon");
+
+    btn.addEventListener("click", function () {
+
+        content.classList.toggle("hidden");
+
+        if (content.classList.contains("hidden")) {
+            btn.childNodes[0].textContent = "Read More ";
+            icon.className = "fa-solid fa-arrow-right-long duration-300";
+        } else {
+            btn.childNodes[0].textContent = "Read Less ";
+            icon.className = "fa-solid fa-arrow-up duration-300";
+        }
+
+    });
+</script>
 <!-- ================= About Us SECTION ================= -->
 
 <!-- ================= OUR PROJECTS SECTION ================= -->
-<section class="py-24 bg-[#faf8f5]">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="py-20 bg-[#FBFAF8] overflow-hidden">
 
-        <div class="text-center mb-16">
-            <span class="uppercase tracking-[4px] text-[#c89b2c] font-semibold text-sm">
-                Our Projects
-            </span>
+    <div class="max-w-7xl mx-auto px-5">
 
-            <h2 class="text-5xl font-serif mt-3 text-[#1f2937]">
-                Discover Your
-                <span class="text-[#c89b2c]">Dream Home</span>
-            </h2>
+        <!-- Heading -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
 
-            <p class="mt-6 text-gray-600 max-w-3xl mx-auto text-lg">
-                Explore our premium residential projects designed for modern families seeking luxury, comfort, <br> and an elevated lifestyle in Gandhinagar.
-            </p>
+            <div>
+                <p class="text-[#C89B2C] uppercase tracking-[3px] text-sm font-semibold">
+                    Our Projects
+                </p>
+
+                <h2 class="text-4xl md:text-5xl font-serif mt-3 leading-tight">
+                    Explore Our
+                    <span class="text-[#C89B2C]">Luxury Projects</span>
+                </h2>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-3">
+
+                <button id="prevBtn"
+                    class="w-12 h-12 rounded-full border border-[#C89B2C] hover:bg-[#C89B2C] hover:text-white transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <button id="nextBtn"
+                    class="w-12 h-12 rounded-full bg-[#C89B2C] text-white hover:bg-black transition">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-10">
+        <!-- Slider -->
+        <div id="projectSlider" class="flex overflow-x-auto scroll-smooth gap-6 scrollbar-hide snap-x snap-mandatory">
+              
+            <!-- CARD 1 -->
+             {% for rs in project_featured %}
+            <div class="w-full sm:w-full md:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] flex-none snap-start bg-white rounded-xl overflow-hidden border border-[#E8E1D5] shadow-[0_10px_35px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
+
+                <!-- Content Aayega -->
+                <div class="relative overflow-hidden">
+
+                    <!-- Project Image -->
+                    {% if rs.image %}
+                    <img src="{{rs.image.url}}" alt="{{rs.project_name}}" class="w-full h-56 sm:h-64 md:h-72 object-cover transition duration-700 hover:scale-110"
+                    {% else %}
+                    <img src="{{rs.image.url}}" alt="{{rs.project_name}}" class="w-full h-56 sm:h-64 md:h-72 object-cover transition duration-700 hover:scale-110"
+                     {% endif %}
 
 
-            {% for rs in project %}
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-                <div class="group bg-white rounded-[28px] overflow-hidden border border-gray-200 shadow-lg hover:shadow-2xl hover:-translate-y-3 duration-500">
+                    <!-- Construction Badge -->
+                    <span class="absolute top-5 left-5 inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-white shadow-lg
 
-                    <!-- Image -->
-                    <div class="relative overflow-hidden rounded-t-[28px]">
+                                {% if rs.construction_status == 'Under Construction' %}
+                                    bg-orange-500
+                                {% elif rs.construction_status == 'New Launch' %}
+                                    bg-blue-600
+                                {% elif rs.construction_status == 'Partially Ready To Move' %}
+                                    bg-yellow-500
+                                {% elif rs.construction_status == 'Ready To Move' %}
+                                    bg-green-600
+                                {% elif rs.construction_status == 'Deleverd' %}
+                                    bg-emerald-700
+                                {% else %}
+                                    bg-gray-700
+                                {% endif %}">
 
-                        <img src="{{ rs.image.url }}" class="w-full h-[380px] object-cover duration-700 group-hover:scale-110">
+                                {% if rs.construction_status == 'Under Construction' %}
+                                    <i class="fa-solid fa-person-digging"></i>
 
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                                {% elif rs.construction_status == 'New Launch' %}
+                                    <i class="fa-solid fa-rocket"></i>
 
-                        <div class="absolute top-6 left-6 flex gap-3">
+                                {% elif rs.construction_status == 'Partially Ready To Move' %}
+                                    <i class="fa-solid fa-building-circle-check"></i>
 
-                            <span class="bg-green-500 text-white px-4 py-2 text-sm font-semibold">
+                                {% elif rs.construction_status == 'Ready To Move' %}
+                                    <i class="fa-solid fa-key"></i>
+
+                                {% elif rs.construction_status == 'Deleverd' %}
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                {% else %}
+                                    <i class="fa-solid fa-building"></i>
+                                {% endif %}
+
                                 {{ rs.construction_status }}
+
+                    </span>
+
+                    <!-- Project Details -->
+                    <div class="absolute bottom-5 left-5 right-5">
+
+                        <h3 class="text-2xl font-semibold text-white">
+                             {{ rs.project_name }}
+                        </h3>
+
+                        <p class="mt-1 text-sm text-gray-200">
+                            By
+                            <span class="font-semibold text-[#F4D58D]">
+                                 {{ rs.developer }}
                             </span>
+                        </p>
 
-                            {% if rs.rera_approved %}
-                                <span class="bg-[#c89b2c] text-white px-4 py-2 text-sm font-semibold">
-                                    RERA Approved
-                                </span>
-                            {% else %}
-                                <span class="bg-gray-400 text-white px-4 py-2 text-sm font-semibold">
-                                    RERA Not Approved
-                                </span>
-                            {% endif %}
-                            
+                    </div>
 
-                        </div>
+                    
 
-                        <div class="absolute top-6 right-6 flex gap-2">
+                </div>
 
-                            <button class="w-11 h-11 rounded-full bg-white/90 backdrop-blur hover:bg-[#C89B2C] hover:text-white duration-300">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
+                <div class="bg-white p-6 md:p-7 rounded-b-[28px]">
 
-                            <button id="shareBtn" class="w-11 h-11 rounded-full bg-white/90 backdrop-blur hover:bg-[#C89B2C] hover:text-white duration-300 flex items-center justify-center">
+                    <div class="flex items-center justify-between gap-3 mb-2">   
 
-                                <i class="fa-solid fa-share-nodes"></i>
+                        <div>
 
-                            </button>
+                            <div class="flex items-center gap-2">
 
-                        </div>
+                                <div
+                                    class="w-9 h-9 bg-[#FFF6E5] flex items-center justify-center">
 
-                        <div class="absolute bottom-8 left-8">
+                                    <i class="fa-solid fa-location-dot text-[#C89B2C] text-sm"></i>
 
-                            <h3 class="text-white text-5xl font-serif">
-                                {{ rs.project_name }}
-                            </h3>
+                                </div>
 
-                            <div class="flex items-center mt-3 text-white">
+                                <div>
 
-                                <i class="fa-solid fa-location-dot text-[#d7b062] mr-2"></i>
+                                    <p class="text-xs uppercase tracking-wider text-gray-400">
+                                        Location
+                                    </p>
 
-                                {{ rs.locality.name }}, {{ rs.city.name }}
+                                    <h4 class="font-semibold text-[#1F2937]">
+                                        {{ rs.locality.name }}
+                                    </h4>
+
+                                </div>
 
                             </div>
+
+                        </div>
+
+                        <!-- Price -->
+                        <div class="text-right shrink-0">
+
+                            <p class="text-xs uppercase tracking-wider text-gray-400">
+                                Starting From
+                            </p>
+
+                                <h3 class="mt-1 text-xl lg:text-lg font-bold text-[#C89B2C] whitespace-nowrap">
+                                    {{ rs.get_price_range }}
+                                </h3>
 
                         </div>
 
                     </div>
 
-                    <!-- Content -->
-                    <div class="p-7">
+                    <!-- Project Details -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-gray-200 pt-4">
 
-                        <p class="text-gray-600 leading-7">
-                            {{ rs.small_description }}
-                        </p>
-
-                        <!-- Features -->
-                        <div class="grid grid-cols-2 gap-4 mt-7">
-
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
-                                    <i class="fa-solid fa-bed text-[#c79d4b]"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500">Configuration</p>
-                                    <p class="font-semibold">{{ rs.bhk_type }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
-                                    <i class="fa-solid fa-ruler-combined text-[#c79d4b]"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500">Carpet Area</p>
-                                    <p class="font-semibold">{{ rs.get_carpet_area_range }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
-                                    <i class="fa-solid fa-building text-[#c79d4b]"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500">Towers</p>
-                                    <p class="font-semibold">{{ rs.towers }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-center gap-3">
-                                <div class="w-12 h-12 rounded-xl bg-[#f7f2e7] flex items-center justify-center">
-                                    <i class="fa-solid fa-car text-[#c79d4b]"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-500">Parking</p>
-                                    <p class="font-semibold">Covered</p>
-                                </div>
-                            </div>
-
+                        <!-- Carpet Area -->
+                        <div>
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Carpet Area
+                            </p>
+                            <h4 class="font-semibold text-gray-800 mt-1">
+                                {{ rs.get_carpet_area_range }}
+                            </h4>
                         </div>
 
+                        <!-- BHK -->
+                        <div class="text-right">
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Configuration
+                            </p>
+                            <h4 class="font-semibold text-gray-800 mt-1">
+                                {{ rs.bhk_type|join:", " }}
+                            </h4>
+                        </div>
 
-                        <!-- Bottom -->
-                        <div class="flex justify-between items-center mt-4 pt-6 border-t">
+                        <!-- Towers -->
+                        <div>
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Towers
+                            </p>
+                            <h4 class="font-semibold text-gray-800 mt-1">
+                                {{ rs.towers|default:"NA" }}
+                            </h4>
+                        </div>
 
-                            <div>
+                        <!-- Floors -->
+                        <div class="text-right">
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Floors
+                            </p>
+                            <h4 class="font-semibold text-gray-800 mt-1">
+                                {{ rs.floor|default:"NA" }}
+                            </h4>
+                        </div>
 
-                                <p class="text-gray-500 text-sm">
-                                    Starting Price
-                                </p>
+                        <!-- Land Parcel -->
+                        <div>
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Land Parcel
+                            </p>
+                            <h4 class="font-semibold text-gray-800 mt-1">
+                                {{ rs.land_parce|default:"NA" }}
+                            </h4>
+                        </div>
 
-                                <h4 class="text-3xl font-bold text-[#c79d4b]">
-                                    {{ rs.get_price_range }}*
-                                </h4>
-
-                            </div>
-
-                            <a href="{{ rs.get_absolute_url }}" target="_blank" class="px-6 py-2 rounded-xl bg-gradient-to-r from-[#be8d2c] to-[#e2be67] text-white font-semibold hover:scale-105 duration-300">
-                                Explore →
-                            </a>
-
+                        <!-- Possession -->
+                        <div class="text-right">
+                            <p class="text-xs uppercase tracking-wide text-gray-400">
+                                Possession
+                            </p>
+                            <h4 class="font-semibold text-green-600 mt-1">
+                                {{ rs.possession_month }} {{ rs.possession_year }}
+                            </h4>
                         </div>
 
                     </div>
 
                 </div>
 
+                <!-- Read More Button -->
+                <div class="px-6 pb-6">
+                    <a href="{{ rs.get_absolute_url }}" target="_blank" class="group w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#C89B2C] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#A67C1F] hover:shadow-lg">
+
+                        Read More
+
+                        <i class="fa-solid fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+
+                    </a>
+                </div>
+
+            </div>
             {% endfor %}
-
-
+       
         </div>
 
     </div>
+
 </section>
+
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar{
+        display:none;
+    }
+    .scrollbar-hide{
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+    }
+</style>
+
+<script>
+
+    const slider = document.getElementById("projectSlider");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+
+    function getScrollAmount() {
+
+        if (window.innerWidth < 1024) {
+            // Mobile + Tablet = 1 Card
+            return slider.clientWidth;
+        }
+
+        // Desktop = 3 Cards
+        return slider.clientWidth / 3;
+
+    }
+
+    nextBtn.addEventListener("click", () => {
+        slider.scrollBy({
+            left: getScrollAmount(),
+            behavior: "smooth"
+        });
+    });
+
+    prevBtn.addEventListener("click", () => {
+        slider.scrollBy({
+            left: -getScrollAmount(),
+            behavior: "smooth"
+        });
+    });
+</script>
 <!-- ================= OUR PROJECTS SECTION ================= -->
 
 <!-- ================= WHY CHOOSE SECTION ================= -->
@@ -476,7 +737,7 @@
                 
                 </div>
 
-                <div class="site-visit bg-white rounded-2xl p-4 shadow-sm flex items-start gap-5 mt-3">
+                <div class="site-visit bg-white rounded-2xl p-4 shadow-sm flex items-start gap-5 mt-3 mb-2">
 
                     <!-- Icon -->
                     <div class="icon flex text-[#DBAC5A]">
@@ -488,8 +749,7 @@
                         <h3 class="text-[#1F1F1F] font-semibold text-2xl leading-none">Site Address</h3>
 
                             <p class="mt-3 text-[20px] leading-[28px] text-[#666666] font-normal tracking-[0.01em]">
-                                Opp. Madhuram Greens, Near Swagat Blossom,<br>
-                                Sargasan, Gandhinagar, Gujarat - 382421
+                                {{settings_obj.address}}
                             </p>
 
                     </div>
@@ -498,99 +758,86 @@
 
                 </div>
 
+                    <div class="relative mt-16">
 
-                <div class="relative mt-6">
+                        <!-- Cards -->
+                        <div id="connectivityGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-3">
 
-                    <!-- Previous -->
-                    <button id="prevBtn"
-                        class="hidden absolute left-[-25px] top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full w-12 h-12">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </button>
+                            <!-- Card 1 -->
+                            <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                                <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                    <i class="fa-solid fa-building text-3xl"></i>
+                                </div>
 
-                    <!-- Cards -->
-                    <div id="connectivityGrid" class="grid grid-cols-2 xl:grid-cols-2 md:grid-cols-2 gap-3">
-
-                        <!-- Card 1 -->
-                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
-                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
-                                <i class="fa-solid fa-building text-3xl"></i>
+                                <div class="distance p-3">
+                                    <h1 class="text-black text-lg font-semibold">SG Highway</h1>
+                                    <h4 class="text-[#E0B872] font-semibold">2 min</h4>
+                                </div>
                             </div>
 
-                            <div class="distance p-3">
-                                <h1 class="text-black text-lg font-semibold">SG Highway</h1>
-                                <h4 class="text-[#E0B872] font-semibold">2 min</h4>
-                            </div>
-                        </div>
+                            <!-- Card 2 -->
+                            <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                                <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                    <i class="fa-solid fa-building text-3xl"></i>
+                                </div>
 
-                        <!-- Card 2 -->
-                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
-                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
-                                <i class="fa-solid fa-building text-3xl"></i>
-                            </div>
-
-                            <div class="distance p-3">
-                                <h1 class="text-black text-lg font-semibold">Proposed Metro Station</h1>
-                                <h4 class="text-[#E0B872] font-semibold">5 min</h4>
-                            </div>
-                        </div>
-
-                        <!-- Card 3 -->
-                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
-                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
-                                <i class="fa-solid fa-building text-3xl"></i>
+                                <div class="distance p-3">
+                                    <h1 class="text-black text-lg font-semibold">Proposed Metro Station</h1>
+                                    <h4 class="text-[#E0B872] font-semibold">5 min</h4>
+                                </div>
                             </div>
 
-                            <div class="distance p-3">
-                                <h1 class="text-black text-lg font-semibold">Schools & Colleges</h1>
-                                <h4 class="text-[#E0B872] font-semibold">5 min</h4>
-                            </div>
-                        </div>
+                            <!-- Card 3 -->
+                            <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                                <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                    <i class="fa-solid fa-building text-3xl"></i>
+                                </div>
 
-                        <!-- Card 4 -->
-                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
-                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
-                                <i class="fa-solid fa-building text-3xl"></i>
-                            </div>
-
-                            <div class="distance p-3">
-                                <h1 class="text-black text-lg font-semibold">Hospitals</h1>
-                                <h4 class="text-[#E0B872] font-semibold">10 min</h4>
-                            </div>
-                        </div>
-
-                        <!-- Card 5 -->
-                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
-                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
-                                <i class="fa-solid fa-building text-3xl"></i>
+                                <div class="distance p-3">
+                                    <h1 class="text-black text-lg font-semibold">Schools & Colleges</h1>
+                                    <h4 class="text-[#E0B872] font-semibold">5 min</h4>
+                                </div>
                             </div>
 
-                            <div class="distance p-3">
-                                <h1 class="text-black text-lg font-semibold">GIFT City</h1>
-                                <h4 class="text-[#E0B872] font-semibold">15 min</h4>
-                            </div>
-                        </div>
+                            <!-- Card 4 -->
+                            <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                                <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                    <i class="fa-solid fa-building text-3xl"></i>
+                                </div>
 
-                        <!-- Card 6 -->
-                        <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
-                            <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
-                                <i class="fa-solid fa-building text-3xl"></i>
+                                <div class="distance p-3">
+                                    <h1 class="text-black text-lg font-semibold">Hospitals</h1>
+                                    <h4 class="text-[#E0B872] font-semibold">10 min</h4>
+                                </div>
                             </div>
 
-                            <div class="distance p-3">
-                                <h1 class="text-black text-lg font-semibold">International Airport</h1>
-                                <h4 class="text-[#E0B872] font-semibold">10 min</h4>
+                            <!-- Card 5 -->
+                            <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                                <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                    <i class="fa-solid fa-building text-3xl"></i>
+                                </div>
+
+                                <div class="distance p-3">
+                                    <h1 class="text-black text-lg font-semibold">GIFT City</h1>
+                                    <h4 class="text-[#E0B872] font-semibold">15 min</h4>
+                                </div>
                             </div>
+
+                            <!-- Card 6 -->
+                            <div class="card-item bg-white rounded-xl shadow-sm flex items-center py-2 px-3">
+                                <div class="icon bg-[#F6F0E3] text-[#DDB367] p-2 rounded-xl">
+                                    <i class="fa-solid fa-building text-3xl"></i>
+                                </div>
+
+                                <div class="distance p-3">
+                                    <h1 class="text-black text-lg font-semibold">International Airport</h1>
+                                    <h4 class="text-[#E0B872] font-semibold">10 min</h4>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
-
-                    <!-- Next -->
-                    <button id="nextBtn"
-                        class="absolute right-[-25px] top-1/2 -translate-y-1/2 z-20 bg-white shadow-lg rounded-full w-12 h-12">
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-
-                </div>
 
             </div>
 
@@ -798,50 +1045,39 @@
 <!-- ================= CONTACT SECTION ================= -->
 
 
-<!-- Share Menu -->
-<div id="shareMenu"
-    class="hidden absolute right-0 mt-3 bg-white rounded-2xl shadow-2xl border p-3 w-52 z-50">
-
-    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
-        target="_blank"
-        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-
-        <i class="fab fa-facebook text-blue-600 text-xl"></i>
-        Facebook
-
-    </a>
-
-    <a href="https://wa.me/?text={{ request.build_absolute_uri }}"
-        target="_blank"
-        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-
-        <i class="fab fa-whatsapp text-green-500 text-xl"></i>
-        WhatsApp
-
-    </a>
-
-    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}"
-        target="_blank"
-        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-
-        <i class="fab fa-x-twitter text-black text-xl"></i>
-        X (Twitter)
-
-    </a>
-
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}"
-        target="_blank"
-        class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100">
-
-        <i class="fab fa-linkedin text-blue-700 text-xl"></i>
-        LinkedIn
-
-    </a>
-
-</div>
-
 
 <style>
+    .table-scroll,.bhk-tabs,.bhk-panel div{
+    scrollbar-width:thin;
+    scrollbar-color:#fb923c transparent
+    }
+    .table-scroll::-webkit-scrollbar,
+    .bhk-tabs::-webkit-scrollbar,
+    .bhk-panel div::-webkit-scrollbar{width:6px;height:5px}
+    .table-scroll::-webkit-scrollbar-thumb,
+    .bhk-tabs::-webkit-scrollbar-thumb,
+    .bhk-panel div::-webkit-scrollbar-thumb{
+    background:#fb923c;border-radius:10px
+    }
+
+    /* BHK Tabs */
+    .bhk-tab{
+    backdrop-filter:blur(10px);
+    background:rgba(255,255,255,.6);
+    padding:6px 10px;
+    color:#374151;
+    white-space:nowrap
+    }
+    .bhk-tab.active{color:#fb923c}
+    .bhk-disabled{opacity:.4;pointer-events:none}
+
+    /* Underline */
+    .bhk-underline{
+    background:#fb923c;
+    height:2px;
+    transition:.3s ease;
+    width:0;left:0
+    }
     a{
         transition: all .35s cubic-bezier(.22,.61,.36,1);
     }
@@ -866,28 +1102,23 @@
 </style>
 
 <script>
-    const shareBtn = document.getElementById("shareBtn");
-    const shareMenu = document.getElementById("shareMenu");
-
-    shareBtn.addEventListener("click", () => {
-        shareMenu.classList.toggle("hidden");
-    });
-
-    document.addEventListener("click", (e) => {
-        if (!shareBtn.contains(e.target) && !shareMenu.contains(e.target)) {
-            shareMenu.classList.add("hidden");
-        }
-    });
-
     const cards = document.querySelectorAll(".card-item");
-
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
+
 
     let page = 0;
 
     function cardsPerPage() {
-        return window.innerWidth >= 1024 ? 4 : 2;
+
+        if (window.innerWidth >= 1024) {
+            return 4;      // Desktop
+        } else if (window.innerWidth >= 768) {
+            return 2;      // Tablet
+        } else {
+            return 1;      // Mobile
+        }
+
     }
 
     function showPage() {
@@ -951,12 +1182,12 @@
 
     }
 
-    window.addEventListener("resize", () => {
-
-        page = 0;
         showPage();
 
-    });
+        window.addEventListener("resize", () => {
+            page = 0;
+            showPage();
+        });
 
     showPage();  
     const faqs = document.querySelectorAll(".faq");
