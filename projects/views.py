@@ -19,6 +19,7 @@ from django.template.loader import render_to_string
 from django.db.models import Min, Max
 
 def index(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     # Start with all active projects
     queryset_list = Project.objects.filter(active=True).order_by('project_name')
 
@@ -61,6 +62,7 @@ def index(request):
     construction_statuses = Project.Construction_Status
     
     context = {
+        "menu_projects": menu_projects,
         'projects': queryset_list,
         'available_cities': available_cities,
         'available_localities': available_localities,
@@ -71,6 +73,7 @@ def index(request):
     return render(request, 'projects/projects.html', context)
 
 def search_projects(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     settings_obj = Setting.objects.first()
 
     # ================= SAFE GET PARAMS =================
@@ -152,11 +155,14 @@ def search_projects(request):
 
     return render(request, "projects/residential_list.html", {
         "projects": projects_page,
+        "menu_projects": menu_projects,
         "settings_obj": settings_obj,
         "selected": request.GET,
     })
 
 def residential_projects(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+    
     query = request.GET.get("q", "")  # YES
     bhk = request.GET.get("bhk")      # YES
     min_price = request.GET.get("min_price")  # YES
@@ -194,11 +200,14 @@ def residential_projects(request):
         "projects": projects.distinct(),  # YES
         "page_title": "Residential Projects",  # YES
         "breadcrumb": "Residential",  # YES
+        "menu_projects": menu_projects,
+
     }
 
     return render(request, "projects/residential_list.html", context)  # YES
 
 def project_details(request, id, slug):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     project = get_object_or_404(Project, id=id, slug=slug, active=True)
 
     # ================= CURRENT PROJECT CARPET =================
@@ -242,17 +251,21 @@ def project_details(request, id, slug):
     related_projects = related_projects[:8]
 
     context = {
+        "menu_projects": menu_projects,
         "project": project,
         "min_carpet": carpet_range["min_area"],
         "max_carpet": carpet_range["max_area"],
         "related_projects": related_projects,
         "project_faqs": project.faqs.all().order_by("order"),
+        "menu_projects": menu_projects,
+
     }
 
     return render(request, "projects/project_detail.html", context)
 
 # 🏢 Commercial Projects
 def commercial_projects(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     query = request.GET.get('q', '')
     projects = Project.objects.filter(
         propert_type__parent__name__iexact='Commercial',
@@ -266,10 +279,13 @@ def commercial_projects(request):
         'projects': projects,
         'page_title': 'Commercial Projects',
         'breadcrumb': 'Commercial',
+        "menu_projects": menu_projects,
+
     }
     return render(request, 'projects/commercial_list.html', context)
 
 def project_details(request, id, slug):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
 
     # ✅ STEP 1: FETCH PROJECT FIRST
     project = get_object_or_404(Project, id=id, slug=slug, active=True)
@@ -330,11 +346,14 @@ def project_details(request, id, slug):
 
         # OPTIONAL
         "properties": Property.objects.filter(project=project),
+        "menu_projects": menu_projects,
+
     }
 
     return render(request, "projects/project_detail.html", context)
 
 def submit_enquiry(request, id):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     project = get_object_or_404(Project, id=id)
 
     if request.method == 'POST':
@@ -351,17 +370,34 @@ def submit_enquiry(request, id):
             phone=phone,
             message=message
         )
+        
+        context = {
+            "project": project,          # current project
+            "menu_projects": menu_projects,
+        }
 
         messages.success(request, "Thank you! Your enquiry has been submitted successfully.")
         return redirect('thank_you')  # or use project detail slug redirect
 
-    return redirect('project_details', id=project.id, slug=project.slug)
+    return redirect('project_details', id=project.id, slug=project.slug, context=context)
 
 def thank_you(request):
-    return render(request, 'projects/thank_you.html')
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+
+    context = {
+        "menu_projects": menu_projects,
+    }
+
+    return render(request, 'projects/thank_you.html', context)
 
 def load_localities(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     city_id = request.GET.get("city_id")
     localities = Locality.objects.filter(city_id=city_id).values("id", "name")
-    return JsonResponse(list(localities), safe=False)
+   
+    context = {
+        "menu_projects": menu_projects,
+    }
+
+    return JsonResponse(list(localities), safe=False,context=context)
 

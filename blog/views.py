@@ -11,6 +11,7 @@ from django.db import models as djmodels   # ✅ FIXED — correct import
 
 
 class PostListView(ListView):
+    
     model = Post
     template_name = 'blog/post_list.html'
     context_object_name = 'posts'

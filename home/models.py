@@ -195,12 +195,30 @@ class About(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    ################ IMAGES  CONTENT ################
+    right_image1 = models.ImageField(upload_to='about/', blank=True, null=True, help_text="Main image for About section")
+    right_image2 = models.ImageField(upload_to='about/', blank=True, null=True, help_text="Main image for About section")
+
+    ################ STAT  CONTENT ################
+    years_of_experience = models.CharField(max_length=100, blank=True, null=True)
+    happy_families = models.CharField(max_length=100, blank=True, null=True)
+
     class Meta:
         verbose_name_plural = "About Section"
         ordering = ['-created_at']
 
     def __str__(self):
         return self.title
+
+class unique_selling_proposition(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = 'USP'
+
+    def __str__(self):
+        return self.title
+        
 
 class Contact_Page(models.Model):
     heading = models.CharField(max_length=200)

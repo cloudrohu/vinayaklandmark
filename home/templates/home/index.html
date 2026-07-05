@@ -22,11 +22,12 @@
                     About {{about_page.title}}
                 </span>
 
-                <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-serif font-semibold leading-tight text-[#222]">
+                <h2 class="mt-4 text-4xl md:text-5xl lg:text-5xl font-serif font-semibold leading-tight text-[#222]">
                   
                     <span class="text-[#C89B2C]">
                        {{about_page.subtitle}}
                     </span>
+                    
                 </h2>
 
                 <p class="mt-8 text-gray-600 leading-9 text-lg">
@@ -90,46 +91,59 @@
 
                     </div>
 
-                    <div class="flex gap-5">
+                </div>
 
-                        <div
-                            class="w-14 h-14 rounded-xl bg-[#F7ECD3] flex items-center justify-center shrink-0">
+            </div>
 
-                            <i class="fa-solid fa-users text-[#C89B2C] text-xl"></i>
+                <!-- ================= RIGHT IMAGES ================= -->
+            <div class="w-full">
 
-                        </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
 
-                        <div>
+                    <!-- Happy Families -->
+                    <div
+                        class="bg-gradient-to-br from-[#FFF8E8] to-[#F5E8C8] rounded-3xl flex items-center justify-center h-44 sm:h-52 shadow-lg order-1">
 
-                            <h4 class="text-xl font-serif">
-                                Customer First
-                            </h4>
+                        <div class="text-center">
 
-                            <p class="text-gray-600 mt-2">
-                                Dedicated support during your buying journey.
+                            <h3 class="text-4xl md:text-5xl font-serif text-[#C89B2C]">
+                                {{about_page.happy_families}}
+                            </h3>
+
+                            <p class="text-gray-600 mt-2 text-sm md:text-base">
+                                Happy Families
                             </p>
 
                         </div>
 
                     </div>
 
-                    <div class="flex gap-5">
+                    <!-- Image 1 -->
+                    <div class="overflow-hidden rounded-3xl order-2">
 
-                        <div
-                            class="w-14 h-14 rounded-xl bg-[#F7ECD3] flex items-center justify-center shrink-0">
+                        <img src="{{ about_page.right_image1.url }}" class="w-full h-64 sm:h-72 object-cover hover:scale-105 duration-500">
 
-                            <i class="fa-solid fa-building text-[#C89B2C] text-xl"></i>
+                    </div>
 
-                        </div>
+                    <!-- Image 2 -->
+                    <div class="overflow-hidden rounded-3xl order-3">
 
-                        <div>
+                        <img src="{{ about_page.right_image2.url }}" class="w-full h-64 sm:h-72 object-cover hover:scale-105 duration-500">
 
-                            <h4 class="text-xl font-serif">
-                                Timely Delivery
-                            </h4>
+                    </div>
 
-                            <p class="text-gray-600 mt-2">
-                                Proven record of delivering quality projects on time.
+                    <!-- Years -->
+                    <div
+                        class="bg-[#47403B] rounded-3xl flex items-center justify-center h-44 sm:h-52 shadow-xl order-4">
+
+                        <div class="text-center text-white">
+
+                            <h3 class="text-4xl md:text-5xl font-serif">
+                                {{about_page.years_of_experience}}+
+                            </h3>
+
+                            <p class="mt-2 text-gray-300 text-sm md:text-base">
+                                Years Of Excellence
                             </p>
 
                         </div>
@@ -139,65 +153,6 @@
                 </div>
 
             </div>
-
-                <!-- ================= RIGHT IMAGES ================= -->
-                <div class="w-full">
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-
-                        <!-- Happy Families -->
-                        <div
-                            class="bg-gradient-to-br from-[#FFF8E8] to-[#F5E8C8] rounded-3xl flex items-center justify-center h-44 sm:h-52 shadow-lg order-1">
-
-                            <div class="text-center">
-
-                                <h3 class="text-4xl md:text-5xl font-serif text-[#C89B2C]">
-                                    500+
-                                </h3>
-
-                                <p class="text-gray-600 mt-2 text-sm md:text-base">
-                                    Happy Families
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Image 1 -->
-                        <div class="overflow-hidden rounded-3xl order-2">
-
-                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop" class="w-full h-64 sm:h-72 object-cover hover:scale-105 duration-500">
-
-                        </div>
-
-                        <!-- Image 2 -->
-                        <div class="overflow-hidden rounded-3xl order-3">
-
-                            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop" class="w-full h-64 sm:h-72 object-cover hover:scale-105 duration-500">
-
-                        </div>
-
-                        <!-- Years -->
-                        <div
-                            class="bg-[#47403B] rounded-3xl flex items-center justify-center h-44 sm:h-52 shadow-xl order-4">
-
-                            <div class="text-center text-white">
-
-                                <h3 class="text-4xl md:text-5xl font-serif">
-                                    8+
-                                </h3>
-
-                                <p class="mt-2 text-gray-300 text-sm md:text-base">
-                                    Years Of Excellence
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
         </div>
 
@@ -326,8 +281,8 @@
         <div id="projectSlider" class="flex overflow-x-auto scroll-smooth gap-6 scrollbar-hide snap-x snap-mandatory">
               
             <!-- CARD 1 -->
-             {% for rs in project_featured %}
-            <div class="w-full sm:w-full md:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] flex-none snap-start bg-white rounded-xl overflow-hidden border border-[#E8E1D5] shadow-[0_10px_35px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
+            {% for rs in project_featured %}
+            <div class="w-full sm:w-full md:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/2)] flex-none snap-start bg-white rounded-xl overflow-hidden border border-[#E8E1D5] shadow-[0_10px_35px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
 
                 <!-- Content Aayega -->
                 <div class="relative overflow-hidden">
@@ -561,7 +516,7 @@
         }
 
         // Desktop = 3 Cards
-        return slider.clientWidth / 3;
+        return slider.clientWidth / 2;
 
     }
 
@@ -594,7 +549,7 @@
 
             <h2 class="mt-3 text-4xl md:text-6xl font-serif font-medium text-white leading-tight">
                 The
-                <span class="text-[#d49b2a]">Vinayak</span>
+                <span class="text-[#d49b2a]">{{settings_obj.title}}</span>
                 Advantage
             </h2>
 
@@ -608,103 +563,30 @@
         <!-- Cards -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
+            {% for rs in why_choose_items|slice:6 %}
             <div class="card1 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
 
+                {% if rs.icons %}
                 <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa-solid fa-location-dot text-4xl text-[#C48D2F]"></i>
+                    <i class="{{rs.icons}} text-4xl text-[#C48D2F]"></i>
                 </div>
-
-                <div class="text">
-
-                    <h1 class="font-serif text-white text-xl mt-4">Prime Location</h1>
-                    
-                    <p class="text-md mt-3 text-[#A3A5A3]">Near SG Highway & Kudasan, excellent <br> connectivity to GIFT City, schools & hospitals</p>
-
-                </div>
-
-            </div>
-            
-
-            <div class="card2 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
-
-               <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa-solid fa-building text-4xl text-[#C48D2F]"></i>
-                </div>
-
-                <div class="text">
-
-                    <h1 class="font-serif text-white text-xl mt-4">Spacious 3 BHK</h1>
-                    
-                    <p class="text-md mt-3 text-[#A3A5A3]">Thoughtfully designed apartments with large balconies and premium finishes</p>
-
-                </div>
-
-            </div>
-
-            <div class="card3 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
-
-               <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa-solid fa-dumbbell text-4xl text-[#C48D2F]"></i>
-                </div>
-
-                <div class="text">
-
-                    <h1 class="font-serif text-white text-xl mt-4">32+ Amenities</h1>
-                    
-                    <p class="text-md mt-3 text-[#A3A5A3]">Gym, swimming pool, yoga deck, library, multipurpose hall & more</p>
-
-                </div>
-
-            </div>
-
-            <div class="card4 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
-
+                {% else %}
                 <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa-solid fa-car text-4xl text-[#C48D2F]"></i>
+                    <i class="fa fa-check text-4xl text-[#C48D2F]"></i>
                 </div>
+                {% endif %}
+
 
                 <div class="text">
 
-                    <h1 class="font-serif text-white text-xl mt-4">EV Ready</h1>
+                    <h1 class="font-serif text-white text-xl mt-4">{{rs.title}}</h1>
                     
-                    <p class="text-md mt-3 text-[#A3A5A3]">Future-ready with electric vehicle charging points and ample parking</p>
+                    <p class="text-md mt-3 text-[#A3A5A3]">{{rs.description}}</p>
 
                 </div>
 
             </div>
-
-            <div class="card5 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
-
-                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa-solid fa-tree text-4xl text-[#C48D2F]"></i>
-                </div>
-
-                <div class="text">
-
-                    <h1 class="font-serif text-white text-xl mt-4">Green Living</h1>
-                    
-                    <p class="text-md mt-3 text-[#A3A5A3]">Landscaped gardens, open spaces, and eco-friendly design throughout</p>
-
-                </div>
-
-            </div>
-
-            <div class="card6 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
-
-                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa-solid fa-shield text-4xl text-[#C48D2F]"></i>
-                </div>
-
-                <div class="text">
-
-                    <h1 class="font-serif text-white text-xl mt-4">24/7 Security</h1>
-                    
-                    <p class="text-md mt-3 text-[#A3A5A3]">CCTV surveillance, intercom, and round-the-clock security personnel</p>
-
-                </div>
-
-            </div>
-
+            {% endfor %}
 
         </div>
 
@@ -873,12 +755,13 @@
         <div class="mt-16 space-y-5">
 
             <!-- FAQ -->
+            {% for faq in faqs %}
             <div class="faq border border-[#eadcc7] rounded-2xl bg-white overflow-hidden">
 
                 <button class="faq-btn w-full flex justify-between items-center px-8 py-7">
 
                     <span class="text-xl font-serif">
-                        Is Vinayak Sapphire II RERA approved?
+                        {{ faq.question }}
                     </span>
 
                     <i class="fa-solid fa-chevron-down duration-300"></i>
@@ -887,70 +770,16 @@
 
                 <div class="faq-content">
 
-                    <div class="px-8 pb-8 text-gray-500 leading-8">
+                    <div class="px-8 pb-8 text-gray-500 leading-8 font-leading">
 
-                        Yes. Vinayak Sapphire II is a RERA-approved project.
-                        You can verify the registration details on the official
-                        Gujarat RERA website.
+                        {{ faq.answer |safe }}
 
                     </div>
 
                 </div>
 
             </div>
-
-            <!-- FAQ -->
-            <div class="faq border border-[#eadcc7] rounded-2xl bg-white overflow-hidden">
-
-                <button class="faq-btn w-full flex justify-between items-center px-8 py-7">
-
-                    <span class="text-xl font-serif">
-                        What amenities are available?
-                    </span>
-
-                    <i class="fa-solid fa-chevron-down duration-300"></i>
-
-                </button>
-
-                <div class="faq-content">
-
-                    <div class="px-8 pb-8 text-gray-500 leading-8">
-
-                        Clubhouse, Gym, Garden, Children's Play Area,
-                        Indoor Games, Security, Parking and more.
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- FAQ -->
-            <div class="faq border border-[#eadcc7] rounded-2xl bg-white overflow-hidden">
-
-                <button class="faq-btn w-full flex justify-between items-center px-8 py-7">
-
-                    <span class="text-xl font-serif">
-                        Where is Vinayak Sapphire II located?
-                    </span>
-
-                    <i class="fa-solid fa-chevron-down duration-300"></i>
-
-                </button>
-
-                <div class="faq-content">
-
-                    <div class="px-8 pb-8 text-gray-500 leading-8">
-
-                        The project is located at Jagatpur, Ahmedabad
-                        with excellent connectivity to SG Highway,
-                        GIFT City and Metro Station.
-
-                    </div>
-
-                </div>
-
-            </div>
+            {% endfor %}
 
         </div>
 
@@ -995,19 +824,17 @@
 
             </a>
 
-            <a href="tel:+919512663636" class="flex items-center gap-3 border-2 border-[#D69C2F] text-[#D69C2F] px-10 py-3 rounded-xl hover:bg-[#D2962D] hover:text-white transition-all duration-300">
+            <a href="tel:+91{{settings_obj.phone}}" class="flex items-center gap-3 border-2 border-[#D69C2F] text-[#D69C2F] px-10 py-3 rounded-xl hover:bg-[#D2962D] hover:text-white transition-all duration-300">
 
                 <i class="fa-solid fa-phone"></i>
 
                 <span class="font-semibold">
-                    Call +91 95 12 66 6363
+                    Call +91 {{settings_obj.phone}}
                 </span>
 
             </a>
 
-            <a href="https://wa.me/919512663636?text=Hi,%20I'm%20interested%20in%20this%20project.%20Please%20share%20more%20details."
-                target="_blank"
-                class="group flex items-center gap-3 border-2 border-[#D2962D] text-[#D2962D] px-10 py-3 rounded-xl transition-all duration-300 hover:bg-[#D2962D] hover:text-white hover:shadow-xl hover:shadow-yellow-500/30 hover:-translate-y-1">
+            <a href="https://wa.me/91{{settings_obj.whatsapp}}?text=Hello%20Team,%0A%0AI%20am%20interested%20in%20your%20project%20and%20would%20like%20to%20receive%20more%20information.%20Kindly%20share%20the%20project%20brochure,%20floor%20plans,%20pricing,%20availability,%20amenities,%20payment%20plans,%20and%20site%20visit%20details.%0A%0AThank%20you!" target="_blank" class="group flex items-center gap-3 border-2 border-[#D2962D] text-[#D2962D] px-10 py-3 rounded-xl transition-all duration-300 hover:bg-[#D2962D] hover:text-white hover:shadow-xl hover:shadow-yellow-500/30 hover:-translate-y-1">
 
                 <i class="fa-brands fa-whatsapp text-xl transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12"></i>
 
@@ -1102,113 +929,133 @@
 </style>
 
 <script>
-    const cards = document.querySelectorAll(".card-item");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+    document.addEventListener("DOMContentLoaded", function () {
 
+        // ==========================
+        // Card Slider
+        // ==========================
 
-    let page = 0;
+        const cards = document.querySelectorAll(".card-item");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
 
-    function cardsPerPage() {
+        if (cards.length && prevBtn && nextBtn) {
 
-        if (window.innerWidth >= 1024) {
-            return 4;      // Desktop
-        } else if (window.innerWidth >= 768) {
-            return 2;      // Tablet
-        } else {
-            return 1;      // Mobile
-        }
+            let page = 0;
 
-    }
+            function cardsPerPage() {
 
-    function showPage() {
-
-        const perPage = cardsPerPage();
-
-        const totalPages = Math.ceil(cards.length / perPage);
-
-        cards.forEach((card, index) => {
-
-            const start = page * perPage;
-            const end = start + perPage;
-
-            if (index >= start && index < end) {
-
-                card.style.display = "flex";
-
-                card.style.opacity = "0";
-                card.style.transform = "translateX(30px)";
-
-                setTimeout(() => {
-                    card.style.transition = "all .45s ease";
-                    card.style.opacity = "1";
-                    card.style.transform = "translateX(0)";
-                }, 50);
-
-            } else {
-
-                card.style.display = "none";
+                if (window.innerWidth >= 1024) return 4;
+                if (window.innerWidth >= 768) return 2;
+                return 1;
 
             }
 
-        });
+            function showPage() {
 
-        prevBtn.classList.toggle("hidden", page === 0);
-        nextBtn.classList.toggle("hidden", page >= totalPages - 1);
+                const perPage = cardsPerPage();
+                const totalPages = Math.ceil(cards.length / perPage);
 
-    }
+                cards.forEach((card, index) => {
 
-    nextBtn.onclick = () => {
+                    const start = page * perPage;
+                    const end = start + perPage;
 
-        const totalPages = Math.ceil(cards.length / cardsPerPage());
+                    if (index >= start && index < end) {
 
-        if (page < totalPages - 1) {
+                        card.style.display = "flex";
+                        card.style.opacity = "0";
+                        card.style.transform = "translateX(30px)";
 
-            page++;
-            showPage();
+                        setTimeout(() => {
+                            card.style.transition = "all .45s ease";
+                            card.style.opacity = "1";
+                            card.style.transform = "translateX(0)";
+                        }, 50);
 
-        }
+                    } else {
 
-    }
+                        card.style.display = "none";
 
-    prevBtn.onclick = () => {
+                    }
 
-        if (page > 0) {
+                });
 
-            page--;
-            showPage();
+                prevBtn.classList.toggle("hidden", page === 0);
+                nextBtn.classList.toggle("hidden", page >= totalPages - 1);
 
-        }
+            }
 
-    }
+            nextBtn.addEventListener("click", () => {
 
-        showPage();
+                const totalPages = Math.ceil(cards.length / cardsPerPage());
 
-        window.addEventListener("resize", () => {
-            page = 0;
-            showPage();
-        });
+                if (page < totalPages - 1) {
 
-    showPage();  
-    const faqs = document.querySelectorAll(".faq");
-
-    faqs.forEach(faq=>{
-
-        const btn = faq.querySelector(".faq-btn");
-
-        btn.addEventListener("click",()=>{
-
-            faqs.forEach(item=>{
-
-                if(item!==faq){
-
-                    item.classList.remove("active");
+                    page++;
+                    showPage();
 
                 }
 
             });
 
-            faq.classList.toggle("active");
+            prevBtn.addEventListener("click", () => {
+
+                if (page > 0) {
+
+                    page--;
+                    showPage();
+
+                }
+
+            });
+
+            showPage();
+
+            window.addEventListener("resize", () => {
+
+                page = 0;
+                showPage();
+
+            });
+
+        }
+
+        // ==========================
+        // FAQ Accordion
+        // ==========================
+
+        const faqs = document.querySelectorAll(".faq");
+
+        faqs.forEach((faq) => {
+
+            const btn = faq.querySelector(".faq-btn");
+            const content = faq.querySelector(".faq-content");
+            const icon = faq.querySelector("i");
+
+            content.style.maxHeight = "0";
+            content.style.overflow = "hidden";
+            content.style.transition = "max-height .4s ease";
+
+            btn.addEventListener("click", () => {
+
+                const isOpen = content.style.maxHeight !== "0px";
+
+                faqs.forEach((item) => {
+
+                    item.querySelector(".faq-content").style.maxHeight = "0";
+                    item.querySelector("i").classList.remove("rotate-180");
+
+                });
+
+                if (!isOpen) {
+
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.classList.add("rotate-180");
+
+                }
+
+            });
 
         });
 

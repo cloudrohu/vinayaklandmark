@@ -5,7 +5,7 @@ from properties.models import Property
 from utility.models import Locality,PropertyType,City,Bank
 from .models import (
     Setting, Slider, Testimonial, About, Leadership,
-    Contact_Page, FAQ, Our_Team,Why_Choose, ImpactMetric,Slider, Enquiry
+    Contact_Page, FAQ, Our_Team,Why_Choose, ImpactMetric,Slider, Enquiry,unique_selling_proposition
 )
 from user.models import Developer  
 
@@ -17,6 +17,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 def index(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
 
     project = Project.objects.filter(active=True, featured_property=True)
 
@@ -46,12 +47,15 @@ def index(request):
     testimonials = Testimonial.objects.all().order_by("-id")
     faqs = FAQ.objects.all().order_by("id")
 
+
+
     current_city = project_featured.first().city.name if project_featured.exists() else "Mumbai"
 
     return render(
         request,
         "home/index.html",
         {
+            "menu_projects": menu_projects,
             "settings_obj": settings_obj,
             "bank": bank,
             "cities": cities,
@@ -102,6 +106,7 @@ Sitemap: http://127.0.0.1:8000/sitemap.xml
     return HttpResponse(robots_content.strip(), content_type="text/plain")
     
 def about_page_view(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     """
     Display the About page with:
     - About section (single)
@@ -133,10 +138,12 @@ def about_page_view(request):
         "leaders": leaders,
         "settings_obj": settings_obj,
         "project": project,
+        "menu_projects": menu_projects,
     }
     return render(request, "home/about.html", context)
 
 def contact_view(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     settings_obj = Setting.objects.first()
     contact_content = Contact_Page.objects.first()
 
@@ -175,6 +182,7 @@ def contact_view(request):
         "contact_content": contact_content,
         "project": project,
         "success": success,
+        "menu_projects": menu_projects,
     }
 
     return render(request, 'home/contact.html', context)
@@ -187,11 +195,13 @@ def faq_view(request):
     faqs = FAQ.objects.all().order_by('id')
     project = Project.objects.filter(active=True, featured_property=True).first()
 
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
 
     context = {
         "settings_obj": settings_obj,
         "faqs": faqs,
         "project": project,
+        "menu_projects": menu_projects,
     }
     return render(request, 'home/faq.html', context)
 
@@ -199,10 +209,12 @@ def gallery_view(request):
     settings_obj = Setting.objects.first()
     project = Project.objects.filter(active=True, featured_property=True).first()
 
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
 
     context = {
         "settings_obj": settings_obj,
         "project": project,
+        "menu_projects": menu_projects,
     }
     return render(request, 'home/gallery.html', context)
 
@@ -210,10 +222,12 @@ def configs_view(request):
     settings_obj = Setting.objects.first()
     project = Project.objects.filter(active=True, featured_property=True).first()
 
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
 
     context = {
         "settings_obj": settings_obj,
         "project": project,
+        "menu_projects": menu_projects,
     }
     return render(request, 'home/configurations.html', context)
 
@@ -221,10 +235,12 @@ def amenities_view(request):
     settings_obj = Setting.objects.first()
     project = Project.objects.filter(active=True, featured_property=True).first()
 
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
 
     context = {
         "settings_obj": settings_obj,
         "project": project,
+        "menu_projects": menu_projects,
     }
     return render(request, 'home/amenities.html', context)
 
@@ -232,16 +248,19 @@ def amenities_view(request):
 
 def get_setting():
 
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+    
     settings_obj = Setting.objects.filter(status="True").first()    
 
     return Setting.objects.first()
 
 def privacy_policy(request):
 
-    
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     settings_obj = Setting.objects.filter(status="True").first()    
     context = {
         "settings_obj": settings_obj,
+        "menu_projects": menu_projects,
     }
 
     return render(request, 'terms/privacy_policy.html', context)
@@ -249,24 +268,37 @@ def privacy_policy(request):
 def terms_conditions(request):
     settings_obj = Setting.objects.filter(status="True").first()   
 
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     context = {
         "settings_obj": settings_obj,
+        "menu_projects": menu_projects,
     }
     return render(request, 'terms/terms_conditions.html', context)
 
 def disclaimer(request):
     settings_obj = Setting.objects.filter(status="True").first()    
-
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     context = {
         "settings_obj": settings_obj,
+        "menu_projects": menu_projects,
     }
     return render(request, 'terms/disclaimer.html', context)
 
 def cookies(request):
     settings_obj = Setting.objects.filter(status="True").first()    
-
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
     context = {
         "settings_obj": settings_obj,
+        "menu_projects": menu_projects,
     }
     return render(request, 'terms/cookies-policy.html', context)
 
+def calculator(request):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+    settings_obj = Setting.objects.filter(status="True").first()    
+
+    context = {
+        "settings_obj": settings_obj,
+        "menu_projects": menu_projects,
+    }
+    return render(request, 'home/calculator.html', context)

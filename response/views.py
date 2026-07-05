@@ -21,10 +21,13 @@ def submit_additional_info(request):
     return redirect("/")
 
 def thank_you(request):
-    return render(request, "response/thank_you.html")
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+    return render(request, "response/thank_you.html", {"menu_projects": menu_projects})
 
 def error_page(request):
-    return render(request, "response/error_page.html")
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+
+    return render(request, "response/error_page.html", {"menu_projects": menu_projects})
 
 
 def submit_configuration(request):

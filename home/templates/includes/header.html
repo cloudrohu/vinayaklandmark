@@ -29,11 +29,7 @@
 
                     <div class="hidden md:block">
 
-                        <p class="text-[10px] uppercase tracking-[3px] text-gray-400">
-                            Call Us
-                        </p>
-
-                        <p class="text-white text-sm font-medium tracking-wide">
+                        <p class="text-white text-lg font-medium tracking-wide">
                             +91 {{settings_obj.phone}}
                         </p>
 
@@ -57,11 +53,8 @@
 
                     <div class="hidden md:block">
 
-                        <p class="text-[10px] uppercase tracking-[3px] text-gray-400">
-                            Email
-                        </p>
 
-                        <p class="text-white text-sm font-medium truncate max-w-[230px]">
+                        <p class="text-white text-lg font-medium truncate max-w-[230px]">
                             {{settings_obj.email}}
                         </p>
 
@@ -76,14 +69,14 @@
 
                 <span class="w-2 h-2 rounded-full bg-[#D8B16A] animate-pulse"></span>
 
-                <span class="uppercase tracking-[5px] text-[#D8B16A] text-xs font-semibold">
+                <span class="uppercase tracking-[5px] text-[#D8B16A] text-md font-semibold">
                     Building Luxury Since 2015
                 </span>
 
             </div>
 
             <!-- ================= Right (Social) ================= -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-4">
 
                 <a href="{{settings_obj.facebook}}" target="_blank" class="w-9 h-9 rounded-full border border-[#D8B16A]/20 flex items-center justify-center text-[#D8B16A] hover:bg-[#D8B16A] hover:text-black transition">
 
@@ -112,7 +105,8 @@
 </div>
 
 <!-- MAIN NAVBAR -->
-<header class="bg-white shadow-md sticky top-0 z-50">
+ 
+<header class="bg-white shadow-md sticky top-0 z-50 lg:px-16">
 
     <div class="w-full px-3 lg:px-6">
 
@@ -129,24 +123,22 @@
             <!-- Center Menu -->
             <nav class="hidden lg:flex justify-center items-center gap-14">
 
-                <a target="_blank" href="/" class="nav-link">Home</a>
+                <a href="/" class="nav-link">Home</a>
 
-                <a target="_blank" target="_blank" href="{% url 'about' %}" class="nav-link">
+                <a  href="{% url 'about' %}" class="nav-link">
                     About
                 </a>
 
-                <a target="_blank" href="" class="nav-link">
+                <a  href="" class="nav-link">
                     Blogs
                 </a>
-
-                <a target="_blank" href="" class="nav-link">
-                    Vinayak Sapphire
+                {% for rs in menu_projects %}
+                <a  href="{{rs.get_absolute_url}}" class="nav-link">
+                    {{rs.project_name}}
                 </a>
+                {% endfor %}
 
-                <a target="_blank" href="https://vinayaklandmark.com/projects/1/vinayak-saphhir-ii-kudasan-gandhinagar-gujrat-gandhinagar-1/" class="nav-link">
-                    Vinayak Sapphire II
-                </a>
-
+               
                 <a target="_blank" href="" class="nav-link">
                     Calculator
                 </a>
@@ -174,6 +166,7 @@
     </div>
 
 </header>  
+
 
 <!-- Overlay -->
 <div id="overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
@@ -307,8 +300,8 @@
 
         color:#2E2A26;
 
-        font-size:16px;
-        font-weight:600;
+        font-size:19px;
+        font-weight:700;
 
         padding:8px 0;
 

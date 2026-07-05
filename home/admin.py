@@ -5,7 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 from .models import (
     Setting, Slider, Leadership, Why_Choose,
     About, Contact_Page, Our_Team,
-    Testimonial, FAQ, ImpactMetric, Enquiry
+    Testimonial, FAQ, ImpactMetric, Enquiry,unique_selling_proposition
 )
 
 @admin.register(Setting)
@@ -211,7 +211,20 @@ class AboutAdmin(ImportExportModelAdmin):
                 "updated_at",
             )
         }),
-    )
+        ("Statistics", {
+            "fields": (
+                "years_of_experience",
+                "happy_families",
+            )
+        }),
+        ("Images", {
+            "fields": (
+                "right_image1",
+                "right_image2",
+            )
+        }),
+
+        )
 
 @admin.register(Contact_Page)
 class ContactPageAdmin(ImportExportModelAdmin):
@@ -228,6 +241,13 @@ class TestimonialAdmin(ImportExportModelAdmin):
     list_display = ("name", "designation", "rating")
     list_filter = ("rating",)
     search_fields = ("name", "designation", "message")
+
+@admin.register(unique_selling_proposition)
+class unique_selling_propositionAdmin(ImportExportModelAdmin):
+    list_display = ("title",)
+
+
+
 
 @admin.register(FAQ)
 class FAQAdmin(ImportExportModelAdmin):
