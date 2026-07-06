@@ -211,12 +211,29 @@ class AboutAdmin(ImportExportModelAdmin):
                 "updated_at",
             )
         }),
+
         ("Statistics", {
             "fields": (
                 "years_of_experience",
                 "happy_families",
             )
         }),
+
+          ("About Us Hero", {
+            "fields": (
+                "hero_title",
+                "hero_highlight",
+                "hero_subtitle",
+                "hero_description",
+                "hero_background",
+                "button_one_text",
+                "button_one_link",
+                "button_two_text",
+                "button_two_link",
+            )
+        }),
+
+
         ("Images", {
             "fields": (
                 "right_image1",

@@ -187,6 +187,21 @@ class About(models.Model):
     vision_title = models.CharField(max_length=200, blank=True, null=True)
     vision_content = RichTextUploadingField(blank=True, null=True,)
 
+    ################ ABOUT HERO CONTENT ################
+
+    hero_title = models.CharField(max_length=250,blank=True,null=True,help_text="Main Hero Heading")
+    hero_highlight = models.CharField(max_length=150,blank=True,null=True,help_text="Highlighted text in Hero Title")
+    hero_subtitle = models.CharField(max_length=200,blank=True,null=True,help_text="Small heading above Hero Title")
+    hero_description = RichTextUploadingField(blank=True,null=True,help_text="Hero description")
+    hero_background = models.ImageField(upload_to='about/hero/',blank=True,null=True,help_text="Hero Background Image")
+    button_one_text = models.CharField(max_length=50,default="Explore Legacy",blank=True,null=True)
+
+    button_one_link = models.CharField(max_length=255,blank=True,null=True)
+
+    button_two_text = models.CharField(max_length=50,default="View Projects",blank=True,null=True)
+
+    button_two_link = models.CharField(max_length=255,blank=True,null=True)
+
     ################ SEO  CONTENT ################
     seo_title = models.CharField(max_length=200, blank=True, null=True)
     seo_description = models.TextField(blank=True, null=True)
@@ -209,6 +224,7 @@ class About(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class unique_selling_proposition(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)

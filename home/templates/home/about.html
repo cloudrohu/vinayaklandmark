@@ -8,202 +8,671 @@
 
 {% block content %}
 
-<!-- 🟠 HERO SECTION -->
-<section class="relative h-[70vh] flex items-center justify-center text-white overflow-hidden">
-  <div class="absolute inset-0 bg-cover bg-center animate-zoomHero"
-       style="background-image: url('{{ about_page.home_bg.url|default:'/static/assets/images/hero/slid-1.jpg' }}');"></div>
-  <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-orange-800/40"></div>
-  <div class="relative z-10 text-center max-w-3xl px-6" data-aos="fade-up">
-    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate-fadeInDown">
-      About <span class="text-orange-400">{{ settings_obj.site_name }}</span>
-    </h1>
-    <p class="text-lg opacity-90 leading-relaxed animate-fadeInUp">
-      {{ about_page.subtitle|default:"Delivering trust, growth and innovation since 2008." }}
-    </p>
-  </div>
-</section>
+<!-- ================= About Hero Section ================= -->
+{% if about_page.hero_background %}
+<section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
 
-<!-- WHO WE ARE -->
-<section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-  <img src="{{ about_page.image.url|default:'https://dummyimage.com/600x400/eeeeee/000000&text=Our+Journey' }}"
-       alt="Who We Are"
-       class="rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-700" 
-       data-aos="zoom-in-right" />
-  <div data-aos="fade-left">
-    <h2 class="text-3xl font-bold mb-4 text-gray-800">{{ about_page.who_we_are_title|default:"Who We Are" }}</h2>
-    <p class="text-gray-600 leading-relaxed mb-4 italic">{{ about_page.who_we_are_subtitle|default:"We are more than property consultants – we build lifestyles." }}</p>
-    <div class="text-gray-600 prose max-w-none">{{ about_page.who_we_are_description|safe }}</div>
-  </div>
-</section>
+    <!-- Background Image -->
+    <img src="{{ about_page.hero_background.url }}" alt="About Builder" class="absolute inset-0 w-full h-full object-cover">
 
-<!-- MISSION & VISION -->
-<section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10">
-  <div class="bg-white shadow-xl rounded-xl p-10 hover:-translate-y-2 hover:shadow-2xl border-t-4 border-orange-500 transition-all duration-500" data-aos="fade-right">
-    <h2 class="text-2xl font-bold mb-3 text-orange-600">{{ about_page.our_mission_title|default:"Our Mission" }}</h2>
-    <div class="text-gray-600 leading-relaxed">{{ about_page.our_mission|safe }}</div>
-  </div>
-  <div class="bg-white shadow-xl rounded-xl p-10 hover:-translate-y-2 hover:shadow-2xl border-t-4 border-orange-500 transition-all duration-500" data-aos="fade-left">
-    <h2 class="text-2xl font-bold mb-3 text-orange-600">{{ about_page.our_vision_title|default:"Our Vision" }}</h2>
-    <div class="text-gray-600 leading-relaxed">{{ about_page.our_vision|safe }}</div>
-  </div>
-</section>
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
 
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
 
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
 
-<!-- ================= SCHEDULE SITE VISIT ================= -->
-<section class="w-full py-14 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-  <div class="max-w-6xl mx-auto px-4">
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-3 text-sm uppercase tracking-[3px] text-[#DDB367] mb-6">
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <a href="#" class="hover:text-white transition">
+                Home
+            </a>
 
-        <div>
-          <h2 class="text-3xl font-bold leading-tight">
-            Schedule a Site Visit
-          </h2>
+            <span>/</span>
 
-          <p class="mt-3 text-white/90">
-            Experience the project first-hand. Book your site visit at your
-            preferred date & time.
-          </p>
-
-        <div class="mt-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 p-3 space-y-2">
-
-          {% if project and project.contact_persons.all %}
-            
-            {% for conper in project.contact_persons.all %}
-
-              <div class="flex items-center justify-between gap-2 px-2 py-1 rounded-md hover:bg-white/10 transition">
-
-                <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-[11px] font-semibold">
-                    <i class="fa-solid fa-user text-white"></i>
-                  </div>
-
-                  <div class="leading-tight">
-                    <p class="text-[13px] font-semibold text-white leading-none">
-                      {{ conper.name }}
-                    </p>
-                  </div>
-                </div>
-
-                <a href="tel:{{ conper.phone }}"
-                  class="flex items-center gap-1 text-[12px] font-medium text-white/90 hover:text-yellow-300 transition">
-                  <i class="fa-solid fa-phone text-[11px]"></i>
-                  {{ conper.phone }}
-                </a>
-
-              </div>
-
-              {% if not forloop.last %}
-                <div class="h-px bg-white/15"></div>
-              {% endif %}
-
-            {% endfor %}
-
-          {% else %}
-            <p class="text-xs text-white/70 px-2">No contact info available.</p>
-          {% endif %}
+            <span class="text-white">
+                About Us
+            </span>
 
         </div>
 
+        <!-- Small Heading -->
+        <div class="flex items-center gap-4 mb-5">
+
+            <div class="w-16 h-[2px] bg-[#DDB367]"></div>
+
+            <p class="uppercase tracking-[5px] text-[#DDB367] font-semibold">
+                {{settings_obj.site_name}}
+            </p>
+
         </div>
 
+        <!-- Main Heading -->
+        <h1 class="text-white text-4xl md:text-6xl lg:text-7xl font-light leading-tight max-w-4xl">
 
-      <!-- RIGHT FORM -->
-      <div class="bg-white text-gray-800 -xl shadow-xl p-6">
+            {{about_page.hero_title}}
 
-        <h3 class="text-lg font-semibold mb-4">
-          Book Your Visit
-        </h3>
+            <span class="font-semibold text-[#DDB367]">
+              
+                  {{about_page.hero_highlight}}
 
-        <form method="post" action="{% url 'response:additional_info' %}">
-          {% csrf_token %}
+            </span>
 
-          <!-- Name -->
+              {{about_page.hero_subtitle}}
 
-        <input type="hidden" name="type" value="get_price">
+        </h1>
 
+        <!-- Description -->
+        <p class="mt-8 max-w-2xl text-gray-200 text-lg leading-8">
 
-          <div class="mb-3">
-            <input type="text" name="name" required
-              placeholder="Your Name"
-              class="w-full border -lg px-4 py-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none">
-          </div>
+            {{about_page.hero_description|safe}}
 
-          <div class="mb-3">
-            <input type="text" name="email" required
-              placeholder="Your Email"
-              class="w-full border -lg px-4 py-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none">
-          </div>
-
-
-          <!-- Phone -->
-          <div class="mb-3">
-            <input type="tel" name="phone" required
-              placeholder="Mobile Number"
-              class="w-full border -lg px-4 py-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none">
-          </div>
-
-
-          <!-- Hidden Project (Optional) -->
-          {% if project %}
-          <input type="hidden" name="project" value="{{ project.project_name }}">
-          {% endif %}
-
-          <!-- CTA -->
-          <button type="submit"
-            class="w-full mt-4 bg-orange-500 hover:bg-orange-600
-                   text-white font-semibold py-3 -lg transition">
-            Schedule Visit
-          </button>
-
-        </form>
-
-        <p class="text-xs text-gray-500 mt-3 text-center">
-          We respect your privacy. No spam calls.
         </p>
 
-      </div>
+        <!-- Buttons -->
+        <div class="mt-10 flex flex-wrap gap-4">
+
+            <a href="{{about_page.button_one_url}}" class="px-8 py-4 bg-[#DDB367] text-black font-semibold rounded hover:bg-[#c89b45] transition">
+
+                {{about_page.button_one_text}}
+
+            </a>
+
+            <a href="{{about_page.button_two_url}}" class="px-8 py-4 border border-white text-white rounded hover:bg-white/10 hover:text-black transition duration-300">
+
+                {{about_page.button_two_text}}
+
+            </a>
+
+        </div>
 
     </div>
 
-  </div>
+    <!-- Bottom Decorative Shape -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+        <svg class="relative block w-full h-20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 120">
+            <path fill="#ffffff"
+                d="M0,96L120,90.7C240,85,480,75,720,64C960,53,1200,43,1320,37.3L1440,32V120H1320C1200,120,960,120,720,120C480,120,240,120,120,120H0Z">
+            </path>
+
+        </svg>
+    </div>
+
 </section>
-<!-- ================= END SCHEDULE SITE VISIT ================= -->
+{% else %}
+<section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
+
+    <!-- Background Image -->
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" alt="About Builder" class="absolute inset-0 w-full h-full object-cover">
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
+
+        <!-- Breadcrumb -->
+        <div class="flex items-center gap-3 text-sm uppercase tracking-[3px] text-[#DDB367] mb-6">
+
+            <a href="#" class="hover:text-white transition">
+                Home
+            </a>
+
+            <span>/</span>
+
+            <span class="text-white">
+                About Us
+            </span>
+
+        </div>
+
+        <!-- Small Heading -->
+        <div class="flex items-center gap-4 mb-5">
+
+            <div class="w-16 h-[2px] bg-[#DDB367]"></div>
+
+            <p class="uppercase tracking-[5px] text-[#DDB367] font-semibold">
+                Vinayak Landmark
+            </p>
+
+        </div>
+
+        <!-- Main Heading -->
+        <h1
+            class="text-white text-4xl md:text-6xl lg:text-7xl font-light leading-tight max-w-4xl">
+
+            Crafting
+
+            <span class="font-semibold text-[#DDB367]">
+                Landmark Spaces
+            </span>
+
+            That Inspire Generations
+
+        </h1>
+
+        <!-- Description -->
+        <p
+            class="mt-8 max-w-2xl text-gray-200 text-lg leading-8">
+
+            With a legacy of trust, innovation, and architectural excellence,
+            Vinayak Landmark develops thoughtfully designed residential and
+            commercial spaces that redefine urban living while creating lasting
+            value for families and investors.
+
+        </p>
+
+        <!-- Buttons -->
+        <div class="mt-10 flex flex-wrap gap-4">
+
+            <a href="#about"
+                class="px-8 py-4 bg-[#DDB367] text-black font-semibold rounded hover:bg-[#c89b45] transition">
+
+                Explore Legacy
+
+            </a>
+
+            <a href="#projects" class="px-8 py-4 border border-white text-white rounded hover:bg-white hover:text-black transition duration-300">
+
+                View Projects
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Bottom Decorative Shape -->
+    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+        <svg class="relative block w-full h-20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 120">
+            <path fill="#ffffff"
+                d="M0,96L120,90.7C240,85,480,75,720,64C960,53,1200,43,1320,37.3L1440,32V120H1320C1200,120,960,120,720,120C480,120,240,120,120,120H0Z">
+            </path>
+
+        </svg>
+    </div>
+
+</section>
+{% endif %}
 
 
+<!-- ================= ABOUT SECTION ================= -->
+<section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
-<!-- ✨ Custom Animations -->
-<style>
-@keyframes zoomHero { 0%,100% { transform: scale(1.05);} 50% { transform: scale(1.1);} }
-@keyframes floatPattern { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
-@keyframes moveBg { 0%{background-position:0 0;} 100%{background-position:1000px 0;} }
-@keyframes pulseSlow { 0%,100%{opacity:0.8; transform:scale(1);} 50%{opacity:1; transform:scale(1.1);} }
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-.animate-zoomHero { animation: zoomHero 20s ease-in-out infinite; }
-.animate-floatPattern { animation: floatPattern 25s ease-in-out infinite; }
-.animate-moveBg { animation: moveBg 35s linear infinite; }
-.animate-pulseSlow { animation: pulseSlow 3s ease-in-out infinite; }
-.animate-fadeInDown { animation: fadeInDown 1s ease forwards; }
-.animate-fadeInUp { animation: fadeInUp 1s ease forwards; }
+            <!-- ================= LEFT CONTENT ================= -->
+            <div>
 
-@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-</style>
+                <!-- Subtitle -->
+                <div class="flex items-center gap-4 mb-5">
 
-<!-- Libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.umd.js"></script>
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+                    <span class="w-14 h-[2px] bg-[#DDB367]"></span>
 
-<script>
-AOS.init({ duration: 1200, once: true });
-window.onload = function () {
-  ['projects-delivered', 'happy-families', 'years-of-excellence', 'awards-recognitions'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) new CountUp.CountUp(el, parseInt(el.innerText)).start();
-  });
-};
-</script>
+                    <p class="uppercase tracking-[4px] text-[#DDB367] font-semibold text-sm">
+
+                        {{ about_page.title|default:settings_obj.site_name }}
+
+                    </p>
+
+                </div>
+
+                <!-- Heading -->
+                <h2 class="text-4xl lg:text-5xl font-light leading-tight text-gray-900">
+
+                    {{ about_page.subtitle|default:"Building Dreams With Excellence & Trust" }}
+
+                </h2>
+
+                <!-- Content -->
+                <div class="mt-8 text-gray-600 leading-8 text-lg prose max-w-none">
+
+                    {{ about_page.content|safe }}
+
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 gap-8 mt-10">
+
+                    <div
+                        class="bg-[#FAF8F3] rounded-xl p-6 border border-[#EFE6D5] text-center">
+
+                        <h3 class="text-4xl font-bold text-[#DDB367]">
+
+                            {{ about_page.years_of_experience|default:"15+" }}
+
+                        </h3>
+
+                        <p class="mt-2 text-gray-600 uppercase tracking-wider text-sm">
+
+                            Years Experience
+
+                        </p>
+
+                    </div>
+
+                    <div
+                        class="bg-[#FAF8F3] rounded-xl p-6 border border-[#EFE6D5] text-center">
+
+                        <h3 class="text-4xl font-bold text-[#DDB367]">
+
+                            {{ about_page.happy_families|default:"2500+" }}
+
+                        </h3>
+
+                        <p class="mt-2 text-gray-600 uppercase tracking-wider text-sm">
+
+                            Happy Families
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ================= RIGHT IMAGES ================= -->
+            <div class="relative">
+
+                <!-- Main Image -->
+                <div class="rounded-3xl overflow-hidden shadow-2xl">
+
+                    {% if about_page.right_image1 %}
+
+                    <img src="{{ about_page.right_image1.url }}"
+                        alt="About"
+                        class="w-full h-[600px] object-cover">
+
+                    {% else %}
+
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop"
+                        class="w-full h-[600px] object-cover">
+
+                    {% endif %}
+
+                </div>
+
+                <!-- Floating Image -->
+                <div
+                    class="absolute -bottom-10 -left-10 hidden md:block w-64 rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+
+                    {% if about_page.right_image2 %}
+
+                    <img src="{{ about_page.right_image2.url }}"
+                        alt="Luxury Building"
+                        class="h-72 w-full object-cover">
+
+                    {% else %}
+
+                    <img src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=800&auto=format&fit=crop"
+                        class="h-72 w-full object-cover">
+
+                    {% endif %}
+
+                </div>
+
+                <!-- Experience Badge -->
+                <div
+                    class="absolute top-8 -right-6 bg-[#DDB367] text-white rounded-full w-36 h-36 flex flex-col justify-center items-center shadow-2xl">
+
+                    <h3 class="text-3xl font-bold">
+
+                        {{ about_page.years_of_experience|default:"15+" }}
+
+                    </h3>
+
+                    <span class="text-xs uppercase tracking-widest text-center px-3">
+
+                        Years of Excellence
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= MISSION & VISION ================= -->
+<section class="py-20 lg:py-28 bg-[#F8F6F2]">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <!-- Section Heading -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+
+            <span class="inline-flex items-center gap-3 uppercase tracking-[4px] text-[#DDB367] font-semibold text-sm">
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+                Our Foundation
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+            </span>
+
+            <h2 class="mt-6 text-4xl lg:text-5xl font-light text-gray-900">
+
+                Driven by Purpose,
+                <span class="font-semibold text-[#DDB367]">
+                    Inspired by Excellence
+                </span>
+
+            </h2>
+
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-10">
+
+            <!-- Mission -->
+            <div class="bg-white rounded-3xl shadow-lg p-10 border border-[#E9E2D5] hover:shadow-2xl transition duration-500">
+
+                <!-- Icon -->
+                <div class="w-16 h-16 rounded-full bg-[#DDB367]/10 flex items-center justify-center mb-8">
+
+                    <i class="fa-solid fa-bullseye text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">
+
+                    {{ about_page.mission_title|default:"Our Mission" }}
+
+                </h3>
+
+                <div class="text-gray-600 leading-8 prose max-w-none">
+
+                    {{ about_page.mission_content|safe }}
+
+                </div>
+
+            </div>
+
+            <!-- Vision -->
+            <div class="bg-white rounded-3xl shadow-lg p-10 border border-[#E9E2D5] hover:shadow-2xl transition duration-500">
+
+                <!-- Icon -->
+                <div class="w-16 h-16 rounded-full bg-[#DDB367]/10 flex items-center justify-center mb-8">
+
+                    <i class="fa-solid fa-eye text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">
+
+                    {{ about_page.vision_title|default:"Our Vision" }}
+
+                </h3>
+
+                <div class="text-gray-600 leading-8 prose max-w-none">
+
+                    {{ about_page.vision_content|safe }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==================== SCHEDULE SITE VISIT ==================== -->
+<section class="relative py-24 bg-[#0F172A] overflow-hidden">
+
+    <!-- Background Blur -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#DDB367]/10 rounded-full blur-[120px]"></div>
+    <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6">
+
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+
+            <!-- LEFT -->
+            <div class="lg:col-span-6">
+
+                <span class="inline-flex items-center gap-3 text-[#DDB367] uppercase tracking-[4px] text-sm font-semibold">
+                    <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+                    Schedule Visit
+                </span>
+
+                <h2 class="mt-6 text-5xl lg:text-6xl font-light text-white leading-tight">
+                    Visit Before
+                    <span class="font-bold text-[#DDB367]">
+                        You Decide
+                    </span>
+                </h2>
+
+                <p class="mt-6 text-lg text-gray-300 leading-8 max-w-xl">
+                    Explore the project with a personalized site visit. Walk through
+                    the property, experience the amenities, and get expert guidance
+                    from our dedicated sales consultants.
+                </p>
+
+                <!-- FEATURES -->
+
+                <div class="grid sm:grid-cols-2 gap-5 mt-10">
+
+                    <div class="flex gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#DDB367]/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-building text-[#DDB367]"></i>
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-white">
+                                Project Tour
+                            </h4>
+
+                            <p class="text-sm text-gray-400 mt-1">
+                                Guided walkthrough of the project.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#DDB367]/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-indian-rupee-sign text-[#DDB367]"></i>
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-white">
+                                Best Price
+                            </h4>
+
+                            <p class="text-sm text-gray-400 mt-1">
+                                Exclusive pricing assistance.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#DDB367]/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-user-tie text-[#DDB367]"></i>
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-white">
+                                Expert Guidance
+                            </h4>
+
+                            <p class="text-sm text-gray-400 mt-1">
+                                One-to-one consultation.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#DDB367]/20 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-clock text-[#DDB367]"></i>
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-white">
+                                Flexible Timing
+                            </h4>
+
+                            <p class="text-sm text-gray-400 mt-1">
+                                Book at your convenience.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- CONTACT PERSONS -->
+
+                {% if project.contact_persons.all %}
+
+                <div class="grid md:grid-cols-2 gap-5 mt-12">
+
+                    {% for conper in project.contact_persons.all %}
+
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur">
+
+                        <div class="flex items-center gap-4">
+
+                            <div class="w-14 h-14 rounded-full bg-[#DDB367] flex items-center justify-center">
+
+                                <i class="fa-solid fa-user text-black"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4 class="text-white font-semibold">
+                                    {{ conper.name }}
+                                </h4>
+
+                                <p class="text-sm text-gray-400">
+                                    Property Consultant
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <a href="tel:{{ conper.phone }}"
+                            class="mt-5 inline-flex items-center gap-2 text-[#DDB367] hover:text-white transition">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            {{ conper.phone }}
+
+                        </a>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="lg:col-span-6">
+
+                <div class="bg-white rounded-[30px] shadow-[0_30px_80px_rgba(0,0,0,.35)] overflow-hidden">
+
+                    <div class="bg-[#DDB367] px-8 py-6">
+
+                        <h3 class="text-3xl font-bold text-black">
+                            Book Your Visit
+                        </h3>
+
+                        <p class="text-black/70 mt-2">
+                            Fill the form and our executive will contact you shortly.
+                        </p>
+
+                    </div>
+
+                    <form method="POST" action="{% url 'response:additional_info' %}" class="p-8">
+
+                        {% csrf_token %}
+
+                        <input type="hidden" name="type" value="site_visit">
+
+                        {% if project %}
+                        <input type="hidden" name="project" value="{{ project.project_name }}">
+                        {% endif %}
+
+                        <div class="space-y-5">
+
+                            <input
+                                type="text"
+                                name="name"
+                                required
+                                placeholder="Full Name"
+                                class="w-full border border-gray-300 rounded-xl px-5 py-4 focus:border-[#DDB367] outline-none">
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email Address"
+                                class="w-full border border-gray-300 rounded-xl px-5 py-4 focus:border-[#DDB367] outline-none">
+
+                            <input
+                                type="tel"
+                                name="phone"
+                                required
+                                placeholder="Mobile Number"
+                                class="w-full border border-gray-300 rounded-xl px-5 py-4 focus:border-[#DDB367] outline-none">
+
+                            <button
+                                class="w-full py-4 rounded-xl bg-[#DDB367] hover:bg-[#c99d4a] transition font-semibold text-black">
+
+                                <i class="fa-solid fa-calendar-check mr-2"></i>
+
+                                Schedule Site Visit
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ======================= END SCHEDULE SITE VISIT ======================= -->
+
+
 
 {% endblock %}
