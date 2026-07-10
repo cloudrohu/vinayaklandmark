@@ -241,7 +241,7 @@
 </script>
 <!-- ================= About Us SECTION ================= -->
 
-<!-- ================= OUR PROJECTS SECTION ================= -->
+ <!-- ======================= FEATURE PROJECTS ======================= -->
 <section class="py-20 bg-[#FBFAF8] overflow-hidden">
 
     <div class="max-w-7xl mx-auto px-5">
@@ -537,64 +537,409 @@
 <!-- ================= OUR PROJECTS SECTION ================= -->
 
 <!-- ================= WHY CHOOSE SECTION ================= -->
-<section class="bg-[#3b3530] py-24">
-    <div class="max-w-7xl mx-auto px-6">
+{% if why_choose_items %}  
+<section class="py-20 lg:py-28 bg-[#F8F7F4] overflow-hidden">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
         <!-- Heading -->
-        <div class="text-center max-w-4xl mx-auto mb-16">
+        <div class="text-center max-w-3xl mx-auto">
 
-            <span class="uppercase tracking-[4px] text-[#d49b2a] text-sm font-semibold">
-                WHY CHOOSE US
+            <span class="inline-flex items-center gap-3 uppercase tracking-[4px] text-[#DDB367] font-semibold text-sm">
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+                Why Choose Us
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
             </span>
 
-            <h2 class="mt-3 text-4xl md:text-6xl font-serif font-medium text-white leading-tight">
-                The
-                <span class="text-[#d49b2a]">{{settings_obj.title}}</span>
-                Advantage
+            <h2 class="mt-6 text-4xl lg:text-5xl font-light text-gray-900">
+
+                Building Trust,
+                <span class="font-semibold text-[#DDB367]">
+                    Delivering Excellence
+                </span>
+
             </h2>
 
-            <p class="mt-8 text-gray-300 text-lg leading-9">
-                Every detail is crafted with care to ensure your home offers comfort,
-                convenience, and a lifestyle you deserve.
+            <p class="mt-6 text-gray-600 leading-8 text-lg">
+
+                We are committed to creating exceptional living spaces through
+                quality construction, innovative design, and complete
+                transparency—delivering lasting value for every homeowner and
+                investor.
+
             </p>
 
         </div>
 
         <!-- Cards -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
 
             {% for rs in why_choose_items|slice:6 %}
-            <div class="card1 border-white bg-white/10 p-8 rounded-2xl hover:bg-white/5 border border-gray-300 hover:border-blue-500">
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
 
-                {% if rs.icons %}
-                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="{{rs.icons}} text-4xl text-[#C48D2F]"></i>
-                </div>
-                {% else %}
-                <div class="w-20 h-20 bg-[#735E3A] rounded-xl flex items-center justify-center">
-                    <i class="fa fa-check text-4xl text-[#C48D2F]"></i>
-                </div>
-                {% endif %}
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
 
-
-                <div class="text">
-
-                    <h1 class="font-serif text-white text-xl mt-4">{{rs.title}}</h1>
-                    
-                    <p class="text-md mt-3 text-[#A3A5A3]">{{rs.description}}</p>
+                    <i class="{{ rs.icon }} text-3xl text-[#DDB367]"></i>
 
                 </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    {{ rs.title }}
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    {{ rs.description }}
+                </p>
 
             </div>
             {% endfor %}
 
         </div>
 
-        
+    </div>
+
+</section>
+{% else %}
+<section class="py-20 lg:py-28 bg-[#F8F7F4] overflow-hidden">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="text-center max-w-3xl mx-auto">
+
+            <span class="inline-flex items-center gap-3 uppercase tracking-[4px] text-[#DDB367] font-semibold text-sm">
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+                Why Choose Us
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+            </span>
+
+            <h2 class="mt-6 text-4xl lg:text-5xl font-light text-gray-900">
+
+                Building Trust,
+                <span class="font-semibold text-[#DDB367]">
+                    Delivering Excellence
+                </span>
+
+            </h2>
+
+            <p class="mt-6 text-gray-600 leading-8 text-lg">
+
+                We are committed to creating exceptional living spaces through
+                quality construction, innovative design, and complete
+                transparency—delivering lasting value for every homeowner and
+                investor.
+
+            </p>
+
+        </div>
+
+        <!-- Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
+
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
+
+                    <i class="fa-solid fa-shield-halved text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    Trusted Builder
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    A strong legacy of delivering quality developments with
+                    transparency, integrity, and customer satisfaction.
+                </p>
+
+            </div>
+
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
+
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
+
+                    <i class="fa-solid fa-location-dot text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    Prime Locations
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    Carefully selected locations offering excellent connectivity
+                    to schools, business hubs, healthcare, and daily essentials.
+                </p>
+
+            </div>
+
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
+
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
+
+                    <i class="fa-solid fa-building text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    Superior Construction
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    Premium materials, modern engineering, and attention to every
+                    detail ensure lasting quality and durability.
+                </p>
+
+            </div>
+
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
+
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
+
+                    <i class="fa-solid fa-clock text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    On-Time Delivery
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    We value your trust by delivering every project within the
+                    committed timeline without compromising quality.
+                </p>
+
+            </div>
+
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
+
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
+
+                    <i class="fa-solid fa-star text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    Premium Amenities
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    Thoughtfully designed amenities that enhance comfort,
+                    wellness, convenience, and everyday lifestyle.
+                </p>
+
+            </div>
+
+            <!-- Card -->
+            <div class="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#DDB367] hover:-translate-y-2 transition duration-300 shadow-sm hover:shadow-xl">
+
+                <div class="w-16 h-16 rounded-2xl bg-[#DDB367]/10 flex items-center justify-center mb-6">
+
+                    <i class="fa-solid fa-handshake text-3xl text-[#DDB367]"></i>
+
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-900">
+                    Customer First
+                </h3>
+
+                <p class="mt-4 text-gray-600 leading-7">
+                    From project selection to possession, our dedicated team
+                    ensures a seamless and satisfying customer experience.
+                </p>
+
+            </div>
+
+        </div>
 
     </div>
+
 </section>
+{% endif %}
 <!-- ================= WHY CHOOSE SECTION ================= -->
+
+<!-- ================= TESTIMONIAL SECTION ================= -->
+<section class="py-20 lg:py-28 bg-[#F8F7F4]">
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="text-center max-w-3xl mx-auto">
+
+            <span class="inline-flex items-center gap-3 uppercase tracking-[4px] text-[#DDB367] font-semibold text-sm">
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+                Testimonials
+
+                <span class="w-12 h-[2px] bg-[#DDB367]"></span>
+
+            </span>
+
+            <h2 class="mt-6 text-4xl lg:text-5xl font-light text-gray-900">
+
+                What Our
+                <span class="font-semibold text-[#DDB367]">
+                    Happy Homeowners Say
+                </span>
+
+            </h2>
+
+            <p class="mt-6 text-lg text-gray-600 leading-8">
+                Our greatest achievement is the trust and satisfaction of the
+                families who have chosen us to build their dream homes.
+            </p>
+
+        </div>
+
+        <!-- Cards -->
+
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-16">
+
+            <!-- Card 1 -->
+
+            <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100">
+
+                <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
+
+                <p class="mt-6 text-gray-600 leading-8">
+                    The entire buying experience was smooth and transparent.
+                    The construction quality exceeded our expectations, and
+                    we are delighted with our new home.
+                </p>
+
+                <div class="flex mt-6 text-[#DDB367]">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="flex items-center gap-4 mt-8">
+
+                    <img src="https://i.pravatar.cc/100?img=12"
+                        class="w-16 h-16 rounded-full object-cover border-2 border-[#DDB367]">
+
+                    <div>
+
+                        <h4 class="font-semibold text-lg">
+                            Rahul Sharma
+                        </h4>
+
+                        <p class="text-gray-500 text-sm">
+                            Homeowner
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Card 2 -->
+
+            <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100">
+
+                <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
+
+                <p class="mt-6 text-gray-600 leading-8">
+                    Excellent project planning, timely delivery, and
+                    outstanding customer support. Investing here was
+                    one of the best decisions for our family.
+                </p>
+
+                <div class="flex mt-6 text-[#DDB367]">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="flex items-center gap-4 mt-8">
+
+                    <img src="https://i.pravatar.cc/100?img=32"
+                        class="w-16 h-16 rounded-full object-cover border-2 border-[#DDB367]">
+
+                    <div>
+
+                        <h4 class="font-semibold text-lg">
+                            Priya Mehta
+                        </h4>
+
+                        <p class="text-gray-500 text-sm">
+                            Investor
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Card 3 -->
+
+            <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100">
+
+                <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
+
+                <p class="mt-6 text-gray-600 leading-8">
+                    The project location, premium amenities, and
+                    professional approach made us confident in our
+                    investment. Highly recommended builder.
+                </p>
+
+                <div class="flex mt-6 text-[#DDB367]">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="flex items-center gap-4 mt-8">
+
+                    <img src="https://i.pravatar.cc/100?img=68"
+                        class="w-16 h-16 rounded-full object-cover border-2 border-[#DDB367]">
+
+                    <div>
+
+                        <h4 class="font-semibold text-lg">
+                            Amit Patel
+                        </h4>
+
+                        <p class="text-gray-500 text-sm">
+                            Business Owner
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= TESTIMONIAL SECTION END ================= -->
 
 <!-- ================= LOCATIONS SECTION ================= -->
 <section class="py-24 bg-[#F6F4EE]">
@@ -869,6 +1214,183 @@
     </div>
 
 </section>
+
+<section class="relative overflow-hidden bg-[#F8F5F0] py-16">
+
+    <!-- Background -->
+    <div class="absolute -top-40 -left-40 w-80 h-80 rounded-full bg-[#D6B77A]/10 blur-[120px]"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-black/5 blur-[120px]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6">
+
+        <!-- Heading -->
+        <div class="text-center mb-12">
+
+            <span class="tracking-[5px] uppercase text-[#B89252] text-xs font-semibold">
+                PRIVATE SALES LOUNGE
+            </span>
+
+            <h2 class="mt-4 text-4xl md:text-5xl font-serif text-[#1B1B1B] leading-tight">
+                Let's Begin Your
+                <span class="italic text-[#B89252]">
+                    Luxury Journey
+                </span>
+            </h2>
+
+            <p class="max-w-xl mx-auto mt-4 text-gray-500 text-base leading-7">
+                Schedule a private consultation with our luxury property advisor.
+                Discover residences crafted for timeless living.
+            </p>
+
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+
+            <!-- LEFT -->
+            <div class="relative">
+
+                <div class="overflow-hidden rounded-[32px] shadow-2xl">
+
+                    <img src="YOUR_IMAGE.jpg" class="w-full h-[520px] lg:h-[560px] object-cover hover:scale-105 duration-700">
+
+                </div>
+
+                <!-- Floating Card -->
+                <div class="absolute bottom-6 left-6 bg-white/95 backdrop-blur-xl rounded-3xl p-5 shadow-xl w-[280px]">
+
+                    <div class="flex items-center gap-3">
+
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-[#B89252] text-white flex items-center justify-center text-xl">
+
+                            <i class="fa-solid fa-award"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="text-xl font-bold">
+                                500+
+                            </h4>
+
+                            <p class="text-gray-500 text-sm">
+                                Happy Families
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="grid grid-cols-2 gap-4">
+
+                        <div>
+
+                            <h5 class="text-xl font-bold">
+                                8+
+                            </h5>
+
+                            <p class="text-gray-500 text-xs">
+                                Years Experience
+                            </p>
+
+                        </div>
+
+                        <div>
+
+                            <h5 class="text-xl font-bold">
+                                4.9★
+                            </h5>
+
+                            <p class="text-gray-500 text-xs">
+                                Client Rating
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div>
+
+                <div class="bg-white rounded-[32px] p-8 shadow-[0_25px_60px_rgba(0,0,0,.08)]">
+
+                    <span
+                        class="uppercase tracking-[4px] text-[#B89252] text-xs font-semibold">
+                        Schedule Consultation
+                    </span>
+
+                    <h3 class="text-3xl font-serif mt-2 mb-6 text-[#1B1B1B]">
+                        Request A Private Visit
+                    </h3>
+
+                    <form class="space-y-5" method="POST" id="enquiryForm" action="{% url 'submit_home_enquiry' %}">
+                        {% csrf_token %}
+                        <div>
+
+                            <label class="text-sm text-gray-500 block mb-1">
+                                Full Name
+                            </label>
+
+                            <input type="text" name="name" placeholder="Your Name Here" class="w-full border-0 border-b-2 border-gray-200 focus:border-[#B89252] bg-transparent py-3 outline-none transition">
+
+                        </div>
+
+                        <div>
+
+                            <label class="text-sm text-gray-500 block mb-1">
+                                Email Address
+                            </label>
+
+                            <input type="email" name="email" placeholder="example@email.com" class="w-full border-0 border-b-2 border-gray-200 focus:border-[#B89252] bg-transparent py-3 outline-none transition">
+
+                        </div>
+
+                        <div>
+
+                            <label class="text-sm text-gray-500 block mb-1">
+                                Phone Number
+                            </label>
+
+                            <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" class="w-full border-0 border-b-2 border-gray-200 focus:border-[#B89252] bg-transparent py-3 outline-none transition">
+
+                        </div>
+
+                        <div>
+
+                            <label class="text-sm text-gray-500 block mb-1">
+                                Your Message
+                            </label>
+
+                            <textarea rows="3" name="message" placeholder="Tell us about your dream home..." class="w-full border-0 border-b-2 border-gray-200 focus:border-[#B89252] bg-transparent py-3 outline-none resize-none transition"></textarea>
+
+                        </div>
+
+                        <button
+                            class="group mt-3 w-full bg-[#111111] hover:bg-[#B89252] text-white py-3 rounded-2xl duration-500 text-base font-semibold">
+
+                            Schedule Your Visit
+
+                            <i  class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-2 duration-300"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 <!-- ================= CONTACT SECTION ================= -->
 
 
@@ -930,61 +1452,6 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-
-        // ==========================
-        // Card Slider
-        // ==========================
-
-        const cards = document.querySelectorAll(".card-item");
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-
-        if (cards.length && prevBtn && nextBtn) {
-
-            let page = 0;
-
-            function cardsPerPage() {
-
-                if (window.innerWidth >= 1024) return 4;
-                if (window.innerWidth >= 768) return 2;
-                return 1;
-
-            }
-
-            function showPage() {
-
-                const perPage = cardsPerPage();
-                const totalPages = Math.ceil(cards.length / perPage);
-
-                cards.forEach((card, index) => {
-
-                    const start = page * perPage;
-                    const end = start + perPage;
-
-                    if (index >= start && index < end) {
-
-                        card.style.display = "flex";
-                        card.style.opacity = "0";
-                        card.style.transform = "translateX(30px)";
-
-                        setTimeout(() => {
-                            card.style.transition = "all .45s ease";
-                            card.style.opacity = "1";
-                            card.style.transform = "translateX(0)";
-                        }, 50);
-
-                    } else {
-
-                        card.style.display = "none";
-
-                    }
-
-                });
-
-                prevBtn.classList.toggle("hidden", page === 0);
-                nextBtn.classList.toggle("hidden", page >= totalPages - 1);
-
-            }
 
             nextBtn.addEventListener("click", () => {
 
@@ -1060,6 +1527,7 @@
         });
 
     });
+
 </script>
 
 {% endblock %}

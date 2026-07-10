@@ -3,14 +3,14 @@
 {% load utility_tags %}
 {% load humanize %}
 
-{% block title %}{{ about_page.meta_title|default:'About Makaan Hub' }}{% endblock %}
-{% block meta_description %}{{ about_page.meta_description|default:'Discover more about Makaan Hub - 16+ years of excellence in real estate.' }}{% endblock %}
+{% block title %}About {{ settings_obj.site_name }}{% endblock %}
+{% block meta_description %}{{ about_page.meta_description }}{% endblock %}
 
 {% block content %}
 
 <!-- ================= About Hero Section ================= -->
 {% if about_page.hero_background %}
-<section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
+<section class="relative h-[70vh] md:min-h-[500px] min-h-[660px] flex items-center overflow-hidden">
 
     <!-- Background Image -->
     <img src="{{ about_page.hero_background.url }}" alt="About Builder" class="absolute inset-0 w-full h-full object-cover">
@@ -75,13 +75,13 @@
         <!-- Buttons -->
         <div class="mt-10 flex flex-wrap gap-4">
 
-            <a href="{{about_page.button_one_url}}" class="px-8 py-4 bg-[#DDB367] text-black font-semibold rounded hover:bg-[#c89b45] transition">
+            <a href="{{about_page.button_one_url}}" class="px-6 py-3 bg-[#DDB367] text-black font-semibold rounded hover:bg-[#c89b45] transition">
 
                 {{about_page.button_one_text}}
 
             </a>
 
-            <a href="{{about_page.button_two_url}}" class="px-8 py-4 border border-white text-white rounded hover:bg-white/10 hover:text-black transition duration-300">
+            <a href="{{about_page.button_two_url}}" class="px-6 py-3 border border-white text-white rounded hover:bg-white/10 hover:text-black transition duration-300">
 
                 {{about_page.button_two_text}}
 
@@ -91,19 +91,9 @@
 
     </div>
 
-    <!-- Bottom Decorative Shape -->
-    <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
-        <svg class="relative block w-full h-20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1440 120">
-            <path fill="#ffffff"
-                d="M0,96L120,90.7C240,85,480,75,720,64C960,53,1200,43,1320,37.3L1440,32V120H1320C1200,120,960,120,720,120C480,120,240,120,120,120H0Z">
-            </path>
-
-        </svg>
-    </div>
-
 </section>
 {% else %}
-<section class="relative h-[70vh] min-h-[500px] flex items-center overflow-hidden">
+<section class="relative h-[70vh] min-h-[650px] flex items-center overflow-hidden">
 
     <!-- Background Image -->
     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" alt="About Builder" class="absolute inset-0 w-full h-full object-cover">
@@ -171,14 +161,13 @@
         <!-- Buttons -->
         <div class="mt-10 flex flex-wrap gap-4">
 
-            <a href="#about"
-                class="px-8 py-4 bg-[#DDB367] text-black font-semibold rounded hover:bg-[#c89b45] transition">
+            <a href="#about" class="px-6 py-3 bg-[#DDB367] text-black font-semibold rounded hover:bg-[#c89b45] transition">
 
                 Explore Legacy
 
             </a>
 
-            <a href="#projects" class="px-8 py-4 border border-white text-white rounded hover:bg-white hover:text-black transition duration-300">
+            <a href="#projects" class="px-6 py-3 border border-white text-white rounded hover:bg-white hover:text-black transition duration-300">
 
                 View Projects
 
@@ -325,7 +314,7 @@
 
                     <h3 class="text-3xl font-bold">
 
-                        {{ about_page.years_of_experience|default:"15+" }}
+                        {{ about_page.years_of_experience|default:"15+" }}+
 
                     </h3>
 
@@ -431,7 +420,7 @@
 
 
 <!-- ==================== SCHEDULE SITE VISIT ==================== -->
-<section class="relative py-24 bg-[#0F172A] overflow-hidden">
+<section class="relative py-20 bg-[#0F172A] overflow-hidden">
 
     <!-- Background Blur -->
     <div class="absolute -top-40 -left-40 w-96 h-96 bg-[#DDB367]/10 rounded-full blur-[120px]"></div>
@@ -464,7 +453,7 @@
 
                 <!-- FEATURES -->
 
-                <div class="grid sm:grid-cols-2 gap-5 mt-10">
+                <div class="grid sm:grid-cols-2 gap-4  mt-6">
 
                     <div class="flex gap-4">
 
@@ -552,48 +541,52 @@
 
                 {% if project.contact_persons.all %}
 
-                <div class="grid md:grid-cols-2 gap-5 mt-12">
 
-                    {% for conper in project.contact_persons.all %}
+                    <div class="space-y-3 mt-10">
 
-                    <div class="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur">
+                        {% for conper in project.contact_persons.all %}
 
-                        <div class="flex items-center gap-4">
+                        <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 backdrop-blur hover:border-[#DDB367]/40 transition">
 
-                            <div class="w-14 h-14 rounded-full bg-[#DDB367] flex items-center justify-center">
+                            <div class="flex items-center justify-between">
 
-                                <i class="fa-solid fa-user text-black"></i>
+                                <div class="flex items-center gap-3">
 
-                            </div>
+                                    <div class="w-10 h-10 rounded-full bg-[#DDB367] flex items-center justify-center shrink-0">
 
-                            <div>
+                                        <i class="fa-solid fa-user text-black text-sm"></i>
 
-                                <h4 class="text-white font-semibold">
-                                    {{ conper.name }}
-                                </h4>
+                                    </div>
 
-                                <p class="text-sm text-gray-400">
-                                    Property Consultant
-                                </p>
+                                    <div>
+
+                                        <h4 class="text-white font-medium text-sm">
+                                            {{ conper.name }}
+                                        </h4>
+
+                                        <p class="text-xs text-gray-400">
+                                            Property Consultant
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <a href="tel:{{ conper.phone }}"
+                                    class="w-10 h-10 rounded-full bg-[#DDB367]/20 hover:bg-[#DDB367] flex items-center justify-center transition group">
+
+                                    <i class="fa-solid fa-phone text-[#DDB367] group-hover:text-black text-sm"></i>
+
+                                </a>
 
                             </div>
 
                         </div>
 
-                        <a href="tel:{{ conper.phone }}"
-                            class="mt-5 inline-flex items-center gap-2 text-[#DDB367] hover:text-white transition">
-
-                            <i class="fa-solid fa-phone"></i>
-
-                            {{ conper.phone }}
-
-                        </a>
+                        {% endfor %}
 
                     </div>
 
-                    {% endfor %}
-
-                </div>
 
                 {% endif %}
 
@@ -603,7 +596,7 @@
 
             <div class="lg:col-span-6">
 
-                <div class="bg-white rounded-[30px] shadow-[0_30px_80px_rgba(0,0,0,.35)] overflow-hidden">
+                <div class="bg-white rounded-[10px] shadow-[0_30px_80px_rgba(0,0,0,.35)] overflow-hidden">
 
                     <div class="bg-[#DDB367] px-8 py-6">
 

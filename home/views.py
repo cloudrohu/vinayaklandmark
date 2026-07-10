@@ -1,5 +1,6 @@
+from django.contrib import messages
 
-from django.shortcuts import render , redirect
+from django.shortcuts import get_object_or_404, render , redirect
 from django.http import HttpResponse 
 from properties.models import Property 
 from utility.models import Locality,PropertyType,City,Bank
@@ -75,6 +76,35 @@ def index(request):
 
         }
     )
+
+
+def submit_enquiry(request, id):
+    menu_projects = Project.objects.filter(active=True,featured_property=True)
+    project = get_object_or_404(Project, id=id)
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+
+        # Save enquiry
+        Enquiry.objects.create(
+            project=project,
+            name=name,
+            email=email,
+            phone=phone,
+            message=message
+        )
+        
+        context = {
+            "project": project,          # current project
+            "menu_projects": menu_projects,
+        }
+
+        return redirect('projects:thank_you')
+        
+
 
 def compress_image(image):
     img = Image.open(image)
@@ -243,6 +273,22 @@ def amenities_view(request):
         "menu_projects": menu_projects,
     }
     return render(request, 'home/amenities.html', context)
+
+def submit_home_enquiry(request):
+    if request.method == "POST":
+
+        Enquiry.objects.create(
+            name=request.POST.get("name"),
+            email=request.POST.get("email"),
+            phone=request.POST.get("phone"),
+            message=request.POST.get("message"),
+        )
+
+        messages.success(request, "Enquiry submitted successfully.")
+
+        return redirect("thank_you")      # ya "projects:thank_you"
+
+    return redirect("home")
 
 #-----------------------------------------------------------------------------------------------
 

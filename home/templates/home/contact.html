@@ -7,114 +7,340 @@
 {% block content %}
 
 <!-- Hero Section -->
-<section class="bg-orange-500 text-white py-16 text-center relative overflow-hidden">
-  <div class="max-w-7xl mx-auto px-6 relative z-10">
-    <h1 class="text-4xl md:text-5xl font-bold mb-4">Get in Touch</h1>
-    <p class="text-lg md:text-xl opacity-90">
-      We’d love to hear from you. Reach out for inquiries, collaborations, or support.
-    </p>
-  </div>
-  <div class="absolute inset-0 bg-[url('{% static 'images/bg-pattern.png' %}')] opacity-10"></div>
+<section class="relative overflow-hidden py-14 md:py-16 lg:py-28">
+
+    <!-- Background -->
+    <img src="{% static 'images/contact-hero.jpg' %}" class="absolute inset-0 w-full h-full object-cover">
+
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+
+        <div class="max-w-3xl">
+
+            <span
+                class="inline-flex items-center gap-3 uppercase tracking-[4px] md:tracking-[6px] text-[#C5A46D] text-[11px] md:text-sm font-semibold">
+
+                <span class="w-8 md:w-12 h-px bg-[#C5A46D]"></span>
+
+                Get In Touch
+
+            </span>
+
+            <h1
+                class="mt-5 md:mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-tight font-serif text-white">
+
+                Let's Create
+
+                <span class="block italic text-[#C5A46D]">
+
+                    Something Exceptional
+
+                </span>
+
+            </h1>
+
+            <p
+                class="mt-5 md:mt-8 max-w-xl text-sm sm:text-base md:text-lg text-gray-200 leading-7">
+
+                Whether you're searching for your dream residence,
+                booking a private consultation,
+                or exploring investment opportunities,
+                our advisors are here to help.
+
+            </p>
+
+            <div class="mt-8 md:mt-12 flex flex-col sm:flex-row gap-4">
+
+                <a href="#contact-form"
+                    class="h-14 px-8 rounded-full bg-[#C5A46D] text-white font-semibold flex items-center justify-center hover:bg-white hover:text-black duration-300">
+
+                    Schedule A Visit
+
+                </a>
+
+                <a href="tel:+919876543210"
+                    class="h-14 px-8 rounded-full border border-white/30 text-white flex items-center justify-center backdrop-blur-md hover:bg-white hover:text-black duration-300">
+
+                    <i class="fa-solid fa-phone mr-2"></i>
+
+                    Call Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
 
-<!-- Contact Section -->
-<section class="py-16 bg-gray-50">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 px-6">
+<section id="contact-form" class="relative bg-[#F8F5F0] py-16 md:py-20 lg:py-28 overflow-hidden">
 
-    <!-- Contact Form -->
-    <div class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-100">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
-     {% if success %}
-    <div class="mb-4 p-4 rounded-lg bg-green-100 text-green-700 text-center font-semibold">
-        🎉 Thank you! Your message has been submitted successfully.
-    </div>
-    {% endif %}
-      <form action="{% url 'contact' %}" method="POST" class="space-y-5">
-        {% csrf_token %}
+    <!-- Background Text -->
+    <h2 class="hidden lg:block absolute top-10 left-1/2 -translate-x-1/2 text-[180px] font-serif text-black/[0.03] whitespace-nowrap pointer-events-none">
+        CONSULTATION
+    </h2>
 
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
-          <input name="name" type="text" placeholder="Your Name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-        </div>
+    <div class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
-          <input name="email" type="email" placeholder="Your Email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-        </div>
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
-          <input name="phone" type="tel" placeholder="Enter Mobile Number" required pattern="[6-9][0-9]{9}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
-        </div>
+            <!-- LEFT -->
+            <div>
 
-        <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-1">Message</label>
-          <textarea name="message" rows="3" placeholder="Type your message..." required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"></textarea>
-        </div>
+                <span class="uppercase tracking-[4px] text-[#C5A46D] text-xs font-semibold">
 
-        {% if settings_obj %}
+                    PRIVATE CONSULTATION
 
-            {% if settings_obj.consent_sms_text %}
-            <div class="flex items-start gap-2 text-xs text-gray-500 leading-tight pt-1">
-                <input type="checkbox" required class="mt-1 w-4 h-4 accent-[#B8925A]" checked>
-                <label>{{ settings_obj.consent_sms_text }}</label>
+                </span>
+
+                <h2 class="mt-4 text-4xl md:text-5xl font-serif text-[#1B1B1B] leading-tight">
+
+                    Every Great Home Begins With
+
+                    <span class="italic text-[#C5A46D]">
+
+                        A Conversation
+
+                    </span>
+
+                </h2>
+
+                <p class="mt-6 text-gray-600 leading-8">
+
+                    Whether you're searching for your dream residence,
+                    comparing premium developments,
+                    or planning your next investment,
+                    our property advisors are ready to guide you through every step.
+
+                </p>
+
+                <div class="mt-10 space-y-5">
+
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-full bg-[#C5A46D] text-white flex items-center justify-center flex-shrink-0">
+
+                            <i class="fa-solid fa-user-check"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-lg">
+
+                                Dedicated Property Advisor
+
+                            </h4>
+
+                            <p class="text-gray-500 text-sm mt-1">
+
+                                One-to-one consultation tailored to your requirements.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-full bg-[#C5A46D] text-white flex items-center justify-center flex-shrink-0">
+
+                            <i class="fa-solid fa-building-circle-check"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-lg">
+
+                                Verified Projects
+
+                            </h4>
+
+                            <p class="text-gray-500 text-sm mt-1">
+
+                                RERA-approved premium developments from trusted builders.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-full bg-[#C5A46D] text-white flex items-center justify-center flex-shrink-0">
+
+                            <i class="fa-solid fa-car-side"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h4 class="font-semibold text-lg">
+
+                                Complimentary Site Visit
+
+                            </h4>
+
+                            <p class="text-gray-500 text-sm mt-1">
+
+                                Schedule a guided visit at your preferred time.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Stats -->
+
+                <div class="grid grid-cols-3 gap-5 mt-12">
+
+                    <div>
+
+                        <h3 class="text-3xl font-bold text-[#C5A46D]">
+
+                            500+
+
+                        </h3>
+
+                        <p class="text-sm text-gray-500">
+
+                            Happy Families
+
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="text-3xl font-bold text-[#C5A46D]">
+
+                            8+
+
+                        </h3>
+
+                        <p class="text-sm text-gray-500">
+
+                            Years Experience
+
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="text-3xl font-bold text-[#C5A46D]">
+
+                            4.9★
+
+                        </h3>
+
+                        <p class="text-sm text-gray-500">
+
+                            Client Rating
+
+                        </p>
+
+                    </div>
+
+                </div>
+
             </div>
-            {% endif %}
 
-            {% if settings_obj.consent_terms_text %}
-            <div class="flex items-start gap-2 text-xs text-gray-500 leading-tight">
-                <input type="checkbox" required class="mt-1 w-4 h-4 accent-[#B8925A]" checked>
-                <label>{{ settings_obj.consent_terms_text|safe }}</label>
+            <!-- RIGHT -->
+
+            <div>
+
+                <div class="bg-white rounded-[30px] shadow-[0_35px_80px_rgba(0,0,0,.08)] p-6 md:p-10">
+
+                    <span class="uppercase tracking-[4px] text-[#C5A46D] text-xs font-semibold">
+
+                        Book Consultation
+
+                    </span>
+
+                    <h3 class="text-3xl font-serif mt-3">
+
+                        Request A Callback
+
+                    </h3>
+
+                    <form method="POST"
+                        action="{% url 'submit_home_enquiry' %}"
+                        class="mt-8 space-y-6">
+
+                        {% csrf_token %}
+
+                        <div>
+
+                            <input
+                                type="text"
+                                name="name"
+                                required
+                                placeholder="Full Name"
+                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
+
+                        </div>
+
+                        <div>
+
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email Address"
+                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
+
+                        </div>
+
+                        <div>
+
+                            <input
+                                type="tel"
+                                name="phone"
+                                required
+                                placeholder="Phone Number"
+                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
+
+                        </div>
+
+                        <div>
+
+                            <textarea
+                                rows="4"
+                                name="message"
+                                placeholder="Tell us about your requirement..."
+                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none resize-none"></textarea>
+
+                        </div>
+
+                        <button
+                            class="w-full h-14 rounded-full bg-[#111111] text-white font-semibold hover:bg-[#C5A46D] duration-300">
+
+                            Schedule Private Consultation
+
+                            <i class="fa-solid fa-arrow-right ml-2"></i>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
             </div>
-            {% endif %}
 
-        {% endif %}
-
-        <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition-transform transform hover:scale-[1.02] duration-200">
-          Send Message
-        </button>
-
-        <!-- Quick CTA -->
-        <div class="flex gap-3 pt-2">
-          <a href="tel:{{ settings_obj.phone }}" class="flex-1 text-center py-2 rounded-lg border border-orange-500 text-orange-600 font-semibold hover:bg-orange-50">Call Now</a>
-          <a href="https://wa.me/{{ settings_obj.whatsapp|default_if_none:'' }}" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-green-500 text-white font-semibold hover:bg-green-600">WhatsApp</a>
         </div>
 
-      </form>
     </div>
 
-    <!-- Contact Info -->
-    <div class="bg-white/80 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col justify-between">
-      <div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">{% if contact_content and contact_content.heading %}{{ contact_content.heading }}{% else %}Contact Information{% endif %}</h2>
-
-        {% if contact_content %}
-          <p class="text-gray-700 mb-3"><i class="fas fa-map-marker-alt text-orange-500 mr-2"></i>{{ contact_content.address }}</p>
-          <p class="text-gray-700 mb-3"><i class="fas fa-phone text-orange-500 mr-2"></i>{{ contact_content.phone }}</p>
-          <p class="text-gray-700 mb-3"><i class="fas fa-envelope text-orange-500 mr-2"></i>{{ contact_content.email }}</p>
-        {% else %}
-          <!-- Fallback: यदि contact_content खाली है तो settings_obj से थोड़ा डाटा दिखाएँ (यदि मौजूद हो) -->
-          {% if settings_obj %}
-            <p class="text-gray-700 mb-3"><i class="fas fa-map-marker-alt text-orange-500 mr-2"></i>{{ settings_obj.address }}</p>
-            <p class="text-gray-700 mb-3"><i class="fas fa-phone text-orange-500 mr-2"></i>{{ settings_obj.phone }}</p>
-            <p class="text-gray-700 mb-3"><i class="fas fa-envelope text-orange-500 mr-2"></i>{{ settings_obj.email }}</p>
-          {% else %}
-            <p class="text-gray-700 mb-3">Contact details are not available right now.</p>
-          {% endif %}
-        {% endif %}
-      </div>
-
-      <div class="mt-6 rounded-lg overflow-hidden shadow-md border border-gray-100">
-        {% if contact_content and contact_content.map_iframe %}
-          {{ contact_content.map_iframe|safe }}
-        {% elif settings_obj and settings_obj.google_map %}
-          {{ settings_obj.google_map|safe }}
-        {% else %}
-          <div class="p-6 text-center text-sm text-gray-500">Map not available.</div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
 </section>
+
 
 {% endblock %}

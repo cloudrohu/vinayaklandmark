@@ -20,6 +20,7 @@ urlpatterns = [
     path('disclaimer/', views.disclaimer, name='disclaimer'),
     path('terms-cookies/', views.cookies, name='cookies'),
     path('calculator/', views.calculator, name='calculator'),
+    path("submit-enquiry/",views.submit_home_enquiry,name="submit_home_enquiry",), 
 
     
 ]

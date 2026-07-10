@@ -381,6 +381,7 @@ def submit_enquiry(request, id):
 
     return redirect('project_details', id=project.id, slug=project.slug, context=context)
 
+
 def thank_you(request):
     menu_projects = Project.objects.filter(active=True,featured_property=True)
 
@@ -389,6 +390,7 @@ def thank_you(request):
     }
 
     return render(request, 'projects/thank_you.html', context)
+
 
 def load_localities(request):
     menu_projects = Project.objects.filter(active=True,featured_property=True)

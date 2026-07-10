@@ -34,147 +34,93 @@
     <div class="max-w-6xl mx-auto px-4 py-4 lg:py-6 sticky top-0 z-[999]">
 
         <!-- BREADCRUMB -->
-        <nav class="text-xs sm:text-sm text-gray-500 flex flex-wrap gap-1 mb-3">
-            <a href="/" class="hover:underline">Home</a>
-            <span>/</span>
+        <nav class="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs tracking-widest uppercase font-light text-stone-400">
 
-            <a href="#" class="hover:underline">{{ project.city }}</a>
-            <span>/</span>
-
-
-            <a href="#" class="hover:underline">
-                New Projects in {{ project.locality }}
+            <a href="/"
+                class="transition-colors duration-500 ease-out hover:text-stone-900">
+                Home
             </a>
-            <span>/</span>
 
-            <span class="text-gray-700 font-medium">
+            <span class="text-stone-300 font-extralight select-none">/</span>
+
+            <a href="#"
+                class="transition-colors duration-500 ease-out hover:text-stone-900">
+                {{ project.city }}
+            </a>
+
+            <span class="text-stone-300 font-extralight select-none">/</span>
+
+            <a href="#"
+                class="transition-colors duration-500 ease-out hover:text-stone-900">
+                {{ project.locality }}
+            </a>
+
+            <span class="text-stone-300 font-extralight select-none">/</span>
+
+            <span class="font-normal text-stone-800 truncate max-w-[200px] sm:max-w-none tracking-wide normal-case">
                 {{ project.project_name }}
             </span>
+
         </nav>
 
-        <!-- MAIN ROW -->
-        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6">
+      
 
-            <!-- LEFT: TITLE + ADDRESS -->
-            <div class="flex-1">
-                <h1 class="text-2xl sm:text-3xl font-semibold text-gray-900 mb-2">
-                    {{ project.project_name }}
-                </h1>
-
-                <p class="text-sm sm:text-base text-gray-700">
-                    by
-                    <span class="text-orange-500 font-semibold">
-                        {{ project.developer }}
-                    </span>
-                    at {{ project.locality }}, {{ project.city }}
-                </p>
-
-                <!-- RERA TAGS -->
-                <div class="mt-3 flex flex-wrap items-center gap-2 project-badges">
-
-                    {% if project.rera.exists %}
-                    <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
-                        <i class="fa-solid fa-check-double text-green-500"></i>
-                        RERA Registered
-                    </span>
-                    {% endif %}
-
-                    {% for r in project.rera.all %}
-                    <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
-                        {{ r.registration_no }}
-                    </span>
-                    {% endfor %}
-
+            <!-- MAIN ROW (ARCHITECTURAL LAYOUT) -->
+            <div class="py-12 border-b border-stone-100 relative group">
+                
+                <!-- TOP SECTION: Project Identity & Subtle Background Element -->
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
+                    <!-- Left 8 Columns: Heading and Narrative -->
+                    <div class="lg:col-span-8 space-y-6">
+                        
+                        <!-- Structural Meta Tag (Floating over the title) -->
+                        <div class="flex items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-stone-400">
+                            <span>Featured Atelier</span>
+                            <span class="w-12 h-[1px] bg-stone-200"></span>
+                            <span class="text-stone-900 font-medium">{{ project.developer }}</span>
+                        </div>
 
-                    <span class="inline-flex items-center gap-2 text-xs sm:text-sm border px-3 py-1.5 bg-white text-gray-700">
-                        <i class="fa-solid fa-xmark text-xs"></i>
-                        No Brokerage
-                    </span>
+                        <!-- Massive Elegant Serif Title -->
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-light text-stone-900 tracking-tight leading-none max-w-3xl">
+                            {{ project.project_name }}
+                        </h1>
+                        
+                        <!-- Location with Architectural Iconography -->
+                        <div class="flex items-center gap-2 text-xs tracking-wider text-stone-500 uppercase font-light">
+                            <svg class="w-3 h-3 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>{{ project.locality }}</span>
+                            <span class="text-stone-300">/</span>
+                            <span class="text-stone-400 font-normal">{{ project.city }}</span>
+                        </div>
+                    </div>
 
+                    <!-- Right 4 Columns: Price Displayed Like an Artwork Tag -->
+                    <div class="lg:col-span-4 lg:text-right pt-4 lg:pt-0 flex flex-col justify-between h-full lg:min-h-[140px]">
+                        <div>
+                            <p class="text-[9px] uppercase tracking-[0.3em] text-stone-400 mb-1">Value Statement</p>
+                            <p class="text-3xl font-extralight text-stone-950 tracking-wide">
+                                {{ project.priceing }}
+                            </p>
+                            <p class="text-[11px] italic font-serif text-stone-400 mt-0.5">Inquire for Private Bespoke Pricing</p>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- MIDDLE SECTION: Ultra-thin Geometric Divider Line -->
+                <div class="my-8 w-full h-[1px] bg-gradient-to-r from-stone-200 via-stone-100 to-transparent"></div>
+
+                
             </div>
 
-            <!-- RIGHT: PRICE + BUTTONS (DESKTOP) -->
-            <div class="lg:text-right flex flex-col items-start lg:items-end gap-3">
-
-                <!-- PRICE -->
-                <div class="hidden md:block">
-                    <p class="text-xs text-gray-500 uppercase tracking-wide">Price</p>
-                    <p class="text-xl sm:text-2xl font-semibold text-gray-900">
-                        {{ project.priceing }}
-                    </p>
-                    <p class="text-xs text-gray-500">Onwards</p>
-                </div>
-
-                <!-- BUTTONS DESKTOP -->
-                <div class="hidden lg:flex items-center gap-2 mt-1">
-
-                    <!-- wishlist -->
-                    <button class="w-9 h-9 flex items-center justify-center border text-gray-600 hover:bg-gray-50">
-                        <i class="fa-regular fa-heart text-sm"></i>
-                    </button>
-
-                    <!-- share -->
-                    <button class="w-9 h-9 flex items-center justify-center border text-gray-600 hover:bg-gray-50">
-                        <i class="fa-solid fa-arrow-up-from-bracket text-sm"></i>
-                    </button>
-
-                    <!-- brochure -->
-                    <a href="#" class="inline-flex items-center gap-2 border px-4 h-9 text-sm text-gray-700 hover:bg-gray-50">
-                        <i class="fa-solid fa-download text-xs"></i>
-                        Brochure
-                    </a>
-
-                    <!-- Contact Us -->
-                        <a href="javascript:void(0)"
-                            data-project="{{ project.project_name }}"
-                            data-project-id="{{ project.id }}"
-                            class="openContactPopup flex-1 md:flex-none inline-flex items-center justify-center gap-2
-                                    px-4 py-2 border border-orange-500 text-orange-600
-                                    text-sm font-semibold rounded-3xl hover:bg-orange-50 transition">
-                            Contact Us
-                        </a>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- MOBILE BUTTON BAR -->
-        <div class="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-3 flex items-center gap-2 sm:hidden z-50">
-
-            <!-- Wishlist -->
-            <button class="w-10 h-10 flex items-center justify-center border text-gray-600">
-                <i class="fa-regular fa-heart text-lg"></i>
-            </button>
-
-            <!-- Share -->
-            <button class="w-10 h-10 flex items-center justify-center border text-gray-600">
-                <i class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
-            </button>
-
-            <!-- Brochure -->
-            <a href="#" class="flex-1 h-10 flex items-center justify-center gap-2 border text-gray-700 font-medium">
-                <i class="fa-solid fa-download text-sm"></i>
-                Brochure
-            </a>
-
-            <!-- Contact Us -->
-                <a href="javascript:void(0)"
-                    data-project="{{ project.project_name }}"
-                    data-project-id="{{ project.id }}"
-                    class="openContactPopup flex-1 md:flex-none inline-flex items-center justify-center gap-2
-                            px-4 py-2 border border-orange-500 text-orange-600
-                            text-sm font-semibold rounded-3xl hover:bg-orange-50 transition">
-                    Contact Us
-                </a>
-
-        </div>
 
     </div>
 </section>
 
-<SECTION-FIRST>
+<section-FIRST>
         <!-- IMAGES  -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
 
@@ -392,9 +338,9 @@
 
 
    
-</SECTION-FIRST>
+</section-FIRST>
 
-<THIRD-SECTION id="tabsNav">
+<section id="tabsNav">
     <div class="w-full border-t border-b bg-white sticky top-[0px] z-50">
 
 
@@ -505,7 +451,7 @@
 
     </script>
 
-</THIRD-SECTION>
+</section>
 
 <script>
 
@@ -559,76 +505,76 @@
         <!-- GRID CARDS -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-            <!-- Card 1 -->
-            <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                <p class="text-green-600 font-semibold text-lg">{{ project.land_parce }}</p>
-                <p class="text-gray-600 text-sm">Land Parcel</p>
+                <!-- Card 1 -->
+                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
+                    <p class="text-green-600 font-semibold text-lg">{{ project.land_parce }}</p>
+                    <p class="text-gray-600 text-sm">Land Parcel</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
+                    <p class="font-semibold text-lg">{{ project.floor }}</p>
+                    <p class="text-gray-600 text-sm">Towers</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
+                    <p class="font-semibold text-lg">{{ project.floor }}</p>
+                    <p class="text-gray-600 text-sm">Floors</p>
+                </div>
+
+                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
+                    <p class="font-semibold text-lg">
+                        {% for bhk in project.bhk_type %}
+                            {{ bhk|cut:" BHK" }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %} BHK
+                    </p>
+                    <p class="text-gray-600 text-sm">Config</p>
+                </div>
+
+
+                <!-- Card 5 : RERA Number -->
+                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
+                    {% if project.rera.first.registration_no %}
+                        <p class="font-semibold text-lg">
+                            {{ project.rera.first.registration_no }}
+                        </p>
+                    {% else %}
+                        <p class="font-semibold text-lg text-gray-400">
+                            NA
+                        </p>
+                    {% endif %}
+                    <p class="text-gray-600 text-sm">RERA No.</p>
+                </div>
+
+
+                <!-- Card 6 -->
+                <!-- Card 6 : Carpet Area -->
+                <!-- Card 6 : Carpet Area (MIN–MAX) -->
+            
+                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
+                <p class="font-semibold text-lg">
+                    {{ project.get_carpet_area_range }}
+                </p>
+                <p class="text-gray-600 text-sm">Carpet Area</p>
             </div>
 
-            <!-- Card 2 -->
-            <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                <p class="font-semibold text-lg">{{ project.floor }}</p>
-                <p class="text-gray-600 text-sm">Towers</p>
-            </div>
 
-            <!-- Card 3 -->
-            <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                <p class="font-semibold text-lg">{{ project.floor }}</p>
-                <p class="text-gray-600 text-sm">Floors</p>
-            </div>
-
+            <!-- Card 7 : Target Possession -->
             <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
                 <p class="font-semibold text-lg">
-                    {% for bhk in project.bhk_type %}
-                        {{ bhk|cut:" BHK" }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %} BHK
+                    {{ project.possession_month }} {{ project.possession_year }}
                 </p>
-                <p class="text-gray-600 text-sm">Config</p>
+                <p class="text-gray-600 text-sm">Target Possession</p>
             </div>
 
-
-            <!-- Card 5 : RERA Number -->
+            <!-- Card 8 : RERA Possession -->
             <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                {% if project.rera.first.registration_no %}
-                    <p class="font-semibold text-lg">
-                        {{ project.rera.first.registration_no }}
-                    </p>
-                {% else %}
-                    <p class="font-semibold text-lg text-gray-400">
-                        NA
-                    </p>
-                {% endif %}
-                <p class="text-gray-600 text-sm">RERA No.</p>
+                <p class="font-semibold text-lg">
+                    {{ project.possession_month }} {{ project.possession_year }}
+                </p>
+                <p class="text-gray-600 text-sm">RERA Possession</p>
             </div>
-
-
-            <!-- Card 6 -->
-            <!-- Card 6 : Carpet Area -->
-            <!-- Card 6 : Carpet Area (MIN–MAX) -->
-        <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-            <p class="font-semibold text-lg">
-                {{ project.get_carpet_area_range }}
-            </p>
-            <p class="text-gray-600 text-sm">Carpet Area</p>
-        </div>
-
-
-        <!-- Card 7 : Target Possession -->
-        <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-            <p class="font-semibold text-lg">
-                {{ project.possession_month }} {{ project.possession_year }}
-            </p>
-            <p class="text-gray-600 text-sm">Target Possession</p>
-        </div>
-
-        <!-- Card 8 : RERA Possession -->
-        <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-            <p class="font-semibold text-lg">
-                {{ project.possession_month }} {{ project.possession_year }}
-            </p>
-            <p class="text-gray-600 text-sm">RERA Possession</p>
-        </div>
-
         </div>
 
         <!-- ABOUT TEXT -->
@@ -652,12 +598,14 @@
         </div>
 
     </div>
+    
 </section>
 
 <script>
     document.getElementById("readMoreBtn").addEventListener("click", function () {
         const shortText = document.getElementById("aboutShort");
         const fullText = document.getElementById("aboutFull");
+
 
         if (fullText.classList.contains("hidden")) {
             fullText.classList.remove("hidden");
@@ -671,9 +619,6 @@
     });
 </script>
 
-<!-- ========================================= -->
-<!-- 🔥 PRICING & UNIT PLANS SECTION -->
-<!-- ========================================= -->
 <section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="pricing">
 
     <!-- HEADER -->
@@ -759,7 +704,6 @@
     </div>
 </section>
 
-<!-- ===================== Location BOX ===================== -->
 <section class="max-w-7xl mx-auto p-4 scroll-mt-[130px] grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6" id="location">
 
     <!-- ===================== MIDDLE COLUMN ===================== -->
@@ -1005,37 +949,37 @@
 </section>
 
 <script>
-document.getElementById("videoPlayBtn").addEventListener("click", function () {
+    document.getElementById("videoPlayBtn").addEventListener("click", function () {
 
-    const iframe = document.getElementById("youtubeFrame");
-    const videoId = "{{ project.youtube_embed_id }}";
+        const iframe = document.getElementById("youtubeFrame");
+        const videoId = "{{ project.youtube_embed_id }}";
 
-    iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
-    iframe.classList.remove("hidden");
+        iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+        iframe.classList.remove("hidden");
 
-    document.getElementById("videoThumb").classList.add("hidden");
-    this.classList.add("hidden");
-});
+        document.getElementById("videoThumb").classList.add("hidden");
+        this.classList.add("hidden");
+    });
 </script>
 
 <style>
 
-.amenity-card{
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    padding:5px;
-    text-align:center;
-    background:#fff;
-    transition:.25s;
-}
-.amenity-card:hover{
-    box-shadow:0 4px 10px rgba(0,0,0,.08);
-}
-.amenity-card .label{
-    font-size:13px;
-    color:#374151;
-    margin-top:6px;
-}
+    .amenity-card{
+        border:1px solid #e5e7eb;
+        border-radius:10px;
+        padding:5px;
+        text-align:center;
+        background:#fff;
+        transition:.25s;
+    }
+    .amenity-card:hover{
+        box-shadow:0 4px 10px rgba(0,0,0,.08);
+    }
+    .amenity-card .label{
+        font-size:13px;
+        color:#374151;
+        margin-top:6px;
+    }
 </style>
 
 
@@ -1087,31 +1031,31 @@ document.getElementById("videoPlayBtn").addEventListener("click", function () {
 
 <!-- ===================== JS FOR SHOW MORE ===================== -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
 
-    const btn = document.getElementById("showMoreBtn");
-    if (!btn) return;
+        const btn = document.getElementById("showMoreBtn");
+        if (!btn) return;
 
-    const hiddenItems = document.querySelectorAll(".more-item");
-    let expanded = false;
+        const hiddenItems = document.querySelectorAll(".more-item");
+        let expanded = false;
 
-    const totalHidden = hiddenItems.length;
+        const totalHidden = hiddenItems.length;
 
-    // initial text (safe)
-    btn.textContent = "+ " + totalHidden + " More";
+        // initial text (safe)
+        btn.textContent = "+ " + totalHidden + " More";
 
-    btn.addEventListener("click", () => {
-        expanded = !expanded;
+        btn.addEventListener("click", () => {
+            expanded = !expanded;
 
-        hiddenItems.forEach(item => {
-            item.classList.toggle("hidden");
+            hiddenItems.forEach(item => {
+                item.classList.toggle("hidden");
+            });
+
+            btn.textContent = expanded
+                ? "− Show Less"
+                : "+ " + totalHidden + " More";
         });
-
-        btn.textContent = expanded
-            ? "− Show Less"
-            : "+ " + totalHidden + " More";
     });
-});
 </script>
 
 
@@ -1292,67 +1236,51 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 
 
-<!-- ===================== Project approved by ===================== -->
+{% if project.bank_offers.exists %}
+
 <section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]">
 
     <!-- HEADER -->
     <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
-        <h2 class="text-lg font-semibold text-[#1b4d6b]">Project approved by</h2>
+        <h2 class="text-lg font-semibold text-[#1b4d6b]">
+            Project Approved By
+        </h2>
     </div>
 
-    <!-- SLIDER CONTAINER -->
-    <div class="bg-white border border-t-0 rounded-b-lg p-16">
+    <!-- SLIDER -->
+    <div class="bg-white border border-t-0 rounded-b-lg p-8">
 
         <div class="swiper bankSwiper">
             <div class="swiper-wrapper">
 
-                <!-- BANK 1 -->
-                <div class="swiper-slide">
-                    <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center p-2">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Union_Bank_of_India_logo.svg"
-                             class="h-10 object-contain">
-                    </div>
+            {% for offer in project.bank_offers.all %}
+            <div class="swiper-slide py-3">
+
+                <div
+                    class="group h-[110px] rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50
+                        shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300
+                        flex items-center justify-center p-6">
+
+                    {% if offer.image %}
+                        <img src="{{ offer.image.url }}"
+                            alt="{{ offer.bank.title }}"
+                            class="max-h-12 w-auto object-contain grayscale
+                                    group-hover:grayscale-0 transition duration-300">
+                    {% else %}
+                        <div class="text-center">
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i class="fa-solid fa-building-columns text-amber-600"></i>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-700">
+                                {{ offer.bank.title }}
+                            </span>
+                        </div>
+                    {% endif %}
+
                 </div>
 
-                <!-- BANK 2 -->
-                <div class="swiper-slide">
-                    <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5d/Central_Bank_of_India_logo.svg/1200px-Central_Bank_of_India_logo.svg.png"
-                             class="min-w-[150px] h-[70px] object-contain">
-                    </div>
-                </div>
-
-                <!-- BANK 3 -->
-                <div class="swiper-slide">
-                    <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center p-2">
-                        <img src="https://logos-world.net/wp-content/uploads/2020/11/HDFC-Bank-Logo.png"
-                             class="h-10 object-contain">
-                    </div>
-                </div>
-
-                <!-- BANK 4 -->
-                <div class="swiper-slide">
-                    <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center p-2">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/ICICI_Bank_Logo.svg"
-                             class="h-10 object-contain">
-                    </div>
-                </div>
-
-                <!-- BANK 5 -->
-                <div class="swiper-slide">
-                    <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center p-2">
-                        <img src="https://1000logos.net/wp-content/uploads/2021/04/SBI-logo.png"
-                             class="h-10 object-contain">
-                    </div>
-                </div>
-
-                <!-- BANK 6 -->
-                <div class="swiper-slide">
-                    <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center p-2">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/34/Bank_of_Baroda_logo.svg"
-                             class="h-10 object-contain">
-                    </div>
-                </div>
+            </div>
+            {% endfor %}
 
             </div>
         </div>
@@ -1360,6 +1288,8 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
 
 </section>
+
+{% endif %}
 
 <!-- ===================== EMI CALCULATOR ===================== -->
   <section class="bg-white border-b" id="emi_calculator">
@@ -1797,19 +1727,19 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 
 <script>
-new Swiper(".relatedSwiper", {
-    slidesPerView: 1,
-    spaceBetween: 20,
-    pagination: { el: ".swiper-pagination", clickable: true },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev"
-    },
-    breakpoints: {
-        640: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 }
-    }
-});
+    new Swiper(".relatedSwiper", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        },
+        breakpoints: {
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+        }
+    });
 </script>
 
 
@@ -1828,19 +1758,13 @@ new Swiper(".relatedSwiper", {
       </p>
 
       <!-- CLOSE BUTTON (INSIDE HEADER) -->
-      <button id="closeContactPopup"
-              type="button"
-              class="absolute top-2 right-2 h-7 w-7 rounded-full
-                     flex items-center justify-center
-                     bg-white/20 hover:bg-white/30
-                     text-white text-sm transition">
+      <button id="closeContactPopup" type="button" class="absolute top-2 right-2 h-7 w-7 rounded-full flex items-center justify-center bg-white/20 hover:bg-white/30 text-white text-sm transition">
         ✕
       </button>
     </div>
 
     <!-- FORM -->
-    <form method="post" id="enquiryForm"
-          class="p-4 space-y-3 text-sm bg-white">
+    <form method="post" id="enquiryForm" class="p-4 space-y-3 text-sm bg-white">
       {% csrf_token %}
 
       <!-- Honeypot -->
@@ -1851,35 +1775,29 @@ new Swiper(".relatedSwiper", {
       <!-- NAME -->
       <div>
         <label class="font-medium text-gray-600">Full Name</label>
-        <input type="text" name="name" required
-               class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
+        <input type="text" name="name" required class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
       </div>
 
       <!-- EMAIL -->
       <div>
         <label class="font-medium text-gray-600">Email</label>
-        <input type="email" name="email"
-               class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
+        <input type="email" name="email" class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
       </div>
 
       <!-- PHONE -->
       <div>
         <label class="font-medium text-gray-600">Mobile</label>
-        <input type="tel" name="phone" required
-               class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
+        <input type="tel" name="phone" required class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
       </div>
 
       <!-- MESSAGE -->
       <div>
         <label class="font-medium text-gray-600">Message</label>
-        <textarea name="message" rows="2"
-                  class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none"></textarea>
+        <textarea name="message" rows="2" class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none"></textarea>
       </div>
 
       <!-- SUBMIT -->
-      <button type="submit"
-              class="w-full bg-orange-500 hover:bg-orange-600
-                     text-white py-2.5 rounded-lg font-semibold transition">
+      <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-lg font-semibold transition">
         Submit Enquiry
       </button>
 
@@ -1940,9 +1858,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<!-- ========================================= -->
-<!-- 🔥 SIMPLE TAB SWITCHER -->
-<!-- ========================================= -->
 <script>
     const tabBtns = document.querySelectorAll(".tab-btn");
     const tabs = document.querySelectorAll(".tab-content");
