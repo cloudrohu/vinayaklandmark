@@ -94,6 +94,7 @@ class SettingAdmin(ImportExportModelAdmin):
                 "search_bg",
                 "testmonial_bg",
                 "rera_number",
+                "current_project_rera",
                 "footer_text",
                 "googletagmanager",
                 "copy_right",

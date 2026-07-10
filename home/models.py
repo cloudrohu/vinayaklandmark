@@ -35,6 +35,8 @@ class Setting(ImageCompressionMixin, models.Model):
     terms_conditions = RichTextUploadingField(blank=True)
     disclaimer = RichTextUploadingField(blank=True)
     cookies = RichTextUploadingField(blank=True)
+    current_project_rera = models.CharField(max_length=150, blank=True, null=True)
+
 
 
     STATUS = (
