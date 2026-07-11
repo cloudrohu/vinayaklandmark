@@ -228,15 +228,26 @@ class About(models.Model):
         return self.title
 
 
-class unique_selling_proposition(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True)
+class USP(models.Model):
+    title = models.CharField(max_length=150)
+    description = models.TextField()
+
+    icon = models.CharField(max_length=100,default="fa-solid fa-circle-check",help_text="Example: fa-solid fa-circle-check")
+
+    order = models.PositiveIntegerField(default=0)
+
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = 'USP'
+        ordering = ["order", "id"]
+        verbose_name = "USP"
+        verbose_name_plural = "USP Section"
 
     def __str__(self):
         return self.title
-        
 
 class Contact_Page(models.Model):
     heading = models.CharField(max_length=200)

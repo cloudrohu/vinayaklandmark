@@ -5,7 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 from .models import (
     Setting, Slider, Leadership, Why_Choose,
     About, Contact_Page, Our_Team,
-    Testimonial, FAQ, ImpactMetric, Enquiry,unique_selling_proposition
+    Testimonial, FAQ, ImpactMetric, Enquiry,USP
 )
 
 @admin.register(Setting)
@@ -112,6 +112,32 @@ class SettingAdmin(ImportExportModelAdmin):
 
     logo_preview.short_description = "Logo Preview"
 
+@admin.register(USP)
+class USPAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "order",
+        "is_active",
+        "updated_at",
+    )
+
+    list_filter = (
+        "is_active",
+    )
+
+    search_fields = (
+        "title",
+        "description",
+    )
+
+    list_editable = (
+        "order",
+        "is_active",
+    )
+
+    ordering = (
+        "order",
+    )
 @admin.register(Slider)
 class SliderAdmin(ImportExportModelAdmin):
     list_display = ("title1","descriptions", "order", "is_active")
@@ -259,12 +285,6 @@ class TestimonialAdmin(ImportExportModelAdmin):
     list_display = ("name", "designation", "rating")
     list_filter = ("rating",)
     search_fields = ("name", "designation", "message")
-
-@admin.register(unique_selling_proposition)
-class unique_selling_propositionAdmin(ImportExportModelAdmin):
-    list_display = ("title",)
-
-
 
 
 @admin.register(FAQ)

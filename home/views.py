@@ -6,7 +6,7 @@ from properties.models import Property
 from utility.models import Locality,PropertyType,City,Bank
 from .models import (
     Setting, Slider, Testimonial, About, Leadership,
-    Contact_Page, FAQ, Our_Team,Why_Choose, ImpactMetric,Slider, Enquiry,unique_selling_proposition
+    Contact_Page, FAQ, Our_Team,Why_Choose, ImpactMetric,Slider, Enquiry,USP
 )
 from user.models import Developer  
 
@@ -49,7 +49,6 @@ def index(request):
     faqs = FAQ.objects.all().order_by("id")
 
 
-
     current_city = project_featured.first().city.name if project_featured.exists() else "Mumbai"
 
     return render(
@@ -73,6 +72,7 @@ def index(request):
             "faqs": faqs,
             "slider": slider,
             "project": project,
+            "usps": USP.objects.filter(is_active=True)
 
         }
     )

@@ -29,11 +29,6 @@
 
     </div>
 
-    <!-- RIGHT IMAGE -->
-        <div class="md:relative absolute right-6 bottom-0 md:bottom-0 flex justify-end pointer-events-none">
-          <img src="https://housiey.com/_next/image?url=%2Fassets%2Fimage%2Fcalculator.png&w=384&q=75" alt="EMI Calculator" class="w-[260px] md:w-[400px] object-contain translate-y-6">
-        </div>
-
   </div>
 </section>
 <!-- HERO END HERE -->
@@ -401,9 +396,10 @@
     rateValue.textContent = rate.value + "%";
     yearValue.textContent = yearsCount + " Years";
 
-    monthlyEmi.textContent = "₹" + Math.round(emi).toLocaleString("en-IN");
-    totalInterest.textContent = "₹" + Math.round(interestTotal).toLocaleString("en-IN");
-    totalPayment.textContent = "₹" + Math.round(total).toLocaleString("en-IN");
+    const monthlyEmi = document.getElementById("monthlyEmi");
+    const totalInterest = document.getElementById("totalInterest");
+    const totalPayment = document.getElementById("totalPayment");
+    const amortizationBody = document.getElementById("amortizationBody");
 
     chart.data.datasets[0].data = [interestTotal, P];
     chart.update();

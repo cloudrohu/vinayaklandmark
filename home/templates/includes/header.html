@@ -129,6 +129,11 @@
                 <a  href="" class="nav-link">
                     Blogs
                 </a>
+                
+                <a  href="{% url "faq" %}" class="nav-link">
+                    FAQs
+                </a>
+
                 {% for rs in menu_projects %}
                 <a  href="{{rs.get_absolute_url}}" class="nav-link">
                     {{rs.project_name}}
@@ -136,7 +141,7 @@
                 {% endfor %}
 
                
-                <a target="_blank" href="" class="nav-link">
+                <a target="_blank" href="{% url "calculator" %}" class="nav-link">
                     Calculator
                 </a>
 
