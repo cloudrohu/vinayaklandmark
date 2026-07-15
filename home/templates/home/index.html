@@ -1453,46 +1453,6 @@
 <!-- ================= CONTACT SECTION ================= -->
 
 
-<div id="popup" class="popup-overlay">
-
-  <div class="popup-box">
-
-    <span class="close-popup">&times;</span>
-
-      <div class="popup-header">
-
-      <h2 class="text-2xl">Own Your Dream Home Today</h2>
-
-        <p>
-         Share your details to receive the latest brochure, price list, floor plans, payment plans, and assistance from our property expert.
-        </p>
-
-      </div>
-
-      <div class="popup-body">
-
-        <form method="POST" id="enquiryForm" action="{% url 'submit_home_enquiry' %}">
-          {% csrf_token %}
-            <!-- Name -->
-            <input type="text" name="name" placeholder="Full Name" required>
-
-            <!-- Phone -->
-            <input type="tel" name="phone" placeholder="Phone Number" maxlength="10" minlength="10" pattern="[0-9]{10}" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)" oninvalid="this.setCustomValidity('Please enter a valid 10-digit mobile number.')" oninput="this.setCustomValidity(''); this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)" required  >
-
-            <!-- Email -->
-             <input type="email" name="email" placeholder="Email Address" autocomplete="email" oninvalid="this.setCustomValidity('Please enter a valid email address.')" oninput="this.setCustomValidity('')" required>
-
-            <button type="submit">
-                Send Enquiry
-            </button>
-
-        </form>
-
-      </div>
-
-  </div>
-
-</div>
 
 
 <style>
@@ -1628,82 +1588,7 @@
 
     });
 
-    
-    document.addEventListener("DOMContentLoaded", function () {
 
-        const popup = document.getElementById("popup");
-        const close = document.querySelector(".close-popup");
-        const form = document.getElementById("enquiryForm");
-
-        popup.style.display = "none";
-
-        // Agar form submit ho chuka hai to popup kabhi mat dikhao
-        if (localStorage.getItem("popupSubmitted") === "yes") {
-            return;
-        }
-
-        function showPopup() {
-            popup.style.display = "flex";
-        }
-
-        function hidePopup() {
-            popup.style.display = "none";
-        }
-
-        // Close ke baad 2 min tak wait karo
-        const nextShowTime = localStorage.getItem("popupNextShow");
-
-        if (nextShowTime && Date.now() < Number(nextShowTime)) {
-
-            const remaining = Number(nextShowTime) - Date.now();
-
-            setTimeout(showPopup, remaining);
-
-        } else {
-
-            // First time 7 sec baad show
-            setTimeout(showPopup, 7000);
-
-        }
-
-        // Close Button
-        close.addEventListener("click", function () {
-
-            hidePopup();
-
-            // 2 minute baad phir show
-            localStorage.setItem(
-                "popupNextShow",
-                Date.now() + (2 * 60 * 1000)
-            );
-
-        });
-
-        // Outside Click
-        window.addEventListener("click", function (e) {
-
-            if (e.target === popup) {
-
-                hidePopup();
-
-                localStorage.setItem(
-                    "popupNextShow",
-                    Date.now() + (2 * 60 * 1000)
-                );
-
-            }
-
-        });
-
-        // Form Submit
-        form.addEventListener("submit", function () {
-
-            // Hamesha ke liye band
-            localStorage.setItem("popupSubmitted", "yes");
-
-        });
-
-    });
 
 
 </script>
