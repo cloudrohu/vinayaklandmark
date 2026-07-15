@@ -168,6 +168,7 @@ class Why_Choose(models.Model):
     def __str__(self):
         return self.title
 
+
 class About(models.Model):
 
 

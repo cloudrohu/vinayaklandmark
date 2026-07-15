@@ -10,4 +10,5 @@ urlpatterns = [
     path('submit-enquiry/<int:id>/', views.submit_enquiry, name='submit_enquiry'),
     path('thank-you/', views.thank_you, name='thank_you'),
     path('<int:id>/<slug:slug>/', views.project_details, name='project_details'),
+    path("configuration/<int:id>/pdf/",views.configuration_pdf,name="configuration_pdf"),
 ]

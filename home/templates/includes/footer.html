@@ -1,4 +1,5 @@
 <footer class="bg-[#3B342E] text-white">
+    
     <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20">
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-14">
             <div>
@@ -44,6 +45,7 @@
 
             </div>
             <div>
+
                 <h3 class="text-[#D79A2B] text-[32px] font-serif mb-2">
                     Our Projects
                 </h3>
@@ -59,12 +61,9 @@
                         </a>
 
                     </li>
-
                 </ul>
 
             </div>
-
-            <!-- ================= Quick Links ================= -->
 
             <div>
                 <h3 class="text-[#D79A2B] text-[28px] font-serif mb-3">
@@ -77,31 +76,31 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/about" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
+                        <a href="{% url "about" %}" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
                             About Us
                         </a>
                     </li>
+                    {% for rs in menu_projects %}
+                     <li>
+                        <a href="{{rs.get_absolute_url}}" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
+                            {{rs.project_name}}
+                        </a>
+                    </li>
+                   {% endfor %}
                     <li>
-                        <a href="/contact" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
+                        <a href="{% url "contact" %}" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
                             Contact
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
-                            Download Brochure
-                        </a>
-
-                    </li>
 
                 </ul>
 
             </div>
 
-            <!-- ================= Contact ================= -->
-
             <div>
 
-                <h3 class="text-[#D79A2B] text-[28px] font-serif mb-5">
+                <h3 class="text-[#D79A2B] text-[28px] font-serif mb-2">
 
                     Contact Us
 
@@ -125,19 +124,12 @@
 
                         <div>
 
-                            <a href="tel:+919512666363"
-                               class="block text-gray-300 hover:text-[#D79A2B] text-[16px]">
+                            <a href="tel:+91{{settings_obj.phone}}" class="block text-gray-300 hover:text-[#D79A2B] text-[16px]">
 
-                                +91 95 12 66 6363
-
-                            </a>
-
-                            <a href="tel:+919512776363"
-                               class="block text-gray-300 hover:text-[#D79A2B] text-[16px]">
-
-                                +91 95 12 77 6363
+                                +91 {{settings_obj.phone}}
 
                             </a>
+
 
                         </div>
 
@@ -147,24 +139,11 @@
 
                         <i class="fa-regular fa-envelope text-[#D79A2B] text-xl mt-1"></i>
 
-                        <a href="mailto:info@example.com"
-                           class="text-gray-300 hover:text-[#D79A2B] text-[16px]">
+                        <a href="mailto:{{settings_obj.email}}" class="text-gray-300 hover:text-[#D79A2B] text-[16px]">
 
-                            vinayaklandmark@gmail.com
+                            {{settings_obj.email}}
 
                         </a>
-
-                    </div>
-
-                    <div class="flex gap-5">
-
-                        <i class="fa-regular fa-clock text-[#D79A2B] text-xl mt-1"></i>
-
-                        <p class="text-gray-300 text-[16px]">
-
-                            Mon - Sat : 10:00 AM - 7:00 PM
-
-                        </p>
 
                     </div>
 
@@ -173,7 +152,6 @@
             </div>
 
         </div>
-
     </div>
 
     <div class="border-t border-white/10">

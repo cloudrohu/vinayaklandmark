@@ -24,6 +24,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.8.3/lightgallery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.8.3/css/lightgallery-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.8.3/plugins/zoom/lg-zoom.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.8.3/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.8.3/plugins/fullscreen/lg-fullscreen.min.js"></script>
 <link rel="stylesheet" href="{% static '' %}assets/css/style.css">
 
 <style>
@@ -200,72 +205,22 @@
 
 {% include 'includes/popups.html' %}
 
-<div id="popup" class="popup-overlay">
-
-  <div class="popup-box">
-
-    <span class="close-popup">&times;</span>
-
-      <div class="popup-header">
-
-      <h2 class="text-2xl">Own Your Dream Home Today</h2>
-
-        <p>
-         Share your details to receive the latest brochure, price list, floor plans, payment plans, and assistance from our property expert.
-        </p>
-
-      </div>
-
-      <div class="popup-body">
-
-        <form method="POST" id="enquiryForm" action="{% url 'submit_home_enquiry' %}">
-          {% csrf_token %}
-            <!-- Name -->
-            <input type="text" name="name" placeholder="Full Name" required>
-
-            <!-- Phone -->
-            <input type="tel" name="phone" placeholder="Phone Number" maxlength="10" minlength="10" pattern="[0-9]{10}" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)" oninvalid="this.setCustomValidity('Please enter a valid 10-digit mobile number.')" oninput="this.setCustomValidity(''); this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)" required  >
-
-            <!-- Email -->
-             <input type="email" name="email" placeholder="Email Address" autocomplete="email" oninvalid="this.setCustomValidity('Please enter a valid email address.')" oninput="this.setCustomValidity('')" required>
-
-            <button type="submit">
-                Send Enquiry
-            </button>
-
-        </form>
-
-      </div>
-
-  </div>
-
-</div>
 
 <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/{{settings_obj.phone}}"
-   target="_blank"
-   class="fixed bottom-6 right-6 z-50 group">
+<a href="https://wa.me/+91{{settings_obj.phone}}" target="_blank" class="fixed bottom-6 right-6 z-50 group">
 
-    <div
-        class="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E] shadow-[0_10px_35px_rgba(18,140,126,0.45)] hover:scale-110 hover:shadow-[0_15px_45px_rgba(18,140,126,0.55)] transition-all duration-300">
+    <div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E] shadow-[0_10px_35px_rgba(18,140,126,0.45)] hover:scale-110 hover:shadow-[0_15px_45px_rgba(18,140,126,0.55)] transition-all duration-300">
 
-        <!-- Glow -->
         <span class="absolute inset-0 rounded-full bg-[#25D366]/30 blur-xl animate-pulse"></span>
 
-        <!-- Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 32 32"
-             fill="white"
-             class="relative w-8 h-8">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="white" class="relative w-8 h-8">
             <path d="M16.01 3C8.84 3 3 8.74 3 15.82c0 2.52.74 4.96 2.13 7.05L3 29l6.34-2.06a13.18 13.18 0 006.67 1.82h.01c7.17 0 13-5.74 13-12.82C29.02 8.74 23.18 3 16.01 3zm7.6 18.1c-.32.88-1.86 1.67-2.56 1.72-.66.05-1.49.08-2.41-.22-.56-.18-1.28-.42-2.2-.81-3.86-1.66-6.37-5.53-6.56-5.79-.19-.26-1.56-2.06-1.56-3.93 0-1.86.98-2.78 1.33-3.16.35-.39.77-.49 1.03-.49h.74c.24 0 .56-.09.87.66.32.77 1.08 2.67 1.18 2.86.1.19.16.42.03.68-.13.26-.19.42-.39.65-.19.22-.4.49-.57.65-.19.19-.38.39-.16.77.22.39.99 1.62 2.12 2.62 1.46 1.29 2.69 1.69 3.08 1.88.39.19.61.16.84-.1.22-.26.97-1.13 1.23-1.52.26-.39.52-.32.87-.19.35.13 2.24 1.05 2.62 1.24.39.19.65.29.74.45.1.16.1.94-.22 1.82z"/>
         </svg>
 
     </div>
 
     <!-- Tooltip -->
-    <div
-        class="absolute right-20 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-lg border border-white/40 px-4 py-2 rounded-full shadow-xl text-sm font-medium text-gray-800 opacity-0 group-hover:opacity-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap">
-
+    <div  class="absolute right-20 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-lg border border-white/40 px-4 py-2 rounded-full shadow-xl text-sm font-medium text-gray-800 opacity-0 group-hover:opacity-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 whitespace-nowrap">
         Chat on WhatsApp
     </div>
 
@@ -273,83 +228,8 @@
 
 
 <script>
+
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-{{ settings_obj.googletagmanager }}');
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const popup = document.getElementById("popup");
-    const close = document.querySelector(".close-popup");
-    const form = document.getElementById("enquiryForm");
-
-    popup.style.display = "none";
-
-    // Agar form submit ho chuka hai to popup kabhi mat dikhao
-    if (localStorage.getItem("popupSubmitted") === "yes") {
-        return;
-    }
-
-    function showPopup() {
-        popup.style.display = "flex";
-    }
-
-    function hidePopup() {
-        popup.style.display = "none";
-    }
-
-    // Close ke baad 2 min tak wait karo
-    const nextShowTime = localStorage.getItem("popupNextShow");
-
-    if (nextShowTime && Date.now() < Number(nextShowTime)) {
-
-        const remaining = Number(nextShowTime) - Date.now();
-
-        setTimeout(showPopup, remaining);
-
-    } else {
-
-        // First time 7 sec baad show
-        setTimeout(showPopup, 7000);
-
-    }
-
-    // Close Button
-    close.addEventListener("click", function () {
-
-        hidePopup();
-
-        // 2 minute baad phir show
-        localStorage.setItem(
-            "popupNextShow",
-            Date.now() + (2 * 60 * 1000)
-        );
-
-    });
-
-    // Outside Click
-    window.addEventListener("click", function (e) {
-
-        if (e.target === popup) {
-
-            hidePopup();
-
-            localStorage.setItem(
-                "popupNextShow",
-                Date.now() + (2 * 60 * 1000)
-            );
-
-        }
-
-    });
-
-    // Form Submit
-    form.addEventListener("submit", function () {
-
-        // Hamesha ke liye band
-        localStorage.setItem("popupSubmitted", "yes");
-
-    });
-
-});
 
 
 </script>
@@ -358,7 +238,15 @@ document.addEventListener("DOMContentLoaded", function () {
   <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-{{ settings_obj.googletagmanager }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18300753434"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'AW-18300753434');
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{% static '' %}assets/js/main.js"></script>

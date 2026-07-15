@@ -48,6 +48,22 @@ def format_price_range(price_min, price_max):
         return fmt(price_min)
     return f"{fmt(price_min)}–{fmt(price_max)}"
 
+@property
+def formatted_price(self):
+    """
+    Returns minimum configuration price.
+    """
+
+    first_config = self.configurations.filter(
+        price_in_rupees__isnull=False
+    ).order_by("price_in_rupees").first()
+
+    if not first_config:
+        return "Price On Request"
+
+    return format_price(first_config.price_in_rupees)
+
+
 class Project(MPTTModel):
     
     BHK_CHOICES = (
@@ -267,36 +283,20 @@ class USP(models.Model):
     def __str__(self):
         return self.point
 class Configuration(models.Model):
-    Project = models.ForeignKey(
-        "Project",
-        on_delete=models.CASCADE,
-        related_name="configurations"
-    )
+    Project = models.ForeignKey("Project",on_delete=models.CASCADE,related_name="configurations")
 
     bhk_type = models.CharField(max_length=50)
 
-    area_sqft = models.IntegerField(
-        verbose_name="Area (Sq.ft)",
-        help_text="Enter area in numeric square feet."
-    )
+    area_sqft = models.IntegerField(verbose_name="Area (Sq.ft)",help_text="Enter area in numeric square feet.")
 
     parking = models.BooleanField(default=False)
     balcony = models.BooleanField(default=False)
     sold_out = models.BooleanField(default=False)
 
-    unit_plan = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to='images/'
-    )
+    unit_plan = models.ImageField(null=True,blank=True,upload_to='images/')
 
     # ✅ PRICE (INTEGER ONLY – VERY IMPORTANT)
-    price_in_rupees = models.IntegerField(
-        verbose_name="Price (in ₹)",
-        help_text="Enter price in total rupees (e.g., 5000000).",
-        null=True,
-        blank=True
-    )
+    price_in_rupees = models.IntegerField(verbose_name="Price (in ₹)",help_text="Enter price in total rupees (e.g., 5000000).",null=True,blank=True)
 
     # ✅ PRICE FORMATTER (CR / L / NORMAL)
     def formatted_price(self):
@@ -324,13 +324,23 @@ class Configuration(models.Model):
 
     class Meta:
         ordering = ['bhk_type']
-class Connectivity(models.Model):
-    Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="connectivity")
-    title = models.CharField(max_length=50)
 
+class Connectivity(models.Model):
+    Project = models.ForeignKey(Project,on_delete=models.CASCADE,related_name="connectivity")
+    title = models.CharField(max_length=100,blank=True,null=True)
+    distance = models.CharField(max_length=50,help_text="Example: 2 Min, 500 M, 3 KM",blank=True,null=True)
+    icon = models.CharField(max_length=50,default="fa-solid fa-location-dot",help_text="Font Awesome icon class",blank=True,null=True)
+
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name_plural = "Connectivity"
 
     def __str__(self):
-        return f"{self.title}"
+        return f"{self.title} - {self.distance}"
+
+
 class Amenities(models.Model):
     Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="amenities")
     amenities = models.ForeignKey(ProjectAmenities, on_delete=models.CASCADE, related_name="amenities")

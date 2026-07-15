@@ -2,1953 +2,2098 @@
 {% load price_filters %}
 {% load humanize %}
 {% block content %}
+<title>{{ project.project_name }} by {{ project.developer }} {{ project.locality }} ,{{ project.city }}</title>
 
 <style>
-    /* Popup open hone par header ke upar ke chips hide */
-    body.popup-open .project-badges,
-    body.popup-open .header-badges,
-    body.popup-open .rera-badges {
-    display: none !important;
+    .no-scrollbar::-webkit-scrollbar{
+        display:none;
     }
 
+    .no-scrollbar{
+        -ms-overflow-style:none;
+        scrollbar-width:none;
+    }
+
+    #amenitiesSlider{
+        cursor:grab;
+        scroll-behavior:smooth;
+    }
+
+    #amenitiesSlider:active{
+        cursor:grabbing;
+    }
+
+    .amenity-card{
+        transition:.35s;
+    }
+    @keyframes popup {
+        from {
+            opacity: 0;
+            transform: translateY(30px) scale(.94);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    .animate-popup {
+        animation: popup .45s cubic-bezier(.22, 1, .36, 1);
+    }
+    .no-scrollbar::-webkit-scrollbar{
+        display:none;
+    }
+
+    .no-scrollbar{
+        scrollbar-width:none;
+        -ms-overflow-style:none;
+    }
+
+    .project-nav{
+
+        position:relative;
+
+        padding:18px 24px;
+
+        white-space:nowrap;
+
+        font-size:15px;
+
+        font-weight:600;
+
+        color:#374151;
+
+        transition:.3s;
+
+    }
+
+    .project-nav:hover{
+
+        color:#C89B2C;
+
+    }
+
+    .project-nav::after{
+
+        content:"";
+
+        position:absolute;
+
+        left:18px;
+
+        right:18px;
+
+        bottom:0;
+
+        height:3px;
+
+        background:#C89B2C;
+
+        transform:scaleX(0);
+
+        transition:.3s;
+
+        border-radius:20px;
+
+    }
+
+    .project-nav:hover::after{
+
+        transform:scaleX(1);
+
+    }
+
+    .project-nav.active{
+
+        color:#C89B2C;
+
+    }
+
+    .project-nav.active::after{
+
+        transform:scaleX(1);
+
+    }
+    #overviewContent{
+
+        transition:max-height .45s ease;
+
+    }
+
+    .container{
+        max-width:1200px;
+        margin:auto;
+    }
+
+    .heading{
+        text-align:center;
+        margin-bottom:45px;
+    }
+
+    .heading h2{
+        font-size:38px;
+        font-weight:700;
+        color:#1f2937;
+    }
+
+        .heading p{
+        margin-top:10px;
+        color:#666;
+    }
+
+    .wrapper{
+
+        display:grid;
+        grid-template-columns:2fr 1fr;
+        gap:30px;
+    }
+
+    .card{
+
+        background:#fff;
+        padding:35px;
+        border-radius:18px;
+        box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+    }
+
+    .card h3{
+
+        font-size:26px;
+        margin-bottom:20px;
+        color:#222;
+
+    }
+
+    .card p{
+
+        font-size:16px;
+        line-height:30px;
+        color:#666;
+
+    }
+    .scrollbar-hide::-webkit-scrollbar{
+    display:none;
+    }
+
+    .scrollbar-hide{
+        -ms-overflow-style:none;
+        scrollbar-width:none;
+    }
+
+    .read-btn{
+
+        margin-top:25px;
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:13px 26px;
+        background:#C89B2C;
+        color:#fff;
+        border:none;
+        border-radius:40px;
+        cursor:pointer;
+        font-size:15px;
+        font-weight:600;
+        transition:.3s;
+
+    }
+
+    .read-btn:hover{
+
+        background:#a87f1d;
+
+    }
+
+    .sidebar{
+
+        display:flex;
+        flex-direction:column;
+        gap:25px;
+
+    }
+
+    .info{
+
+        background:#fff;
+        padding:28px;
+        border-radius:18px;
+        box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+    }
+
+    .info h4{
+
+        margin-bottom:18px;
+        font-size:22px;
+        color:#222;
+
+    }
+
+    .info ul{
+
+    list-style:none;
+
+    }
+
+    .info li{
+
+        display:flex;
+        justify-content:space-between;
+        padding:14px 0;
+        border-bottom:1px solid #eee;
+        font-size:15px;
+
+    }
+
+    .info li:last-child{
+
+        border:none;
+
+    }
+
+    .label{
+
+        font-weight:600;
+        color:#333;
+
+    }
+
+    .value{
+
+        color:#666;
+
+    }
+
+    .about{
+
+        margin-top:40px;
+
+    }
+
+    .about h3{
+
+        margin-bottom:20px;
+
+    }
+
+    @media(max-width:992px){
+
+    .wrapper{
+
+        grid-template-columns:1fr;
+
+    }
+
+    }
+
+    @media(max-width:600px){
+
+    .heading h2{
+
+        font-size:30px;
+
+    }
+
+    .card,
+    .info{
+
+        padding:25px;
+
+    }
+
+    }
+
+    /* Overview Card */
+
+    .overview-card{
+
+        position:relative;
+        overflow:hidden;
+
+    }
+
+    .overview-card::before{
+
+        content:"";
+        position:absolute;
+        left:0;
+        top:0;
+        width:6px;
+        height:100%;
+        background:linear-gradient(#D8B15A,#B8860B);
+
+    }
+
+    .section-badge{
+
+        display:inline-block;
+        padding:8px 18px;
+        border-radius:50px;
+        background:#fbf6ea;
+        color:#b8860b;
+        font-size:13px;
+        font-weight:600;
+        letter-spacing:2px;
+        margin-bottom:18px;
+
+    }
+
+    .overview-card h3{
+
+        font-size:32px;
+        line-height:42px;
+        margin-bottom:15px;
+        color:#222;
+
+    }
+
+    .heading-line{
+
+        width:90px;
+        height:4px;
+        background:#C89B2C;
+        border-radius:50px;
+        margin-bottom:25px;
+
+    }
+
+    .overview-card p{
+
+        font-size:17px;
+        line-height:34px;
+        color:#666;
+
+    }
+
+    .more-text{
+        max-height:0;
+        overflow:hidden;
+        opacity:0;
+        transition:max-height .5s ease, opacity .5s ease;
+    }
+
+    .more-text.show{
+        max-height:1000px;
+        opacity:1;
+        margin-top:20px;
+    }   
+
+    .read-btn{
+
+        margin-top:25px;
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+
+    }
+
+    .read-btn i{
+
+        transition:.4s;
+
+    }
+
+    .read-btn.active i{
+
+        transform:rotate(180deg);
+
+    }
+
+    @media(max-width:768px){
+
+        .overview-card{
+
+            padding:28px;
+
+        }
+
+        .overview-card h3{
+
+            font-size:25px;
+            line-height:34px;
+
+        }
+
+        .overview-card p{
+
+            font-size:15px;
+            line-height:29px;
+
+        }
+
+    }
+    #luxury-map iframe {
+        width: 100% !important;
+        height: 100% !important;
+        border: 0;
+    }
 </style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/css/projects_details.css">
-    <script src="assets/js/projects_details.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <title>{{ project.project_name }} by {{ project.developer }} {{ project.locality }} ,{{ project.city }}</title>
-</head>
+<main>
 
-<style>
-  iframe{
-    width: 100%;
-  }
-</style>
+<!-- Top Section Additional Start -->
+<section class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-5 lg:px-8 py-5">
 
-<!-- ================= PROJECT HEADER ================= -->
-<section class="border-b bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-4 lg:py-6 sticky top-0 z-[999]">
+        <nav class="flex flex-wrap items-center text-sm text-gray-500 gap-2">
 
-        <!-- BREADCRUMB -->
-        <nav class="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs tracking-widest uppercase font-light text-stone-400">
+            <a href="/" class="hover:text-[#C89B2C]">Home</a>
 
-            <a href="/"
-                class="transition-colors duration-500 ease-out hover:text-stone-900">
-                Home
+            <span>/</span>
+
+            <a href="#" class="hover:text-[#C89B2C]">{{ project.city }}</a>
+
+            <span>/</span>
+
+            <a href="#" class="hover:text-[#C89B2C]">
+                Residential Projects in {{ project.locality.name }}
             </a>
 
-            <span class="text-stone-300 font-extralight select-none">/</span>
+            <span>/</span>
 
-            <a href="#"
-                class="transition-colors duration-500 ease-out hover:text-stone-900">
-                {{ project.city }}
-            </a>
-
-            <span class="text-stone-300 font-extralight select-none">/</span>
-
-            <a href="#"
-                class="transition-colors duration-500 ease-out hover:text-stone-900">
-                {{ project.locality }}
-            </a>
-
-            <span class="text-stone-300 font-extralight select-none">/</span>
-
-            <span class="font-normal text-stone-800 truncate max-w-[200px] sm:max-w-none tracking-wide normal-case">
+            <span class="font-semibold text-gray-900">
                 {{ project.project_name }}
             </span>
 
         </nav>
 
-      
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
 
-            <!-- MAIN ROW (ARCHITECTURAL LAYOUT) -->
-            <div class="py-12 border-b border-stone-100 relative group">
-                
-                <!-- TOP SECTION: Project Identity & Subtle Background Element -->
-                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    
-                    <!-- Left 8 Columns: Heading and Narrative -->
-                    <div class="lg:col-span-8 space-y-6">
-                        
-                        <!-- Structural Meta Tag (Floating over the title) -->
-                        <div class="flex items-center gap-4 text-[10px] uppercase tracking-[0.25em] text-stone-400">
-                            <span>Featured Atelier</span>
-                            <span class="w-12 h-[1px] bg-stone-200"></span>
-                            <span class="text-stone-900 font-medium">{{ project.developer }}</span>
-                        </div>
+            <div class="lg:col-span-8">
 
-                        <!-- Massive Elegant Serif Title -->
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-light text-stone-900 tracking-tight leading-none max-w-3xl">
-                            {{ project.project_name }}
-                        </h1>
-                        
-                        <!-- Location with Architectural Iconography -->
-                        <div class="flex items-center gap-2 text-xs tracking-wider text-stone-500 uppercase font-light">
-                            <svg class="w-3 h-3 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            </svg>
-                            <span>{{ project.locality }}</span>
-                            <span class="text-stone-300">/</span>
-                            <span class="text-stone-400 font-normal">{{ project.city }}</span>
-                        </div>
+                <h1 class="text-3xl lg:text-5xl font-bold text-gray-900">
+                    {{ project.project_name }}
+                </h1>
+
+                <p class="text-gray-600 text-lg mt-2">
+                    {{project.luxurious}}
+                </p>
+
+                <div class="flex flex-wrap gap-x-6 gap-y-3 mt-5 text-sm text-gray-700">
+
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-[#C89B2C]"></i>
+                        {{project.locality}}
                     </div>
 
-                    <!-- Right 4 Columns: Price Displayed Like an Artwork Tag -->
-                    <div class="lg:col-span-4 lg:text-right pt-4 lg:pt-0 flex flex-col justify-between h-full lg:min-h-[140px]">
-                        <div>
-                            <p class="text-[9px] uppercase tracking-[0.3em] text-stone-400 mb-1">Value Statement</p>
-                            <p class="text-3xl font-extralight text-stone-950 tracking-wide">
-                                {{ project.priceing }}
-                            </p>
-                            <p class="text-[11px] italic font-serif text-stone-400 mt-0.5">Inquire for Private Bespoke Pricing</p>
-                        </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-building text-[#C89B2C]"></i>
+                        {{project.project_name}}
                     </div>
+
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        {{project.construction_status}}
+                    </div>
+
                 </div>
 
-                <!-- MIDDLE SECTION: Ultra-thin Geometric Divider Line -->
-                <div class="my-8 w-full h-[1px] bg-gradient-to-r from-stone-200 via-stone-100 to-transparent"></div>
+                <!-- RERA -->
+                <div class="mt-4 flex items-start gap-2 text-sm">
 
-                
-            </div>
+                    <i class="fa-solid fa-id-card text-[#C89B2C] mt-1"></i>
 
+                    <p class="text-gray-600">
+                        <span class="font-semibold text-gray-800">
+                            RERA :
+                        </span>
 
-    </div>
-</section>
-
-<section-FIRST>
-        <!-- IMAGES  -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-
-        <!-- LEFT BIG IMAGE -->
-        <div class="md:col-span-2 relative border border-gray-200">
-        {% if project.image %}
-        <img src="{{ project.image.url }}"
-             class="w-full h-[530px] object-cover cursor-pointer gallery-img"
-             data-index="0">
-        {% endif %}
-        </div>
- 
-        <!-- RIGHT SIDE SMALL IMAGES -->
-        <div class="flex flex-col gap-4 hidden md:block">
-
-        {% with images=project.gallery.all %}
-        {% if images|length > 0 %}
-        <div class="relative">
-            <img src="{{ images.0.image.url }}"
-                 class="w-full h-[260px] object-cover cursor-pointer gallery-img"
-                 data-index="1">
-        </div>
-        {% endif %}
-
-        {% if images|length > 1 %}
-        <div class="relative">
-            <img src="{{ images.1.image.url }}"
-                 class="w-full h-[260px] object-cover cursor-pointer gallery-img opacity-90"
-                 data-index="2">
-
-            {% if images|length > 2 %}
-            <div class="absolute inset-0 bg-black/40 flex items-center justify-center
-            text-white text-lg font-medium cursor-pointer view-all-btn">
-                View all images
-            </div>
-
-
-            {% endif %}
-        </div>
-        {% endif %}    
-
-        {% endwith %}
-
-        </div>
-
-        </div>
-
-    <!-- POPUP -->
-    <div id="popup" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[9999] backdrop-blur-sm transition">
-
-        <!-- CLOSE BUTTON -->
-        <button id="closeBtn"
-            class="absolute top-5 right-5 text-white text-4xl font-light hover:scale-110 transition">
-            ✕
-        </button>
-
-        <!-- PREV -->
-        <button id="prevBtn"
-            class="absolute left-6 text-white text-5xl hover:scale-110 transition select-none">
-            ❮
-        </button>
-
-        <!-- NEXT -->
-        <button id="nextBtn"
-            class="absolute right-6 text-white text-5xl hover:scale-110 transition select-none">
-            ❯
-        </button>
-
-        <!-- CENTER IMAGE -->
-        <img id="popupImg" class="max-h-[90vh] max-w-[90vw] rounded-no shadow-2xl transition">
-    </div>
-
-        <br>
-
-    <style>
-    /* small improvements for popup */
-    #popup {
-        animation: fadeIn 0.18s ease-out;
-    }
-    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-
-    /* make overlay clickable but closeBtn stays clickable */
-    #popup .popup-inner {
-        position: relative;
-        max-width: 90vw;
-        max-height: 90vh;
-    }
-
-    /* optional: prevent image selection when dragging */
-    #popupImg { user-select: none; -webkit-user-drag: none; }
-    </style>
-
-    <script>
-        (function(){
-        // --- elements ---
-        const imgs = Array.from(document.querySelectorAll("img.gallery-img"));
-
-        
-        const popup = document.getElementById("popup");
-        const popupImg = document.getElementById("popupImg");
-        const closeBtn = document.getElementById("closeBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        const prevBtn = document.getElementById("prevBtn");
-        const tabsNav = document.getElementById("tabsNav");
-        const viewAllBtn = document.querySelector(".view-all-btn");
-        if (viewAllBtn) {
-            viewAllBtn.addEventListener("click", () => {
-                openAt(0); // first image se popup open
-            });
-        }
-
-
-        if (!popup || imgs.length === 0) return; // nothing to do
-
-        let current = 0;
-        let scrollBarWidth = 0;
-
-        // utility: lock / unlock scroll (safe)
-        function lockScroll() {
-            // compute scrollbar width to avoid layout jump
-            scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-            if (scrollBarWidth > 0) {
-            document.documentElement.style.paddingRight = scrollBarWidth + 'px';
-            document.body.style.paddingRight = scrollBarWidth + 'px';
-            }
-            // use fixed to avoid double scroll on iOS/mobile
-            document.documentElement.style.overflow = 'hidden';
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('popup-open');
-        }
-
-        function unlockScroll() {
-            document.documentElement.style.overflow = '';
-            document.body.style.overflow = '';
-            document.documentElement.style.paddingRight = '';
-            document.body.style.paddingRight = '';
-            document.body.classList.remove('popup-open');
-        }
-
-        // open popup at index
-        function openAt(index) {
-            current = ((index % imgs.length) + imgs.length) % imgs.length; // safe wrap
-            popupImg.src = imgs[current].src;
-            popup.classList.remove('hidden');
-            popup.classList.add('flex');
-            lockScroll();
-
-            // hide nav if present
-            if (tabsNav) tabsNav.style.display = 'none';
-            // focus for keyboard
-            closeBtn.focus();
-        }
-
-        // close popup
-        function closePopup() {
-            popup.classList.remove('flex');
-            popup.classList.add('hidden');
-            unlockScroll();
-            if (tabsNav) tabsNav.style.display = '';
-        }
-
-        // image click to open
-        imgs.forEach((img, idx) => {
-            img.addEventListener('click', (e) => {
-            e.preventDefault();
-            openAt(idx);
-            });
-        });
-
-        // next / prev handlers
-        nextBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            current = (current + 1) % imgs.length;
-            popupImg.src = imgs[current].src;
-        });
-
-        prevBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            current = (current - 1 + imgs.length) % imgs.length;
-            popupImg.src = imgs[current].src;
-        });
-
-        // close button
-        closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            closePopup();
-        });
-
-        // click on overlay (but ignore clicks on image or controls)
-        popup.addEventListener('click', (e) => {
-            if (e.target === popup) closePopup();
-        });
-
-        // keyboard support: Esc to close, Arrow keys to navigate
-        document.addEventListener('keydown', (e) => {
-            if (popup.classList.contains('hidden')) return;
-
-            if (e.key === 'Escape') {
-            closePopup();
-            } else if (e.key === 'ArrowRight') {
-            current = (current + 1) % imgs.length;
-            popupImg.src = imgs[current].src;
-            } else if (e.key === 'ArrowLeft') {
-            current = (current - 1 + imgs.length) % imgs.length;
-            popupImg.src = imgs[current].src;
-            }
-        });
-
-        // defensive: if images change dynamically, update list (optional)
-        // MutationObserver could be added here if needed.
-
-        })();
-    </script>
-
-
-
-   
-</section-FIRST>
-
-<section id="tabsNav">
-    <div class="w-full border-t border-b bg-white sticky top-[0px] z-50">
-
-
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-
-            <!-- LEFT ARROW -->
-            <button id="navLeft" class="p-2 border  bg-white shadow-sm text-gray-700">
-            <span class="text-xl">&lt;</span>
-            </button>
-
-            <!-- SCROLLABLE NAV -->
-            <div id="navScroll" class="flex-1 overflow-x-auto mx-4 no-scrollbar">
-            <div class="flex items-center gap-10 whitespace-nowrap text-gray-700 font-medium py-4">
-
-                <a href="#overview" class="nav-link active">Overview</a>
-                <a href="#pricing" class="nav-link">Pricing & Unit Plans</a>
-                <a href="#location" class="nav-link">Location</a>
-                <a href="#video" class="nav-link"> Video</a>
-
-                <a href="#amenities" class="nav-link">Amenities</a>
-                <a href="#floorplan" class="nav-link">Floor Plan</a>
-                <a href="#paymentscheme" class="nav-link">Payment Scheme</a>
-                <a href="#bank_offers" class="nav-link">Bank</a>
-
-                <a href="#emi_calculator" class="nav-link">EMI Calculator</a>
-                <a href="#about_developer" class="nav-link">About Developer</a>
-                <a href="#faqs" class="nav-link">Faq's</a>
-
-
-            </div>
-            </div>
-
-            <!-- RIGHT ARROW -->
-            <button id="navRight" class="p-2 border  bg-white shadow-sm text-gray-700">
-            <span class="text-xl">&gt;</span>
-            </button>
-
-        </div>
-    </div>
-    <script>
-    const navLinks = document.querySelectorAll(".nav-link");
-    const navScroll = document.getElementById("navScroll");
-    const navLeft = document.getElementById("navLeft");
-    const navRight = document.getElementById("navRight");
-
-    // ACTIVE TAB CHANGE
-    navLinks.forEach(link => {
-        link.addEventListener("click", () => {
-        document.querySelector(".nav-link.active")?.classList.remove("active");
-        link.classList.add("active");
-
-        // center the active tab smoothly
-        const linkPos = link.offsetLeft - navScroll.offsetWidth / 2 + link.offsetWidth / 2;
-        navScroll.scrollTo({ left: linkPos, behavior: "smooth" });
-        });
-    });
-
-    // SCROLL BUTTONS
-    navLeft.addEventListener("click", () => {
-        navScroll.scrollBy({ left: -200, behavior: "smooth" });
-    });
-
-    navRight.addEventListener("click", () => {
-        navScroll.scrollBy({ left: 200, behavior: "smooth" });
-    });
-    /* ============================================
-    🔥 AUTO ACTIVE TAB ON SCROLL (Improved Logic)
-        =============================================== */
-        const sections = document.querySelectorAll(
-        "#overview, #configurations, #amenities, #locality, #price, #payment, #bank_offers, #developer"
-        );
-
-        let activeSection = null;
-
-        window.addEventListener("scroll", () => {
-        let scrollPos = window.scrollY + 150; // navbar height adjustment
-
-        sections.forEach(section => {
-            if (
-            scrollPos >= section.offsetTop &&
-            scrollPos < section.offsetTop + section.offsetHeight
-            ) {
-            const id = section.getAttribute("id");
-
-            if (activeSection !== id) {
-                activeSection = id;
-
-                // remove old active
-                document.querySelector(".nav-link.active")?.classList.remove("active");
-
-                // add active to new tab
-                const newActive = document.querySelector(`.nav-link[href="#${id}"]`);
-                if (newActive) {
-                newActive.classList.add("active");
-
-                // auto center tab
-                const linkPos =
-                    newActive.offsetLeft -
-                    navScroll.offsetWidth / 2 +
-                    newActive.offsetWidth / 2;
-
-                navScroll.scrollTo({ left: linkPos, behavior: "smooth" });
-                }
-            }
-            }
-        });
-        });
-
-    </script>
-
-</section>
-
-<script>
-
-  const tabsNav = document.getElementById("tabsNav");
-
-    // show popup
-    imgs.forEach((img, index) => {
-        img.addEventListener("click", () => {
-            current = index;
-            popupImg.src = img.src;
-            popup.classList.remove("hidden");
-            popup.classList.add("flex");
-            tabsNav.style.display = "none";   // 🔥 HIDE NAV WHEN POPUP OPENS
-        });
-    });
-
-    // close popup
-    document.getElementById("closeBtn").onclick = () => {
-        popup.classList.add("hidden");
-        tabsNav.style.display = "block";      // 🔥 SHOW NAV AGAIN
-    };
-
-</script>
-
-<!-- ===================== OVERVIEW BOX ===================== -->
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="overview">
-    <div class="bg-[#e8eff5] border rounded-t-lg px-5 py-3 flex items-center justify-between">
-        <h2 class="text-xl font-semibold">{{ project.project_name }} Overview</h2>
-
-
-
-         {% if project.rera.first.document %}
-         
-        <a href="{{ project.rera.first.document.url }}"
-           class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded"
-           download>
-            Brochure
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
-            </svg>
-        </a>
-        {% endif %}
-
-    
-    </div>
-
-    <div class="bg-white border border-t-0 rounded-b-lg p-6">
-
-        <!-- GRID CARDS -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-                <!-- Card 1 -->
-                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                    <p class="text-green-600 font-semibold text-lg">{{ project.land_parce }}</p>
-                    <p class="text-gray-600 text-sm">Land Parcel</p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                    <p class="font-semibold text-lg">{{ project.floor }}</p>
-                    <p class="text-gray-600 text-sm">Towers</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                    <p class="font-semibold text-lg">{{ project.floor }}</p>
-                    <p class="text-gray-600 text-sm">Floors</p>
-                </div>
-
-                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                    <p class="font-semibold text-lg">
-                        {% for bhk in project.bhk_type %}
-                            {{ bhk|cut:" BHK" }}{% if not forloop.last %}, {% endif %}
-                        {% endfor %} BHK
+                        {{project.rera.first.registration_no}}
                     </p>
-                    <p class="text-gray-600 text-sm">Config</p>
+
                 </div>
 
+                <!-- Highlights -->
+                <div class="flex flex-wrap gap-3 mt-6 md:flex hidden">
 
-                <!-- Card 5 : RERA Number -->
-                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                    {% if project.rera.first.registration_no %}
-                        <p class="font-semibold text-lg">
-                            {{ project.rera.first.registration_no }}
+                    <div class="bg-gray-50 border rounded-md px-4 py-3">
+                        <p class="text-xs uppercase text-gray-400">
+                            Price
                         </p>
-                    {% else %}
-                        <p class="font-semibold text-lg text-gray-400">
-                            NA
+                        <h3 class="font-bold">
+                            ₹{{project.priceing}}*
+                        </h3>
+                    </div>
+
+                    <div class="bg-gray-50 border rounded-md px-4 py-3">
+                        <p class="text-xs uppercase text-gray-400">
+                            Configuration
                         </p>
-                    {% endif %}
-                    <p class="text-gray-600 text-sm">RERA No.</p>
+                        <h3 class="font-bold">
+                            {% for bhk in project.bhk_type %}
+                              {{ bhk|cut:" BHK" }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %} BHK
+                        </h3>
+                    </div>
+
+                    <div class="bg-gray-50 border rounded-md px-4 py-3">
+                        <p class="text-xs uppercase text-gray-400">
+                            Carpet Area
+                        </p>
+                        <h3 class="font-bold">
+                             {{ project.get_carpet_area_range }}
+                        </h3>
+                    </div>
+
+                    <div class="bg-gray-50 border rounded-md px-4 py-3">
+                        <p class="text-xs uppercase text-gray-400">
+                            Possession
+                        </p>
+                        <h3 class="font-bold">
+                            {{ project.possession_month }},{{ project.possession_year }}
+                        </h3>
+                    </div>
+
                 </div>
 
-
-                <!-- Card 6 -->
-                <!-- Card 6 : Carpet Area -->
-                <!-- Card 6 : Carpet Area (MIN–MAX) -->
-            
-                <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                <p class="font-semibold text-lg">
-                    {{ project.get_carpet_area_range }}
-                </p>
-                <p class="text-gray-600 text-sm">Carpet Area</p>
             </div>
 
+            <!-- RIGHT CTA -->
+            <div class="lg:col-span-4">
 
-            <!-- Card 7 : Target Possession -->
-            <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                <p class="font-semibold text-lg">
-                    {{ project.possession_month }} {{ project.possession_year }}
-                </p>
-                <p class="text-gray-600 text-sm">Target Possession</p>
+                <div class="bg-white border rounded-lg shadow-md p-4">
+
+                    <h3 class="text-3xl font-bold text-[#C89B2C]">
+                        ₹85 L*
+                    </h3>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        Starting Price
+                    </p>
+
+                    <div class="mt-5 space-y-3">
+
+                        <a href="#" class="h-11 flex items-center justify-center gap-2 rounded-md bg-[#C89B2C] hover:bg-[#b88b23] text-white font-semibold duration-300">
+                            <i class="fa-solid fa-download"></i>
+
+                            Download Brochure
+
+                        </a>
+
+                        <a href="#" class="h-11 flex items-center justify-center gap-2 rounded-md border border-[#C89B2C] text-[#C89B2C] hover:bg-[#C89B2C] hover:text-white duration-300">
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                            Book Site Visit
+
+                        </a>
+
+                        <div class="grid grid-cols-2 gap-3">
+
+                            <a href="https://wa.me/+91{{settings_obj.phone}}" class="h-11 rounded-md bg-green-500 hover:bg-green-600 text-white flex items-center justify-center gap-2">
+
+                                <i class="fa-brands fa-whatsapp"></i>
+
+                                WhatsApp
+
+                            </a>
+
+                            <a href="tel:+91{{ settings_obj.phone }}" class="h-11 rounded-md bg-gray-900 hover:bg-black text-white flex items-center justify-center gap-2 transition duration-300">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                Call Now
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <!-- Card 8 : RERA Possession -->
-            <div class="border p-4 rounded-md bg-white flex flex-col gap-1">
-                <p class="font-semibold text-lg">
-                    {{ project.possession_month }} {{ project.possession_year }}
-                </p>
-                <p class="text-gray-600 text-sm">RERA Possession</p>
-            </div>
-        </div>
-
-        <!-- ABOUT TEXT -->
-        <div class="mt-6">
-            <h3 class="font-semibold mb-2">About {{ project.project_name }}</h3>
-
-
-            
-            <p class="text-gray-700 text-sm mb-2" id="aboutShort">
-                {{ project.welcomes.first.description }}
-            </p>
-
-            <p class="text-gray-700 text-sm mb-2 hidden mt-2" id="aboutFull">
-                {{ project.welcomes.first.read_more }}
-            </p>
-
-
-            <button id="readMoreBtn" class="text-green-600 font-semibold text-sm">
-                Read More...
-            </button>
         </div>
 
     </div>
-    
 </section>
+<!-- Top Section Additional End -->
 
-<script>
-    document.getElementById("readMoreBtn").addEventListener("click", function () {
-        const shortText = document.getElementById("aboutShort");
-        const fullText = document.getElementById("aboutFull");
+<!-- Images Section Start Here -->
+<section class="py-8 bg-white">
+    
+    <div class="max-w-10xl mx-auto px-4 lg:px-6">
+        <div id="projectGallery" class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+            {% if project.image %}
+            <a href="{{ project.image.url }}" class="lg:col-span-8 relative group overflow-hidden">
+
+                <img src="{{ project.image.url }}" class="w-full h-[280px] md:h-[500px] lg:h-[640px] object-cover group-hover:scale-105 duration-500">
+               
+                <div class="absolute bottom-5 left-5 bg-black/70 text-white px-4 py-2 rounded-xl">
+                    Artistic Impression
+                </div>
+
+                <div class="absolute bottom-5 right-5 bg-black/70 text-white px-4 py-2 rounded-xl flex items-center gap-2">
+                    <i class="fa-regular fa-images"></i>
+                    {{ project.gallery.count|add:"1" }} Photos
+                </div>
+
+            </a>
+            {% endif %}
+
+            <!-- Right -->
+            <div class="lg:col-span-4 flex flex-col gap-5">
+
+                {% with images=project.gallery.all %}
+
+                    {% if images|length > 0 %}
+                    <a href="{{ images.0.image.url }}" class="overflow-hidden">
+                        <img src="{{ images.0.image.url }}" class="w-full h-[300px] object-cover hover:scale-105 duration-500">
+                    </a>
+                {% endif %}
 
 
-        if (fullText.classList.contains("hidden")) {
-            fullText.classList.remove("hidden");
-            shortText.classList.add("hidden");
-            this.textContent = "Read Less...";
-        } else {
-            fullText.classList.add("hidden");
-            shortText.classList.remove("hidden");
-            this.textContent = "Read More...";
-        }
-    });
-</script>
+               {% if images|length > 1 %}
 
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="pricing">
+                <a href="{{ images.1.image.url }}" class="relative overflow-hidden">
+                    <img src="{{ images.1.image.url }}" class="w-full h-[300px] object-cover hover:scale-105 duration-500">
 
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg flex items-center justify-between">
-        <h2 class="text-lg md:text-xl font-semibold">
-            {{ project.project_name }} Pricing & Unit Plans
-        </h2>
+                    {% if images|length > 2 %}
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <span class="bg-white px-6 py-3 rounded-xl font-semibold">
+                            +{{ images|length|add:"-2" }} View All Photos
+                        </span>
+                    </div>
+                    {% endif %}
+                </a>
+              {% endif %}
+            
+            {% endwith %}  
 
-        <button id="openPricePopup"
-            class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded">
-            Price Sheet
-        </button>
-    </div>
+            </div>
 
-    <div class="bg-white border border-t-0 rounded-b-lg">
-
-        {% regroup project.configurations.all by bhk_type as bhk_groups %}
-
-        <!-- ================= TABS ================= -->
-        <div class="flex gap-6 px-5 pt-4 border-b">
-            {% for group in bhk_groups %}
-                <button
-                    class="tab-btn {% if forloop.first %}text-green-700 font-semibold border-b-2 border-green-700{% else %}text-gray-600{% endif %} pb-2"
-                    data-tab="tab-{{ group.grouper|slugify }}">
-                    {{ group.grouper }}
-                </button>
+            {% for img in project.gallery.all %}
+            <a href="{{ img.image.url }}" class="hidden"></a>
             {% endfor %}
         </div>
 
-        <!-- ================= TAB CONTENT ================= -->
-        {% for group in bhk_groups %}
-        <div id="tab-{{ group.grouper|slugify }}"
-             class="tab-content {% if not forloop.first %}hidden{% endif %} p-5">
+    </div>
 
-            <div class="overflow-x-auto rounded-lg">
-                <table class="w-full border text-sm text-gray-700">
-                    <thead class="bg-gray-100">
-                        <tr class="text-center">
-                            <th class="border px-4 py-3">Carpet Area</th>
-                            <th class="border px-4 py-3">Price</th>
-                            <th class="border px-4 py-3">Parking</th>
-                            <th class="border px-4 py-3">Unit Plan</th>
-                        </tr>
-                    </thead>
+</section>
+<!-- Images Section End Here -->
 
-                    <tbody>
-                        {% for c in group.list %}
-                        <tr class="text-center">
-                            <td class="border px-4 py-4">
-                                {{ c.area_sqft }} sqft
-                            </td>
+<!-- Nav Links Start Here -->
+<section class="sticky top-0 z-50 bg-white border-y border-gray-200 shadow-sm">
 
-                            <td class="border px-4 py-4">
-                                {{ c.formatted_price }}
-                            </td>
+    <div class="max-w-7xl mx-auto flex items-center">
 
-                            <td class="border px-4 py-4">
-                                {% if c.parking %}Yes{% else %}No{% endif %}
-                            </td>
+        <!-- Left Arrow -->
+        <button id="navPrev" class="hidden lg:flex w-12 h-14 items-center justify-center border-r border-gray-200 hover:bg-gray-50 transition">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
 
-                            <td class="border px-4 py-4">
-                                {% if c.unit_plan %}
-                                    <img src="{{ c.unit_plan.url }}"
-                                         class="w-24 h-16 mx-auto object-cover rounded">
-                                {% else %}
-                                    NA
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="4" class="py-6 text-center text-gray-400">
-                                No pricing available
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <!-- Nav Wrapper -->
+        <div id="navContainer" class="flex-1 overflow-x-auto scroll-smooth no-scrollbar">
+
+            <div class="flex min-w-max">
+
+                <a href="#overview" class="project-nav active">Overview</a>
+
+                <a href="#pricing" class="project-nav">Pricing & Unit Plans</a>
+
+                <a href="#location" class="project-nav">Location</a>
+
+                <a href="#video" class="project-nav">Video</a>
+
+                <a href="#amenities" class="project-nav">Amenities</a>
+
+                <a href="#floorplan" class="project-nav">Floor Plans</a>
+
+                <a href="#payment" class="project-nav">Payment Plan</a>
+
+                <a href="#banks" class="project-nav">Bank Offers</a>
+
+                <a href="#emi" class="project-nav">EMI Calculator</a>
+
+                <a href="#developer" class="project-nav">Developer</a>
+
+                <a href="#faq" class="project-nav">FAQs</a>
+
+                <a href="#contact" class="project-nav">Contact</a>
+
             </div>
+
         </div>
-        {% endfor %}
+
+        <!-- Right Arrow -->
+        <button id="navNext" class="hidden lg:flex w-12 h-14 items-center justify-center border-l border-gray-200 hover:bg-gray-50 transition">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+    </div>
+
+</section>
+<!-- Nav Links End Here -->
+
+<!-- Overview Start Here -->
+<section id="overview">
+    <div class="container p-6" >
+
+        <div class="heading">
+
+            <h2>Project Overview</h2>
+
+            <p>Everything you need to know about this premium development.</p>
+
+        </div>
+
+        <div class="wrapper">
+
+            <div class="card overview-card">
+
+                <span class="section-badge">
+                    PROJECT OVERVIEW
+                </span>
+
+                <h3>
+                    Experience Premium Living in {{project.city}}
+                </h3>
+
+                <div class="heading-line"></div>
+
+                {% for rs in project.welcomes.all %}
+                    <p>
+                        {{rs.description}}
+                    </p>
+
+                    <div class="more-text" id="overviewMore">
+
+                        <p>
+                             {{rs.read_more}}
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+                    <button class="read-btn" onclick="toggleText('overviewMore',this)">
+                        <span>Read More</span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </button>
+
+            </div>
+
+            <div class="sidebar mb-6">
+
+                <div class="info">
+
+                    <h4>Additional Details</h4>
+
+                    <ul>
+
+                        <li>
+                            <span class="label">Project Type</span>
+                            <span class="value">{{project.propert_type}}</span>
+                        </li>
+
+                        <li>
+                            <span class="label">Configuration</span>
+                            <span class="value">{{project.bhk_type}}</span>
+                        </li>
+
+                        <li>
+                            <span class="label">Land Parcel</span>
+                            <span class="value">{{project.land_parce}}</span>
+                        </li>
+
+                        <li>
+                            <span class="label">Possession</span>
+                            <span class="value">{{project.possession_month}} , {{project.possession_year}}</span>
+                        </li>
+
+                        <li>
+                            <span class="label">RERA</span>
+                            {% if project.rera_approved %}
+                                <span class="value text-green-600">Approved</span>
+                            {% else %}
+                                <span class="value text-amber-600">Under Process</span>
+                            {% endif %}
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 </section>
+<!-- Overview End Here -->
 
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px] grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-6" id="location">
+<!-- Pricing Start Here -->
+<section class="py-20 bg-[#faf8f3]" id="pricing">
 
-    <!-- ===================== MIDDLE COLUMN ===================== -->
-    <div>
-        <!-- LOCATION HEADING -->
-        <h2 class="text-xl font-semibold bg-[#e8eff5] px-4 py-3 rounded-t-lg border">Location</h2>
-        <div class="border border-t-0 rounded-b-lg p-5 bg-white">
-            <!-- MAP -->
-            <div class="border rounded-lg overflow-hidden" style="height: 350px; width: 100%;">               
-                {{ project.google_map_iframe|safe }}
-            </div>
+    <div class="max-w-7xl mx-auto px-4">
 
-            <br>
+        <!-- Heading -->
+        <div class="text-center mb-12">
 
-            <ul class="grid grid-cols-1 md:grid-cols-2 gap-y-2 text-sm text-gray-800 pl-5 mb-4 list-disc">
-                {% for item in project.configs.all %}
-                    <li>{{ item.title }}</li>
-                {% endfor %}
-            </ul>
+            <span class="inline-flex px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold uppercase tracking-[3px]">
+                Pricing & Floor Plan
+            </span>
+
+            <h2 class="text-3xl lg:text-5xl font-bold text-gray-900 mt-4">
+                Choose Your Perfect Home
+            </h2>
+
         </div>
 
-        <!-- VIDEOS SECTION -->
-        <h2 class="text-xl font-semibold bg-[#e8eff5] px-4 py-3 mt-6 rounded-t-lg border">
-            Videos
-        </h2>
+        <!-- Navigation -->
+        <div class="hidden lg:flex justify-end gap-3 mb-6">
 
-        <div class="border border-t-0 rounded-b-lg p-5 bg-white" id="video">
-            <p class="text-green-600 font-semibold mb-3">Teaser</p>
+            <button id="prevPricing" class="w-11 h-11 rounded-full border border-gray-300 hover:bg-[#C89B2C] hover:text-white duration-300">
 
-            <div class="relative w-full rounded-lg overflow-hidden bg-black" style="height: 525px;">
+                <i class="fa-solid fa-arrow-left"></i>
 
-                <!-- THUMBNAIL -->
-                <img
-                    id="videoThumb"
-                    src="https://img.youtube.com/vi/{{ project.youtube_embed_id }}/hqdefault.jpg"
-                    class="w-full h-full object-cover cursor-pointer"
-                    alt="{{ project.project_name }} Teaser"
-                >
+            </button>
 
-                <!-- PLAY BUTTON -->
-                <div
-                    id="videoPlayBtn"
-                    class="absolute inset-0 flex items-center justify-center
-                        bg-black/40 text-white text-6xl cursor-pointer hover:bg-black/50 transition">
-                    ▶
-                </div>
+            <button id="nextPricing" class="w-11 h-11 rounded-full border border-gray-300 hover:bg-[#C89B2C] hover:text-white duration-300">
 
-                <!-- YOUTUBE IFRAME -->
-                <iframe
-                    id="youtubeFrame"
-                    class="absolute inset-0 w-full h-full hidden"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <i class="fa-solid fa-arrow-right"></i>
 
-            </div>
+            </button>
+
         </div>
 
+        <!-- Slider -->
+        <div id="pricingSlider" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide">
 
-    </div> <!-- ⭐ MIDDLE COLUMN CLOSED (IMPORTANT!) -->
+                {% for config in project.configurations.all %}
+                <!-- CARD -->
+                <div class="pricing-card shrink-0 w-full lg:w-[calc(33.333%-16px)] bg-white border rounded-xl shadow-sm">
 
-    <!-- ===================== RIGHT COLUMN ===================== -->
-    <div class="space-y-5">
-
-            <!-- CALL ME INSTANTLY (PREMIUM + DEPTH DESIGN) -->
-            <div class="relative rounded-3xl 
-                        bg-slate-50 
-                        border border-gray-200
-                        shadow-[0_25px_70px_rgba(0,0,0,0.15)]
-                        overflow-hidden">
-
-                <!-- TOP ACCENT -->
-                <div class="absolute inset-x-0 top-0 h-1.5 
-                            bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600"></div>
-
-                <!-- SOFT INNER GLOW -->
-                <div class="absolute inset-0 pointer-events-none 
-                            bg-gradient-to-br from-white/60 via-transparent to-transparent"></div>
-
-                <div class="relative p-7">
-
-                    <!-- HEADER -->
-                    <div class="flex items-start gap-4 mb-6 pb-5 border-b border-gray-200">
-
-                        <div class="h-12 w-12 flex items-center justify-center rounded-xl
-                                    bg-gradient-to-br from-orange-500 to-orange-600
-                                    text-white shadow-md">
-                            <i class="fa-solid fa-phone-volume text-lg"></i>
-                        </div>
+                    <div class="bg-[#C89B2C] p-4 flex justify-between">
 
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900">
-                                Call Me Instantly
+
+                            <h3 class="text-lg font-bold text-white">
+                                {{config.bhk_type}} Premium
                             </h3>
-                            <p class="text-sm text-gray-500 leading-snug">
+
+                            <p class="text-xs text-white/80">
+                                Luxury Apartment
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="p-4">
+
+                        <div class="grid grid-cols-2 gap-3">
+
+                            <div class="border rounded-lg p-3">
+                                <p class="text-xs text-gray-500">Price</p>
+                                <h4 class="font-bold text-[#C89B2C] text-lg">{{ config.formatted_price }}</h4>
+                            </div>
+
+                            <div class="border rounded-lg p-3">
+                                <p class="text-xs text-gray-500">Area</p>
+                                <h4 class="font-semibold">{{config.area_sqft}}.ft</h4>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-4">
+
+                        {% if config.unit_plan %}
+                            <img src="{{ config.unit_plan.url }}" alt="Unit Plan">
+                        {% else %}
+                            <img src="images/no-floor-plan.webp" alt="No Plan Available">
+                        {% endif %}
+
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+
+                            <a href="{% url 'configuration_pdf' config.id %}" target="_blank" class="border border-[#C89B2C] text-[#C89B2C] py-2 rounded-lg text-center hover:bg-[#C89B2C] hover:text-white">
+
+                                Download
+
+                            </a>
+
+                        <button class="openEnquiry bg-[#C89B2C] text-white py-2 rounded-lg w-full hover:bg-[#b48720] duration-300">
+                            Enquire
+                        </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endfor %}
+            
+        </div>
+
+    </div>
+
+</section>
+<!-- Pricing End Here -->
+
+<!-- Location Start Here -->
+<section class="max-w-7xl mx-auto px-4 py-12 scroll-mt-[130px]" id="location">
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
+
+        <!-- ===================== LEFT/MIDDLE COLUMN ===================== -->
+        <div class="space-y-6">
+            <!-- LOCATION HEADING (Cleaned up semantics & responsive text) -->
+            <div class="bg-gradient-to-br from-slate-50 to-white p-6 md:p-8 rounded-xl border border-gray-100 shadow-sm">
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold uppercase tracking-[2px]">
+                    <span class="w-2 h-2 rounded-full bg-[#C89B2C] animate-pulse"></span>
+                    Prime Address
+                </span>
+                
+                <h2 class="mt-4 text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight">
+                    Location & <span class="text-[#C89B2C]">Connectivity</span>
+                </h2>
+                
+                <p class="mt-3 text-sm md:text-base text-gray-500 max-w-2xl leading-relaxed">
+                    Experience effortless connectivity to business hubs, educational institutions, healthcare, shopping destinations, and major transport links.
+                </p>
+            </div>
+
+            <!-- MAP & CONNECTIVITY LIST -->
+            <div class="border border-gray-100 rounded-3xl p-4 md:p-6 bg-white shadow-md shadow-slate-100/50 space-y-6">
+                <!-- MAP CONTAINER (Responsive Height) -->
+                <div id="luxury-map" class="relative overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 shadow-inner">
+                    <div class="absolute top-4 right-4 z-10">
+                        <span class="px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-sm text-xs font-semibold text-[#C89B2C] border border-gray-100">
+                            📍 Project Location
+                        </span>
+                    </div>
+                    <div class="h-[300px] sm:h-[400px] md:h-[450px] w-full">
+                        {{ project.google_map_iframe|safe }}
+                    </div>
+                </div>
+
+                <!-- CONNECTIVITY ITEMS (Better layout & responsive grid) -->
+                <div>
+                    <h4 class="text-sm font-bold text-gray-800 uppercase tracking-wider mb-3">Location Highlights</h4>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-600">
+                        {% for item in project.connectivity.all %}
+                            <li class="flex items-start gap-2.5 bg-slate-50 p-3 rounded-xl border border-gray-100">
+                                <span class="text-[#C89B2C] mt-0.5">•</span>
+                                <span class="font-medium text-gray-700">{{ item.title }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+                    
+            <!-- VIDEOS SECTION -->
+            <h2 class="text-xl font-semibold bg-[#e8eff5] px-4 py-3 mt-6 rounded-t-lg border">
+                Videos
+            </h2>
+
+            <div class="border border-t-0 rounded-b-lg p-5 bg-white" id="video">
+                <p class="text-green-600 font-semibold mb-3">Teaser</p>
+
+                <div class="relative w-full rounded-lg overflow-hidden bg-black" style="height: 525px;">
+
+                    <!-- THUMBNAIL -->
+                    <img id="videoThumb" src="https://img.youtube.com/vi/{{ project.youtube_embed_id }}/hqdefault.jpg" class="w-full h-full object-cover cursor-pointer" alt="{{ project.project_name }} Teaser">
+
+                    <!-- PLAY BUTTON -->
+                    <div id="videoPlayBtn" class="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-6xl cursor-pointer hover:bg-black/50 transition">
+                        ▶
+                    </div>
+
+                    <!-- YOUTUBE IFRAME -->
+                    <iframe id="youtubeFrame" class="absolute inset-0 w-full h-full hidden" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+
+                </div>
+            </div>
+
+        </div>
+
+    
+        
+        <div class="space-y-6">
+
+            <!-- CALL ME INSTANTLY CARD -->
+            <div class="relative rounded-3xl bg-white border border-gray-100 shadow-md shadow-slate-100/70 overflow-hidden">
+                <!-- TOP ACCENT BAR -->
+                <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600"></div>
+
+                <div class="p-6 md:p-7">
+                    <!-- HEADER -->
+                    <div class="flex items-start gap-4 mb-6 pb-5 border-b border-gray-100">
+                        <div class="h-11 w-11 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-pink-500 text-white shadow-md">
+                            <i class="fa-solid fa-phone-volume text-base"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900">Call Me Instantly</h3>
+                            <p class="text-xs text-gray-500 mt-0.5 leading-snug">
                                 Get a callback from our property expert within seconds
                             </p>
                         </div>
                     </div>
 
                     <!-- FORM -->
-                    <form method="post"
-                        action="{% url 'submit_enquiry' project.id %}"
-                        id="inlineEnquiryForm"
-                        class="space-y-4">
-
+                    <form method="post" action="{% url 'submit_enquiry' project.id %}" id="inlineEnquiryForm" class="space-y-3.5">
                         {% csrf_token %}
                         <input type="text" name="company" class="hidden">
                         <input type="hidden" name="project_id" id="inlineProjectId">
                         <input type="hidden" name="message" value="Call Me Instantly Request">
 
-                        <!-- NAME -->
+                        <!-- INPUT FIELDS -->
                         <div class="relative">
-                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                            <input type="text" name="name" required
-                                placeholder="Your Full Name"
-                                class="w-full pl-11 pr-4 py-3 rounded-xl
-                                        bg-white
-                                        border border-gray-300
-                                        shadow-inner
-                                        focus:ring-2 focus:ring-orange-500
-                                        focus:border-orange-500
-                                        outline-none text-sm text-gray-700">
+                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input type="text" name="name" required placeholder="Your Full Name" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-sm text-gray-700 transition-all">
                         </div>
 
-                        <!-- EMAIL -->
                         <div class="relative">
-                            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                            <input type="email" name="email"
-                                placeholder="Email Address (Optional)"
-                                class="w-full pl-11 pr-4 py-3 rounded-xl
-                                        bg-white
-                                        border border-gray-300
-                                        shadow-inner
-                                        focus:ring-2 focus:ring-orange-500
-                                        focus:border-orange-500
-                                        outline-none text-sm text-gray-700">
+                            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input type="email" name="email" placeholder="Email Address (Optional)" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-sm text-gray-700 transition-all">
                         </div>
 
-                        <!-- PHONE -->
                         <div class="relative">
-                            <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                            <input type="tel" name="phone" required
-                                placeholder="Mobile Number"
-                                class="w-full pl-11 pr-4 py-3 rounded-xl
-                                        bg-white
-                                        border border-gray-300
-                                        shadow-inner
-                                        focus:ring-2 focus:ring-orange-500
-                                        focus:border-orange-500
-                                        outline-none text-sm text-gray-700">
+                            <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <input type="tel" name="phone" required placeholder="Mobile Number" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-sm text-gray-700 transition-all">
                         </div>
 
                         <!-- CTA BUTTON -->
-                        <button type="submit"
-                                class="group relative w-full overflow-hidden rounded-xl
-                                    bg-gradient-to-r from-orange-500 to-orange-600
-                                    py-3.5 font-semibold text-white text-sm
-                                    shadow-md transition-all duration-300
-                                    hover:shadow-orange-500/40 hover:scale-[1.01]">
-
+                        <button type="submit" class="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 py-3 font-semibold text-white text-sm shadow-md transition-all hover:shadow-orange-500/20 hover:scale-[1.01]">
                             <span class="relative z-10 flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-bolt"></i>
-                                Get Instant Call Back
+                                <i class="fa-solid fa-bolt text-xs"></i> Get Instant Call Back
                             </span>
-
-                            <span class="absolute inset-0 bg-gradient-to-r
-                                        from-orange-600 to-pink-600
-                                        opacity-0 group-hover:opacity-100 transition"></span>
+                            <span class="absolute inset-0 bg-gradient-to-r from-orange-600 to-pink-600 opacity-0 group-hover:opacity-100 transition duration-300"></span>
                         </button>
 
-                        <!-- TRUST -->
-                        <p class="text-[11px] text-center text-gray-400 mt-2">
-                            🔒 Your details are safe & never shared
+                        <p class="text-[10px] text-center text-gray-400 mt-2 flex items-center justify-center gap-1">
+                            <span>🔒</span> Your details are safe & never shared
                         </p>
-
                     </form>
                 </div>
             </div>
 
+        </div>
+
+    </div>
+</section>
 
 
-        <!-- BOOK SITE VISIT -->
-        <div class="bg-white rounded-xl border p-5">
+<!-- Location End Here -->
 
-            <div class="flex border-b text-sm">
-                <button class="px-3 py-2 font-semibold border-b-2 border-blue-700 text-blue-700">
-                    Book Free Site Visit
-                </button>
-                <button class="px-3 py-2 text-gray-500">Online Presentation</button>
-            </div>
+<!-- Amenities Start Here -->
+{% if project.amenities.all %}
+<section id="amenities" class="py-24 bg-white ">
 
-            <!-- Search -->
-            <div class="mt-4">
-                <label class="text-xs text-gray-500">Search projects</label>
-                <div class="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-2 mt-1">
-                    <span class="bg-green-600 text-white text-xs px-2 py-1 rounded-full">
-                        Mahindra Marina 64 ✕
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="flex items-center justify-between mb-14">
+            <div>
+                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold tracking-[3px] uppercase">
+                    <span class="w-2 h-2 rounded-full bg-[#C89B2C] animate-pulse"></span>
+                    Lifestyle
+                </span>
+
+                <h2 class="mt-5 text-4xl lg:text-5xl font-bold text-gray-900">
+
+                    Premium
+                    <span class="text-[#C89B2C]">
+                        Amenities
                     </span>
+
+                </h2>
+
+                <p class="mt-4 text-gray-500 max-w-2xl">
+
+                    Every space has been thoughtfully crafted to provide
+                    comfort, wellness and an elevated lifestyle for your family.
+
+                </p>
+
+            </div>
+
+            <!-- Navigation (Static) -->
+            <div class="hidden md:flex gap-3">
+
+                <button id="amenitiesPrev" class="h-12 w-12 rounded-full border border-gray-200 hover:border-[#C89B2C] hover:bg-[#C89B2C] hover:text-white transition">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                </button>
+
+               <button id="amenitiesNext" class="h-12 w-12 rounded-full border border-gray-200 hover:border-[#C89B2C] hover:bg-[#C89B2C] hover:text-white transition">
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Amenities -->
+        <div id="amenitiesSlider" class="flex flex-nowrap gap-10 overflow-x-auto no-scrollbar pb-4">
+
+            <!-- Card -->
+
+            {% for item in project.amenities.all %}
+
+            <div class="amenity-card group min-w-[220px] flex-shrink-0 text-center snap-center">
+
+                <div class="relative mx-auto w-44 h-44 rounded-full overflow-hidden ring-4 ring-transparent group-hover:ring-[#C89B2C] transition duration-500 shadow-xl">
+
+                    <img src="{{ item.amenities.image.url }}" class="w-full h-full object-cover group-hover:scale-110 duration-700">
+
                 </div>
+
+                <h3 class="mt-6 text-xl font-semibold text-gray-900 group-hover:text-[#C89B2C] transition">
+
+                    {{ item.amenities.title }}
+
+                </h3>
+
             </div>
 
-            <!-- Calendar -->
-            <div class="mt-4">
-                <div class="flex items-center gap-2 bg-gray-100 rounded-lg px-4 py-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <span class="text-gray-700 text-sm">12-07-2025 12:29 PM</span>
+            {% endfor %}
+
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="mt-16 rounded-3xl bg-gradient-to-r from-[#C89B2C] to-[#d8b65b] p-8 text-white">
+
+            <div
+                class="flex flex-col md:flex-row items-center justify-between gap-6">
+
+                <div>
+
+                    <h3 class="text-3xl font-bold">
+
+                        20+ Premium Lifestyle Amenities
+
+                    </h3>
+
+                    <p class="mt-2 text-white/90">
+
+                        Designed to enrich every moment of your life with
+                        comfort, recreation and wellness.
+
+                    </p>
+
                 </div>
+
+                <div class="text-5xl font-bold opacity-20">
+
+                    LIFESTYLE
+
+                </div>
+
             </div>
-
-            <!-- OLA Option -->
-            <div class="mt-4 text-sm">
-                <label class="flex items-center gap-2">
-                    <input type="radio" name="ride" checked />
-                    <img src="https://logovectordl.com/wp-content/uploads/2020/10/ola-logo-vector.png"
-                        class="w-12" />
-                </label>
-                <label class="flex items-center gap-2 mt-2">
-                    <input type="radio" name="ride" />
-                    <span>Not Required</span>
-                </label>
-            </div>
-
-            <ul class="mt-4 text-sm text-gray-700 space-y-1 list-disc pl-4">
-                <li>Free Pick Up & Drop - Book Personal Ola</li>
-                <li>Visit Your Selected 3 Projects in One Tour</li>
-                <li>Just Visit & Decide later</li>
-            </ul>
-
-            <button class="w-full mt-5 bg-blue-900 hover:bg-blue-800 text-white py-2 rounded-lg font-semibold text-sm">
-                Book Site Visit
-            </button>
 
         </div>
 
     </div>
 
 </section>
+{% else %}
+<div class="col-span-full">
 
-<script>
-    document.getElementById("videoPlayBtn").addEventListener("click", function () {
+    <div class="max-w-2xl mx-auto text-center py-20">
 
-        const iframe = document.getElementById("youtubeFrame");
-        const videoId = "{{ project.youtube_embed_id }}";
+        <div class="w-24 h-24 mx-auto rounded-full bg-[#C89B2C]/10 flex items-center justify-center">
 
-        iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
-        iframe.classList.remove("hidden");
+            <i class="fa-solid fa-spa text-4xl text-[#C89B2C]"></i>
 
-        document.getElementById("videoThumb").classList.add("hidden");
-        this.classList.add("hidden");
-    });
-</script>
+        </div>
 
-<style>
-
-    .amenity-card{
-        border:1px solid #e5e7eb;
-        border-radius:10px;
-        padding:5px;
-        text-align:center;
-        background:#fff;
-        transition:.25s;
-    }
-    .amenity-card:hover{
-        box-shadow:0 4px 10px rgba(0,0,0,.08);
-    }
-    .amenity-card .label{
-        font-size:13px;
-        color:#374151;
-        margin-top:6px;
-    }
-</style>
-
-
-<!-- ===================== AMENITIES SECTION ===================== -->
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="amenities">
-
-    <!-- HEADER BAR -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
-        <h2 class="text-xl font-semibold">Amenities</h2>
-    </div>
-
-    <div class="bg-white border border-t-0 rounded-b-lg p-6">
-
-        <h3 class="text-sm font-semibold text-gray-700 mb-3">
-            External Amenities
+        <h3 class="mt-6 text-3xl font-bold text-gray-900">
+            Luxury Amenities Coming Soon
         </h3>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-3"
-             id="amenitiesGrid">
-
-            {% for item in project_amenities %}
-            <div class="amenity-card
-                        {% if forloop.counter > 12 %}hidden more-item{% endif %}">
-
-                {% if item.amenities.image %}
-                <img src="{{ item.amenities.image.url }}"
-                     class="w-8 opacity-80 mt-1"
-                     alt="{{ item.amenities.title }}">
-                {% endif %}
-
-                <p class="label">{{ item.amenities.title }}</p>
-            </div>
-            {% endfor %}
-
-            {% if project_amenities|length > 12 %}
-            <!-- SHOW MORE BUTTON -->
-            <div id="showMoreBtn"
-                class="border rounded-lg flex items-center justify-center
-                       text-center p-2 h-10 bg-[#e8eff5]
-                       text-gray-700 font-semibold cursor-pointer">
-                + {{ project_amenities|length|add:"-12" }} More
-            </div>
-            {% endif %}
-
-        </div>
-
-    </div>
-</section>
-
-<!-- ===================== JS FOR SHOW MORE ===================== -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-
-        const btn = document.getElementById("showMoreBtn");
-        if (!btn) return;
-
-        const hiddenItems = document.querySelectorAll(".more-item");
-        let expanded = false;
-
-        const totalHidden = hiddenItems.length;
-
-        // initial text (safe)
-        btn.textContent = "+ " + totalHidden + " More";
-
-        btn.addEventListener("click", () => {
-            expanded = !expanded;
-
-            hiddenItems.forEach(item => {
-                item.classList.toggle("hidden");
-            });
-
-            btn.textContent = expanded
-                ? "− Show Less"
-                : "+ " + totalHidden + " More";
-        });
-    });
-</script>
-
-
-<!-- ===================== CARD STYLE (Tailwind classes) ===================== -->
-<style>
-    .amenity-card {
-        @apply border rounded-lg flex flex-col items-center justify-center gap-2 text-center p-3 h-28 hover:shadow-md transition;
-    }
-    .amenity-card .label {
-        @apply text-xs text-gray-800;
-    }
-</style>
-
-<!-- ===================== MASTER & FLOOR PLAN SECTION ===================== -->
-
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="floorplan">
-
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg flex items-center justify-between">
-        <h2 class="text-xl font-semibold">Floor Plan</h2>
-
-        <button class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm px-4 py-2 rounded">
-            Plan Kit
-        </button>
-    </div>
-
-    <div class="bg-white border border-t-0 rounded-b-lg p-6">
-
-        <div class="grid md:grid-cols-2 gap-6">
-
-            <!-- ===================== MASTER PLAN ===================== -->
-            <div>
-                <h3 class="font-semibold text-gray-700 mb-3">Master Plan</h3>
-
-                <div class="relative">
-
-                    <!-- SWIPER -->
-                    <div class="swiper masterSwiper border rounded-lg p-2">
-                        <div class="swiper-wrapper">
-
-                            <div class="swiper-slide">
-                                <img src="https://housiey.com/_next/image?url=https%3A%2F%2Fresources.housiey.com%2Fadmin%2Fuploads%2Fproject_images%2Fmahindra-marina-64_1763796641183-428364518.webp&w=750&q=60"
-                                     class="w-full rounded-lg" />
-                            </div>  
-
-                            <div class="swiper-slide">
-                                <img src="https://housiey.com/_next/image?url=https%3A%2F%2Fresources.housiey.com%2Fadmin%2Fuploads%2Fproject_images%2Fmahindra-marina-64_1763796650039-877349433.webp&w=750&q=60"
-                                     class="w-full rounded-lg" />
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="https://via.placeholder.com/900x600?text=Master+Plan+3"
-                                     class="w-full rounded-lg" />
-                            </div>
-
-                        </div>
-
-                        <!-- ARROWS -->
-                        <div class="swiper-button-prev !left-0"></div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- ===================== FLOOR PLAN ===================== -->
-            <div>
-                <h3 class="font-semibold text-gray-700 mb-3">Floor Plan</h3>
-
-                <div class="relative">
-
-                    <div class="swiper floorSwiper border rounded-lg p-2">
-                        <div class="swiper-wrapper">
-
-                            <div class="swiper-slide">
-                                <img src="https://housiey.com/_next/image?url=https%3A%2F%2Fresources.housiey.com%2Fadmin%2Fuploads%2Fproject_images%2Fmahindra-marina-64_1763796650039-877349433.webp&w=750&q=60"
-                                     class="w-full rounded-lg" />
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="https://via.placeholder.com/900x600?text=Floor+Plan+2"
-                                     class="w-full rounded-lg" />
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="https://via.placeholder.com/900x600?text=Floor+Plan+3"
-                                     class="w-full rounded-lg" />
-                            </div>
-
-                        </div>
-
-                        <!-- ARROWS -->
-                        <div class="swiper-button-next !right-0"></div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
+        <p class="mt-3 text-gray-500 leading-7">
+            We're curating a premium collection of lifestyle amenities for this project.
+            Updated details will be available soon.
+        </p>
 
     </div>
 
-</section>
+</div>
+{% endif %}
+<!-- Amenities End Here -->
 
-<script>
-    var masterSwiper = new Swiper(".masterSwiper", {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        navigation: {
-            nextEl: ".masterSwiper .swiper-button-next",
-            prevEl: ".masterSwiper .swiper-button-prev",
-        },
-        loop: true,
-    });
+<!-- Floor Plan Start Here -->
+<!--=========================================
+        FLOOR PLAN & MASTER PLAN
+==========================================-->
 
-    var floorSwiper = new Swiper(".floorSwiper", {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        navigation: {
-            nextEl: ".floorSwiper .swiper-button-next",
-            prevEl: ".floorSwiper .swiper-button-prev",
-        },
-        loop: true,
-    });
-</script>
+<section id="floor-plan" class="py-24 bg-[#faf8f3]">
 
+    <div class="max-w-7xl mx-auto px-4 lg:px-8">
 
-<!-- ===================== PAYMENT SCHEME SECTION ===================== -->
-<section class="max-w-7xl mx-auto p-6 scroll-mt-[130px]" id="paymentscheme">
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] px-6 py-4 border rounded-t-lg flex items-center justify-between">
-        <h2 class="text-xl md:text-2xl font-semibold">Payment Scheme</h2>
+        <!-- Heading -->
+        <div class="text-center max-w-3xl mx-auto mb-14">
 
-        <button class="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm md:text-base px-5 py-2.5 rounded-lg">
-            Payment Schedule
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
-            </svg>
-        </button>
-    </div>
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold uppercase tracking-[3px]">
 
-    <!-- CONTENT BOX -->
-    <div class="bg-white border border-t-0 rounded-b-lg p-7">
+                <span class="w-2 h-2 rounded-full bg-[#C89B2C] animate-pulse"></span>
 
-        <!-- ACCORDION -->
-        <div id="paymentAccordion"
-            class="bg-[#f6f9fb] border rounded-xl p-6 cursor-pointer shadow-sm hover:shadow-md transition">
+                Floor Plans
 
-            <div class="flex justify-between items-start gap-4">
-                <div class="flex-1">
-                    <p class="font-semibold text-gray-800 text-lg">
-                        CLP ( Construction Link Plan )
-                    </p>
+            </span>
 
-                    <!-- ANSWER (Animated height box) -->
-                    <div id="accordionContent"
-                        class="overflow-hidden transition-all duration-300 ease-in-out max-h-[500px]">
+            <h2 class="mt-5 text-4xl lg:text-5xl font-bold text-gray-900">
 
-                        <p class="text-[15px] text-gray-600 mt-3 leading-relaxed">
-                            Regular Standard Slabwise Payment plan as per construction.
-                            Maximum loan possible up to 90%. Payments are linked to actual construction progress.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- ICON -->
-                <span id="accordionIcon" class="text-green-600 text-2xl font-bold select-none transition-transform duration-300">
-                    –
+                Master Plan &
+                <span class="text-[#C89B2C]">
+                    Floor Plans
                 </span>
+
+            </h2>
+
+            <p class="mt-5 text-gray-500 leading-7">
+
+                Explore thoughtfully designed layouts crafted to suit every
+                lifestyle and family requirement.
+
+            </p>
+
+        </div>
+
+        <!-- Tabs -->
+
+        <div class="flex justify-center">
+
+            <div class="plan-tabs flex gap-3 overflow-x-auto pb-3 no-scrollbar">
+
+                <button class="plan-tab active"
+                    data-image="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200">
+
+                    Master Plan
+
+                </button>
+
+                <button class="plan-tab"
+                    data-image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200">
+
+                    Floor Plan
+
+                </button>
+
+                <button class="plan-tab"
+                    data-image="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200">
+
+                    2 BHK
+
+                </button>
+
+                <button class="plan-tab"
+                    data-image="https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200">
+
+                    3 BHK
+
+                </button>
+
+                <button class="plan-tab"
+                    data-image="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200">
+
+                    Typical Plan
+
+                </button>
+
             </div>
 
         </div>
 
-    </div>
+        <!-- Main Area -->
 
-</section>
+        <div class="grid lg:grid-cols-[1fr_330px] gap-8 mt-12">
 
+            <!-- Preview -->
 
-{% if project.bank_offers.exists %}
+            <div
+                class="relative rounded-[30px] overflow-hidden bg-white shadow-xl">
 
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]">
+                <img id="mainPlanImage"
 
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
-        <h2 class="text-lg font-semibold text-[#1b4d6b]">
-            Project Approved By
-        </h2>
-    </div>
+                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200"
 
-    <!-- SLIDER -->
-    <div class="bg-white border border-t-0 rounded-b-lg p-8">
+                    class="w-full h-[600px] object-cover">
 
-        <div class="swiper bankSwiper">
-            <div class="swiper-wrapper">
-
-            {% for offer in project.bank_offers.all %}
-            <div class="swiper-slide py-3">
+                <!-- Badge -->
 
                 <div
-                    class="group h-[110px] rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50
-                        shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300
-                        flex items-center justify-center p-6">
+                    class="absolute top-6 left-6 bg-white rounded-full px-5 py-2 shadow">
 
-                    {% if offer.image %}
-                        <img src="{{ offer.image.url }}"
-                            alt="{{ offer.bank.title }}"
-                            class="max-h-12 w-auto object-contain grayscale
-                                    group-hover:grayscale-0 transition duration-300">
-                    {% else %}
-                        <div class="text-center">
-                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-amber-100 flex items-center justify-center">
-                                <i class="fa-solid fa-building-columns text-amber-600"></i>
-                            </div>
-                            <span class="text-sm font-semibold text-gray-700">
-                                {{ offer.bank.title }}
-                            </span>
-                        </div>
-                    {% endif %}
+                    <span id="planTitle"
 
-                </div>
+                        class="font-semibold">
 
-            </div>
-            {% endfor %}
+                        Master Plan
 
-            </div>
-        </div>
-
-    </div>
-
-</section>
-
-{% endif %}
-
-<!-- ===================== EMI CALCULATOR ===================== -->
-  <section class="bg-white border-b" id="emi_calculator">
-    <div class="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-2 gap-8">
-      <div>
-        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
-    <i class="fa-solid fa-calculator text-gray-700 text-xl"></i>
-    EMI Calculator
-        </h2>
-        <p class="text-sm text-gray-700 mb-4">
-          Estimate your monthly EMI based on loan amount, interest rate and tenure.
-        </p>
-
-        <form id="emiForm" class="space-y-4 text-sm">
-          <div>
-            <label class="block text-gray-600 mb-1">Property Price (₹)</label>
-            <input type="number" id="priceInput" class="w-full border px-3 py-2"
-              placeholder="27000000" />
-          </div>
-          <div>
-            <label class="block text-gray-600 mb-1">Down Payment (₹)</label>
-            <input type="number" id="downInput" class="w-full border px-3 py-2"
-              placeholder="5000000" />
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label class="block text-gray-600 mb-1">Interest Rate (% p.a.)</label>
-              <input type="number" id="rateInput" class="w-full border px-3 py-2"
-                placeholder="8.5" step="0.1" />
-            </div>
-            <div>
-              <label class="block text-gray-600 mb-1">Tenure (Years)</label>
-              <input type="number" id="tenureInput" class="w-full border px-3 py-2"
-                placeholder="20" />
-            </div>
-          </div>
-
-          <button type="button" id="emiBtn"
-            class="bg-gray-900 text-white px-4 py-2 text-sm">
-            Calculate EMI
-          </button>
-        </form>
-      </div>
-
-      <div class="border rounded-md p-5 text-sm flex flex-col justify-center">
-        <h3 class="font-semibold mb-3">Estimated EMI</h3>
-        <p class="text-3xl font-semibold mb-2" id="emiResult">₹0 / month</p>
-        <p class="text-xs text-gray-500">
-          This is an approximate calculation for illustration only. For an exact
-          quote, please connect with our home-loan partner.
-        </p>
-      </div>
-    </div>
-  </section>
-
-<script>
-    // ---------------------- EMI CALCULATION LOGIC ----------------------
-    document.getElementById("emiBtn").addEventListener("click", function () {
-    
-    let price = parseFloat(document.getElementById("priceInput").value) || 0;
-    let down = parseFloat(document.getElementById("downInput").value) || 0;
-    let rate = parseFloat(document.getElementById("rateInput").value) || 0;
-    let tenureYears = parseFloat(document.getElementById("tenureInput").value) || 0;
-
-    // Loan Amount
-    let loanAmount = price - down;
-    if (loanAmount <= 0) {
-        document.getElementById("emiResult").innerHTML = "Invalid Inputs";
-        return;
-    }
-
-    // Convert annual rate to monthly
-    let monthlyRate = rate / 12 / 100;
-
-    // Total months
-    let months = tenureYears * 12;
-
-    // EMI Formula
-    let emi =
-        (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-        (Math.pow(1 + monthlyRate, months) - 1);
-
-    if (!emi || emi < 0) {
-        document.getElementById("emiResult").innerHTML = "Invalid Inputs";
-        return;
-    }
-
-    // Format output
-    document.getElementById("emiResult").innerHTML =
-        "₹" + emi.toLocaleString("en-IN", { maximumFractionDigits: 0 }) + " / month";
-    });
-</script>
-
-
-<script>
-    var swiper = new Swiper(".bankSwiper", {
-        slidesPerView: 5,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: {
-            delay: 1500,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            0: { slidesPerView: 2 },
-            480: { slidesPerView: 3 },
-            768: { slidesPerView: 4 },
-            1024: { slidesPerView: 5 }
-        }
-    });
-</script>
-
-<!-- ===================== About Developer ===================== -->
-
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="about_developer">
-
-    <!-- TOP HEADER BAR -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
-        <h2 class="text-xl font-semibold text-[#1b4d6b]">About {{ project.developer }}</h2>
-    </div>
-
-    <!-- CONTENT BOX -->
-    <div class="bg-white border border-t-0 rounded-b-lg p-6">
-
-        <!-- ROW: LOGO + LOCATIONS -->
-        <div class="flex flex-col md:flex-row justify-between gap-6">
-
-            <!-- LOGO BOX -->
-            <div>
-                <p class="font-semibold text-gray-700 mb-2">{{ project.developer }}</p>
-
-                <div class="w-[180px] h-[80px] border rounded-lg shadow-sm flex items-center justify-center bg-white">
-                    <img src="{{ project.developer.logo.url }}" alt="{{ project.developer.name }} Logo"
-                         class="h-14 object-contain" />
-                </div>
-            </div>
-
-            <!-- LOCATIONS -->
-            <div class="flex-1">
-                <p class="font-semibold text-gray-700 mb-2">Locations</p>
-
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Hyderabad</span>
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Bangalore Rural</span>
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Bangalore Urban</span>
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Mumbai City</span>
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Mumbai suburban</span>
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Pune</span>
-                    <span class="px-4 py-1.5 border rounded-lg bg-gray-100 text-sm text-gray-700">Ahmedabad</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- STAT ROW -->
-        <div class="flex flex-wrap items-center gap-4 mt-6">
-
-            <div class="px-6 py-2 bg-gray-100 rounded-full text-sm font-medium">
-                Experience: <span class="text-green-600 font-bold">31 years</span>
-            </div>
-
-            <div class="px-6 py-2 bg-gray-100 rounded-full text-sm font-medium">
-                Total Projects: <span class="text-green-600 font-bold">12</span>
-            </div>
-
-            <div class="px-6 py-2 bg-gray-100 rounded-full text-sm font-medium">
-                Happy Families: <span class="text-green-600 font-bold">40K+</span>
-            </div>
-
-        </div>
-
-        <!-- DESCRIPTION -->
-        <p class="text-sm text-gray-700 leading-relaxed mt-6">
-            {{ project.developer.about_developer }}
-        </p>
-
-        
-        <!-- BUTTON -->
-        <button class="mt-6 bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg">
-            View All Projects Now !
-        </button>
-
-    </div>
-
-</section>
-<!-- ===================== FAQ's ===================== -->
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="faqs">
-
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
-        <h2 class="text-xl font-semibold text-[#1b4d6b]">
-            Frequently Asked Questions – {{ project.project_name }}
-        </h2>
-    </div>
-
-    <div class="bg-white border border-t-0 rounded-b-lg p-4">
-
-        <div id="faqContainer" class="space-y-3 max-h-[400px] overflow-y-auto pr-2">
-
-            {% for faq in project_faqs %}
-            <div class="faq-item border rounded-lg bg-[#f4f8fb] p-4 cursor-pointer">
-
-                <div class="flex justify-between items-center faq-question">
-                    <p class="font-medium text-gray-800">
-                        {{ faq.question }}
-                    </p>
-                    <span class="faq-icon text-gray-600 text-xl transition-transform duration-300">
-                        <i class="fa-solid fa-caret-down"></i>
                     </span>
+
                 </div>
 
-                <div class="faq-answer hidden mt-3 text-sm text-gray-600 leading-relaxed">
-                    {{ faq.answer }}
+                <!-- Buttons -->
+
+                <div
+                    class="absolute bottom-6 left-6 flex gap-3">
+
+                    <button class="view-plan-btn px-6 py-3 rounded-full bg-white font-semibold">
+
+                        <i class="fa-solid fa-expand mr-2"></i>
+
+                        View Full Plan
+
+                    </button>
+
+                    <button class="download-plan-btn px-6 py-3 rounded-full bg-[#C89B2C] text-white font-semibold">
+
+                        Download
+
+                    </button>
+
                 </div>
 
             </div>
-            {% empty %}
-            <p class="text-sm text-gray-500">No FAQs available for this project.</p>
-            {% endfor %}
 
-        </div>
+            <!-- Right Card -->
 
-    </div>
-</section>
+            <div
+                class="bg-white rounded-[30px] p-8 shadow-xl">
 
-<script>
-    document.querySelectorAll(".faq-item").forEach((item) => {
-        const q = item.querySelector(".faq-question");
-        const ans = item.querySelector(".faq-answer");
-        const icon = item.querySelector(".faq-icon");
+                <h3 class="text-2xl font-bold">
 
-        q.addEventListener("click", () => {
-            const isOpen = !ans.classList.contains("hidden");
+                    Plan Information
 
-            // Close all FAQs
-            document.querySelectorAll(".faq-answer").forEach(a => a.classList.add("hidden"));
-            document.querySelectorAll(".faq-icon").forEach(i => i.style.transform = "rotate(0deg)");
+                </h3>
 
-            // Toggle current faq
-            if (!isOpen) {
-                ans.classList.remove("hidden");
-                icon.style.transform = "rotate(180deg)";
-            }
-        });
-    });
-</script>
-{% if project.rera.exists %}
-<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]" id="rera">
+                <div class="mt-8 space-y-6">
 
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
-        <h2 class="text-xl font-semibold text-[#1b4d6b]">
-            {{ project.project_name }} – RERA Details
-        </h2>
-    </div>
+                    <div class="flex justify-between">
 
-    <!-- CONTENT -->
-    <div class="bg-white border border-t-0 rounded-b-lg p-6 space-y-10">
+                        <span class="text-gray-500">
 
-        {% for rera in project.rera.all %}
+                            Configuration
 
-        <div class="flex flex-col sm:flex-row gap-6 items-start">
+                        </span>
 
-            <!-- QR CODE -->
-            <div class="flex flex-col items-center min-w-[150px]">
+                        <strong>
 
-                {% if rera.qr_image %}
-                <img src="{{ rera.qr_image.url }}"
-                    alt="RERA QR Code"
-                    class="w-[130px] h-[130px] border rounded-lg shadow-sm object-contain">
+                            2 & 3 BHK
 
-            {% elif rera.registration_no %}
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ rera.registration_no }}"
-                    alt="RERA QR Code"
-                    class="w-[130px] h-[130px] border rounded-lg shadow-sm">
-
-            {% else %}
-                <img src="https://via.placeholder.com/150x150?text=No+QR+Available"
-                    alt="No QR Available"
-                    class="w-[130px] h-[130px] border rounded-lg shadow-sm opacity-70">
-            {% endif %}
-
-            </div>
-
-            <!-- DETAILS -->
-            <div class="flex-1 space-y-2 text-sm text-gray-700">
-
-                {% if rera.project_registered %}
-                <p><strong>Project Registered:</strong> {{ rera.project_registered }}</p>
-                {% endif %}
-
-                {% if rera.government_rera_authorised_advertiser %}
-                <p><strong>Authorised Advertiser:</strong>
-                    {{ rera.government_rera_authorised_advertiser }}
-                </p>
-                {% endif %}
-
-                {% if rera.site_address %}
-                <p><strong>Site Address:</strong> {{ rera.site_address }}</p>
-                {% endif %}
-
-                {% if rera.contact_us %}
-                <p><strong>Contact:</strong> {{ rera.contact_us }}</p>
-                {% endif %}
-
-                {% if rera.document %}
-                <a href="{{ rera.document.url }}"
-                   class="inline-flex items-center gap-2 text-green-600 font-semibold mt-2"
-                   download>
-                    <i class="fa-solid fa-download"></i> Download RERA Certificate
-                </a>
-                {% endif %}
-            </div>
-
-        </div>
-
-        {% if rera.disclaimer %}
-        <p class="text-xs text-gray-500 leading-relaxed border-t pt-4">
-            {{ rera.disclaimer }}
-        </p>
-        {% endif %}
-
-        {% endfor %}
-
-        <!-- OFFICIAL LINK -->
-        <p class="text-gray-700 text-sm">
-            Project details are available at
-            <a href="https://maharera.mahaonline.gov.in"
-               target="_blank"
-               class="text-blue-600 font-semibold underline">
-                https://maharera.mahaonline.gov.in
-            </a>
-        </p>
-
-    </div>
-</section>
-{% endif %}
-
-<!-- ===================== Related Projects ===================== -->
-
-<section class="max-w-7xl mx-auto p-4">
-
-    
-
-    <!-- HEADER -->
-    <div class="bg-[#e8eff5] rounded-t-lg px-5 py-3 border">
-        <h2 class="text-xl font-semibold text-[#1b4d6b]">
-            Explore Related Projects
-        </h2>
-    </div>
-
-    <div class="bg-white border border-t-0 rounded-b-lg p-5">
-
-
-
-        <div class="swiper relatedSwiper">
-        
-             {% for rp in related_projects %}
-
-            <div class="swiper-wrapper">
-
-                    <div class="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-
-                        <!-- IMAGE -->
-                        <div class="relative h-52 w-full">
-
-                            {% if rp.image %}
-                                <img src="{{ rp.image.url }}"
-                                    class="w-full h-full object-cover">
-                            {% else %}
-                                <img src="https://via.placeholder.com/800x500?text=No+Project+Image"
-                                    class="w-full h-full object-cover">
-                            {% endif %}
-
-                            <button class="absolute top-3 right-3 bg-white rounded-full p-2 shadow">
-                                <i class="fa-regular fa-heart"></i>
-                            </button>
-
-                        </div>
-
-
-                        <!-- CONTENT -->
-                        <div class="p-4">
-                            <div class="flex justify-between items-start">
-                                <h3 class="text-lg font-semibold">
-                                    {{ rp.project_name }}
-                                </h3>
-                                <p class="font-semibold">
-                                    ₹ {{ rp.min_price|intcomma }}
-                                </p>
-                            </div>
-
-                            <div class="text-sm mt-1 space-y-1">
-                                <p class="text-gray-600">
-                                    <i class="fa-solid fa-building"></i>
-                                    {{ rp.developer }}
-                                </p>
-                                <p class="text-gray-600">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                    {{ rp.locality }}
-                                </p>
-                            </div>
-
-                            <div class="flex justify-between mt-3 text-sm">
-                                <p>
-                                    <i class="fa-solid fa-ruler-combined"></i>
-                                    {{ rp.min_carpet }} - {{ rp.max_carpet }} sqft
-                                </p>
-                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">
-                                    {{ rp.possession_month }} {{ rp.possession_year }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- CTA -->
-                        <div class="grid grid-cols-2">
-                            <a href="{{ rp.get_absolute_url }}"
-                               class="bg-[#133B5C] text-white py-3 text-center">
-                                View
-                            </a>
-                            <button class="bg-green-600 text-white py-3">
-                                Chat
-                            </button>
-                        </div>
+                        </strong>
 
                     </div>
+
+                    <div class="flex justify-between">
+
+                        <span class="text-gray-500">
+
+                            Carpet Area
+
+                        </span>
+
+                        <strong>
+
+                            742 - 1185 Sq.ft.
+
+                        </strong>
+
+                    </div>
+
+                    <div class="flex justify-between">
+
+                        <span class="text-gray-500">
+
+                            Floors
+
+                        </span>
+
+                        <strong>
+
+                            G + 32
+
+                        </strong>
+
+                    </div>
+
+                    <div class="flex justify-between">
+
+                        <span class="text-gray-500">
+
+                            Facing
+
+                        </span>
+
+                        <strong>
+
+                            East / West
+
+                        </strong>
+
+                    </div>
+
                 </div>
-                {% endfor %}
+
+                <button
+                    class="w-full mt-10 py-4 rounded-2xl bg-[#C89B2C] text-white font-semibold">
+
+                    Request Floor Plan
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Gallery -->
+
+        <div
+            class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 mt-10">
+
+            <div class="plan-thumb">
+
+                <img
+                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500">
+
+                <h4>Master Plan</h4>
+
+            </div>
+
+            <div class="plan-thumb">
+
+                <img
+                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500">
+
+                <h4>Floor Plan</h4>
+
+            </div>
+
+            <div class="plan-thumb">
+
+                <img
+                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500">
+
+                <h4>2 BHK</h4>
+
+            </div>
+
+            <div class="plan-thumb">
+
+                <img
+                    src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=500">
+
+                <h4>3 BHK</h4>
+
+            </div>
+
+            <div class="plan-thumb">
+
+                <img
+                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500">
+
+                <h4>Typical Plan</h4>
 
             </div>
 
         </div>
 
     </div>
+
 </section>
-
-<script>
-    new Swiper(".relatedSwiper", {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        pagination: { el: ".swiper-pagination", clickable: true },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev"
-        },
-        breakpoints: {
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 }
-        }
-    });
-</script>
+<!-- Floor Plan End Here -->
 
 
-<!-- ================= CONTACT POPUP ================= -->
-<div id="contactPopup"
-     class="fixed inset-0 bg-black/70 hidden z-[9999] flex items-center justify-center px-3">
+</main>
 
+<!-- Popup -->
+<div id="popup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
 
-  <div class="relative w-full max-w-sm rounded-xl shadow-2xl bg-white overflow-hidden">
+    <div  class="relative w-full max-w-md overflow-hidden rounded-[28px] bg-white shadow-[0_30px_80px_rgba(0,0,0,.25)] border border-[#E8DFC9] animate-popup">
 
-    <!-- HEADER -->
-    <div class="relative bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-3 text-white">
-      <h3 class="text-sm font-semibold">Enquiry For</h3>
-      <p id="enquiryProjectName" class="text-xs opacity-90 mt-0.5">
-        Project Name
-      </p>
+        <!-- Gold Line -->
+        <div class="h-1 w-full bg-gradient-to-r from-[#C89B2C] via-[#F5D67A] to-[#C89B2C]"></div>
 
-      <!-- CLOSE BUTTON (INSIDE HEADER) -->
-      <button id="closeContactPopup" type="button" class="absolute top-2 right-2 h-7 w-7 rounded-full flex items-center justify-center bg-white/20 hover:bg-white/30 text-white text-sm transition">
-        ✕
-      </button>
+        <!-- Decorative Circle -->
+        <div
+            class="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-[#C89B2C]/5 blur-3xl">
+        </div>
+
+        <div
+            class="absolute -bottom-20 -left-16 h-44 w-44 rounded-full bg-[#C89B2C]/5 blur-3xl">
+        </div>
+
+        <div class="relative p-8">
+
+            <!-- Close -->
+            <button id="closePopup"  class="absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition duration-300 hover:bg-[#C89B2C] hover:text-white">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+            <!-- Icon -->
+            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#C89B2C] to-[#B88A1F] shadow-lg">
+
+                <i class="fa-solid fa-building text-white text-2xl"></i>
+
+            </div>
+
+            <!-- Heading -->
+            <div class="mt-6 text-center">
+
+                <p
+                    class="inline-flex rounded-full bg-[#C89B2C]/10 px-4 py-1 text-xs font-semibold uppercase tracking-[3px] text-[#C89B2C]">
+
+                    Premium Property
+
+                </p>
+
+                <h2 class="mt-4 text-3xl font-bold text-gray-900">
+
+                    Book a Site Visit
+
+                </h2>
+
+                <p class="mt-3 text-sm leading-6 text-gray-500">
+
+                    Experience premium living. Leave your details and our
+                    property expert will connect with you shortly.
+
+                </p>
+
+            </div>
+
+            <!-- Form -->
+            <form id="enquiryForm" class="mt-8 space-y-5">
+
+                <!-- Name -->
+                <div class="relative">
+
+                    <i
+                        class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-[#C89B2C]">
+                    </i>
+
+                    <input type="text" name="name" required minlength="3" maxlength="60" placeholder="Full Name" class="w-full rounded-2xl border border-gray-200 bg-[#FAFAFA] py-4 pl-12 pr-4 outline-none transition-all duration-300 focus:border-[#C89B2C] focus:bg-white focus:shadow-lg">
+
+                </div>
+
+                <!-- Email -->
+                <div class="relative">
+
+                    <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-[#C89B2C]">
+                    </i>
+
+                    <input type="email" name="email" required placeholder="Email Address" class="w-full rounded-2xl border border-gray-200 bg-[#FAFAFA] py-4 pl-12 pr-4 outline-none transition-all duration-300 focus:border-[#C89B2C] focus:bg-white focus:shadow-lg">
+
+                </div>
+
+                <!-- Phone -->
+                <div class="relative">
+
+                    <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-[#C89B2C]">
+                    </i>
+
+                    <input id="phone" type="tel" name="phone" required maxlength="10" placeholder="Mobile Number" class="w-full rounded-2xl border border-gray-200 bg-[#FAFAFA] py-4 pl-12 pr-4 outline-none transition-all duration-300 focus:border-[#C89B2C] focus:bg-white focus:shadow-lg">
+
+                </div>
+
+                <!-- Button -->
+                <button class="group relative flex w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-[#C89B2C] via-[#D7B25A] to-[#B88A1F] py-4 font-semibold text-white shadow-xl transition duration-500 hover:scale-[1.02]">
+
+                    <span
+                        class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition duration-700 group-hover:translate-x-full">
+                    </span>
+
+                    <span class="relative flex items-center gap-2">
+
+                        <i class="fa-solid fa-calendar-check"></i>
+
+                        Book My Visit
+
+                    </span>
+
+                </button>
+
+            </form>
+
+            <!-- Footer -->
+            <div class="mt-6 text-center">
+
+                <p class="text-xs text-gray-400">
+
+                    🔒 Your information is completely secure & confidential.
+
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- FORM -->
-    <form method="post" id="enquiryForm" class="p-4 space-y-3 text-sm bg-white">
-      {% csrf_token %}
-
-      <!-- Honeypot -->
-      <input type="text" name="company" class="hidden">
-
-      <input type="hidden" name="project_id" id="projectIdInput">
-
-      <!-- NAME -->
-      <div>
-        <label class="font-medium text-gray-600">Full Name</label>
-        <input type="text" name="name" required class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
-      </div>
-
-      <!-- EMAIL -->
-      <div>
-        <label class="font-medium text-gray-600">Email</label>
-        <input type="email" name="email" class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
-      </div>
-
-      <!-- PHONE -->
-      <div>
-        <label class="font-medium text-gray-600">Mobile</label>
-        <input type="tel" name="phone" required class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none">
-      </div>
-
-      <!-- MESSAGE -->
-      <div>
-        <label class="font-medium text-gray-600">Message</label>
-        <textarea name="message" rows="2" class="mt-1 w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-orange-400 outline-none"></textarea>
-      </div>
-
-      <!-- SUBMIT -->
-      <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded-lg font-semibold transition">
-        Submit Enquiry
-      </button>
-
-      <p class="text-[11px] text-center text-gray-400">
-        🔒 100% Privacy Protected
-      </p>
-    </form>
-
-  </div>
 </div>
-<!-- ================= END POPUP ================= -->
-
-
-
-
-
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-  const popup = document.getElementById("contactPopup");
-  const closeBtn = document.getElementById("closeContactPopup");
-  const projectNameText = document.getElementById("enquiryProjectName");
-  const projectIdInput = document.getElementById("projectIdInput");
-  const enquiryForm = document.getElementById("enquiryForm");
+    document.addEventListener("DOMContentLoaded", function () {
 
-  document.querySelectorAll(".openContactPopup").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
+        // =========================
+        // LightGallery
+        // =========================
+        const gallery = document.getElementById("projectGallery");
 
-      projectNameText.textContent = this.dataset.project || "Enquiry";
-      projectIdInput.value = this.dataset.projectId || "";
+        if (gallery) {
+            lightGallery(gallery, {
+                selector: "a",
+                download: false,
+                counter: true,
+                thumbnail: true,
+                zoom: true,
+                fullScreen: true,
+                actualSize: false,
+                mobileSettings: {
+                    controls: true,
+                    showCloseIcon: true
+                }
+            });
+        }
 
-      enquiryForm.action = `/projects/submit-enquiry/${this.dataset.projectId}/`;
+        // =========================
+        // Sticky Nav Scroll Buttons
+        // =========================
+        const navContainer = document.getElementById("navContainer");
+        const prevBtn = document.getElementById("navPrev");
+        const nextBtn = document.getElementById("navNext");
 
-      popup.classList.remove("hidden");
-      document.body.style.overflow = "hidden";
+        if (navContainer && prevBtn && nextBtn) {
+
+            nextBtn.addEventListener("click", () => {
+                navContainer.scrollBy({
+                    left: 250,
+                    behavior: "smooth"
+                });
+            });
+
+            prevBtn.addEventListener("click", () => {
+                navContainer.scrollBy({
+                    left: -250,
+                    behavior: "smooth"
+                });
+            });
+
+        }
+
+        // =========================
+        // Active Menu on Scroll
+        // =========================
+        const sections = document.querySelectorAll("section[id]");
+        const links = document.querySelectorAll(".project-nav");
+
+        function activeSection() {
+
+            let current = "";
+
+            sections.forEach(section => {
+
+                const top = section.offsetTop - 150;
+                const bottom = top + section.offsetHeight;
+
+                if (window.scrollY >= top && window.scrollY < bottom) {
+                    current = section.id;
+                }
+
+            });
+
+            links.forEach(link => {
+
+                link.classList.remove("active");
+
+                if (link.getAttribute("href") === "#" + current) {
+                    link.classList.add("active");
+                }
+
+            });
+
+        }
+
+        window.addEventListener("scroll", activeSection);
+
+        activeSection();
+
     });
-  });
 
-  closeBtn.addEventListener("click", closePopup);
+        function toggleText(id, btn) {
 
-  popup.addEventListener("click", function (e) {
-    if (e.target === popup) closePopup();
-  });
+        const content = document.getElementById(id);
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closePopup();
-  });
+        if (!content) return;
 
-  function closePopup() {
-    popup.classList.add("hidden");
-    document.body.style.overflow = "";
-  }
+        content.classList.toggle("show");
+        btn.classList.toggle("active");
+
+        const text = btn.querySelector("span");
+        const icon = btn.querySelector("i");
+
+        if (content.classList.contains("show")) {
+            text.textContent = "Read Less";
+
+            if (icon) {
+                icon.classList.remove("fa-angle-down");
+                icon.classList.add("fa-angle-up");
+            }
+
+        } else {
+
+            text.textContent = "Read More";
+
+            if (icon) {
+                icon.classList.remove("fa-angle-up");
+                icon.classList.add("fa-angle-down");
+            }
+
+        }
+
+    }
+
+    const slider = document.getElementById("pricingSlider");
+    const cards = document.querySelectorAll(".pricing-card");
+
+    document.getElementById("nextPricing").onclick = () => {
+        slider.scrollBy({
+            left: cards[0].offsetWidth + 24,
+            behavior: "smooth"
+        });
+    };
+
+    document.getElementById("prevPricing").onclick = () => {
+        slider.scrollBy({
+            left: -(cards[0].offsetWidth + 24),
+            behavior: "smooth"
+        });
+    };
+
+
+    const popup = document.getElementById("popup");
+
+    // Open popup from any Enquiry button
+    document.querySelectorAll(".openEnquiry").forEach(button => {
+        button.addEventListener("click", () => {
+            popup.classList.remove("hidden");
+            popup.classList.add("flex");
+        });
+    });
+
+    // Close popup
+    document.getElementById("closePopup").addEventListener("click", closePopup);
+
+    // Close when clicking outside
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+            closePopup();
+        }
+    });
+
+    // Close on ESC
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closePopup();
+        }
+    });
+
+    function closePopup() {
+        popup.classList.remove("flex");
+        popup.classList.add("hidden");
+    }
+
+    // Phone Validation
+    const phone = document.getElementById("phone");
+
+    phone.addEventListener("input", function () {
+        this.value = this.value.replace(/\D/g, "").slice(0, 10);
+    });
+
+    document.getElementById("enquiryForm").addEventListener("submit", function (e) {
+
+        const phoneValue = phone.value.trim();
+        const phoneRegex = /^[6-9]\d{9}$/;
+
+        if (!phoneRegex.test(phoneValue)) {
+            e.preventDefault();
+            alert("Please enter a valid 10 digit mobile number.");
+        }
+
+    });
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+    const slider = document.getElementById("amenitiesSlider");
+
+    const prev = document.getElementById("amenitiesPrev");
+
+    const next = document.getElementById("amenitiesNext");
+
+    const cards = document.querySelectorAll(".amenity-card");
+
+    if(!slider) return;
+
+    const cardWidth = 250;
+
+
+
+    //==========================
+    // NEXT
+    //==========================
+
+    next?.addEventListener("click",()=>{
+
+        slider.scrollBy({
+
+            left:cardWidth,
+
+            behavior:"smooth"
+
+        });
+
+    });
+
+
+
+    //==========================
+    // PREVIOUS
+    //==========================
+
+    prev?.addEventListener("click",()=>{
+
+        slider.scrollBy({
+
+            left:-cardWidth,
+
+            behavior:"smooth"
+
+        });
+
+    });
+
+
+
+
+
+    //==========================
+    // MOUSE DRAG
+    //==========================
+
+    let isDown=false;
+
+    let startX;
+
+    let scrollLeft;
+
+
+
+    slider.addEventListener("mousedown",(e)=>{
+
+        isDown=true;
+
+        slider.classList.add("cursor-grabbing");
+
+        startX=e.pageX-slider.offsetLeft;
+
+        scrollLeft=slider.scrollLeft;
+
+    });
+
+
+
+    slider.addEventListener("mouseleave",()=>{
+
+        isDown=false;
+
+    });
+
+
+
+    slider.addEventListener("mouseup",()=>{
+
+        isDown=false;
+
+    });
+
+
+
+    slider.addEventListener("mousemove",(e)=>{
+
+        if(!isDown) return;
+
+        e.preventDefault();
+
+        const x=e.pageX-slider.offsetLeft;
+
+        const walk=(x-startX)*2;
+
+        slider.scrollLeft=scrollLeft-walk;
+
+    });
+
+
+
+
+
+    //==========================
+    // AUTO SCROLL
+    //==========================
+
+    let auto=setInterval(()=>{
+
+        slider.scrollBy({
+
+            left:cardWidth,
+
+            behavior:"smooth"
+
+        });
+
+
+
+        if(
+
+            slider.scrollLeft+
+
+            slider.clientWidth>=
+
+            slider.scrollWidth-10
+
+        ){
+
+            setTimeout(()=>{
+
+                slider.scrollTo({
+
+                    left:0,
+
+                    behavior:"smooth"
+
+                });
+
+            },600);
+
+        }
+
+
+
+    },3500);
+
+
+
+
+
+    slider.addEventListener("mouseenter",()=>{
+
+        clearInterval(auto);
+
+    });
+
+
+
+    slider.addEventListener("mouseleave",()=>{
+
+        auto=setInterval(()=>{
+
+            slider.scrollBy({
+
+                left:cardWidth,
+
+                behavior:"smooth"
+
+            });
+
+
+
+            if(
+
+                slider.scrollLeft+
+
+                slider.clientWidth>=
+
+                slider.scrollWidth-10
+
+            ){
+
+                setTimeout(()=>{
+
+                    slider.scrollTo({
+
+                        left:0,
+
+                        behavior:"smooth"
+
+                    });
+
+                },600);
+
+            }
+
+        },3500);
+
+    });
+
+
+
+
+
+
+    //==========================
+    // ACTIVE CARD
+    //==========================
+
+    function updateCards(){
+
+        const center=slider.scrollLeft+slider.clientWidth/2;
+
+
+
+        cards.forEach(card=>{
+
+            const box=card.offsetLeft+card.clientWidth/2;
+
+
+
+            if(Math.abs(center-box)<150){
+
+                card.style.transform="scale(1.08)";
+
+                card.style.transition=".35s";
+
+                card.style.opacity="1";
+
+            }
+
+            else{
+
+                card.style.transform="scale(.93)";
+
+                card.style.opacity=".75";
+
+            }
+
+        });
+
+    }
+
+
+
+    slider.addEventListener("scroll",updateCards);
+
+    updateCards();
 
 });
 </script>
 
-
-
-<script>
-    const tabBtns = document.querySelectorAll(".tab-btn");
-    const tabs = document.querySelectorAll(".tab-content");
-
-    tabBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-
-            tabBtns.forEach(b => {
-                b.classList.remove("active", "text-green-700", "border-b-2", "border-green-700");
-                b.classList.add("text-gray-600");
-            });
-
-            btn.classList.add("active", "text-green-700", "border-b-2", "border-green-700");
-            btn.classList.remove("text-gray-600");
-
-            const target = btn.getAttribute("data-tab");
-
-            tabs.forEach(tab => tab.classList.add("hidden"));
-            document.getElementById(target).classList.remove("hidden");
-            document.getElementById(target).classList.add("block");
-        });
-    });
-</script>
-
-<!-- ===================================== -->
-<!-- JS FOR OPEN / CLOSE -->
-<!-- ===================================== -->
-
-<script>
-    const box = document.getElementById("paymentAccordion");
-    const desc = document.querySelector(".accordion-desc");
-    const icon = document.getElementById("accordionIcon");
-
-    let open = true; // default opened (same as screenshot)
-
-    box.addEventListener("click", () => {
-        open = !open;
-
-        if (open) {
-            desc.classList.remove("hidden");
-            icon.textContent = "—";
-        } else {
-            desc.classList.add("hidden");
-            icon.textContent = "+";
-        }
-    });
-</script>
-
-<script>
-    const openBtn = document.getElementById("openPricePopup");
-    const closeBtn = document.getElementById("closePricePopup");
-    const popup = document.getElementById("pricePopup");
-    const priceForm = document.getElementById("priceForm");
-
-    // OPEN POPUP
-    openBtn.addEventListener("click", () => {
-        popup.classList.remove("hidden");
-        popup.classList.add("flex");
-        document.body.style.overflow = "hidden";
-    });
-
-    // CLOSE POPUP
-    closeBtn.addEventListener("click", () => {
-        popup.classList.add("hidden");
-        popup.classList.remove("flex");
-        document.body.style.overflow = "auto";
-    });
-
-    // FORM SUBMIT
-    priceForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        // Yaha backend ko send karna ho to AJAX bhi laga sakte hain
-        // Abhi direct file download karwa rahe hain:
-
-        const downloadLink = document.createElement("a");
-        downloadLink.href = "static/pdf/price-sheet.pdf";  // <<< YOUR FILE PATH
-        downloadLink.download = "Price-Sheet.pdf";
-        downloadLink.click();
-
-        // Close popup after download
-        popup.classList.add("hidden");
-        popup.classList.remove("flex");
-        document.body.style.overflow = "auto";
-
-        // Clear form
-        priceForm.reset();
-    });
-</script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="assets/js/project_details.js"></script>
 {% endblock %}

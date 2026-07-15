@@ -13,6 +13,12 @@ from .models import (
     Project, Configuration, Gallery, RERA_Info, BookingOffer, Overview,
     USP, Amenities, Header, WelcomeTo, Connectivity, WhyInvest,Enquiry,ProjectFAQ
 ) 
+import os
+from io import BytesIO
+from django.http import FileResponse
+from reportlab.platypus import (SimpleDocTemplate,Paragraph,Image,Spacer,)
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
 from django.http import JsonResponse
 from django.contrib import messages
 from django.template.loader import render_to_string
@@ -403,3 +409,59 @@ def load_localities(request):
 
     return JsonResponse(list(localities), safe=False,context=context)
 
+
+
+def configuration_pdf(request, id):
+
+    try:
+        config = Configuration.objects.select_related("Project").get(pk=id)
+    except Configuration.DoesNotExist:
+        raise Http404("Configuration not found")
+
+    buffer = BytesIO()
+
+    doc = SimpleDocTemplate(buffer)
+
+    styles = getSampleStyleSheet()
+
+    story = []
+
+    story.append(Paragraph("<b>PROJECT DETAILS</b>", styles["Title"]))
+    story.append(Spacer(1, 20))
+
+    story.append(
+        Paragraph(f"<b>Project :</b> {config.Project.project_name}", styles["Normal"])
+    )
+
+    story.append(
+        Paragraph(f"<b>BHK :</b> {config.bhk_type}", styles["Normal"])
+    )
+
+    story.append(
+        Paragraph(f"<b>Area :</b> {config.area_sqft} Sq.ft", styles["Normal"])
+    )
+
+    story.append(
+        Paragraph(f"<b>Price :</b> {config.formatted_price()}", styles["Normal"])
+    )
+
+    story.append(Spacer(1,20))
+
+    if config.unit_plan and os.path.exists(config.unit_plan.path):
+
+        img = Image(config.unit_plan.path)
+
+        img.drawWidth = 6 * inch
+        img.drawHeight = 4 * inch
+
+        story.append(img)
+
+    doc.build(story)
+
+    buffer.seek(0)
+
+    return FileResponse(
+        buffer,
+        as_attachment=True,
+        filename=f"{config.Project.project_name}.pdf",
+    )

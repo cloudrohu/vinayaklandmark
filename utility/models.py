@@ -50,14 +50,7 @@ class Locality(MPTTModel):
     
     slug = models.SlugField(max_length=150, unique=True, null=True, blank=True)
 
-    parent = TreeForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='children',
-        verbose_name='Parent Locality/Zone'
-    )
+    parent = TreeForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='children',verbose_name='Parent Locality/Zone')
 
     class MPTTMeta:
         order_insertion_by = ['name']
