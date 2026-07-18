@@ -2,6 +2,7 @@
     
     <div class="max-w-7xl mx-auto px-6 lg:px-10 py-20">
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-14">
+
             <div>
                 <a href="/" class="inline-block">
                     <img src="{{settings_obj.logo.url}}" alt="Logo" class="h-16 mb-8">
@@ -44,23 +45,21 @@
                 </div>
 
             </div>
+
             <div>
 
                 <h3 class="text-[#D79A2B] text-[32px] font-serif mb-2">
                     Our Projects
                 </h3>
                 <ul class="space-y-3">
+                    {% for foot_pro in menu_projects %}
                     <li>
-                        <a href="#" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
-                            Vinayak Sapphire (Completed)
+                        <a href="{{foot_pro.get_absolute_url}}" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
+                            {{foot_pro.project_name}} ({{foot_pro.construction_status}})
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="text-gray-300 hover:text-[#D79A2B] duration-300 text-[18px]">
-                            Vinayak Sapphire II (New Launch)
-                        </a>
-
-                    </li>
+                    {% endfor %}
+                    
                 </ul>
 
             </div>
@@ -160,21 +159,21 @@
                 <p class="text-gray-400 text-[16px] text-center md:text-left">
                     © {{settings_obj.copy_right}}. All Rights Reserved.
                 </p>
-          {% if settings_obj.current_project_rera %}
-            <div class="w-full md:w-auto text-center md:text-right">
-                <p class="text-gray-400 text-sm sm:text-[15px] md:text-[16px] leading-6 break-words">
-                    <span class="text-[#D79A2B] font-medium">
-                        RERA No.
-                    </span>
-                    :
-                    <span class="break-all">
-                        {{ settings_obj.current_project_rera }}
-                    </span>
-                </p>
-            </div>
-            {% else %}
-            
-            {% endif %}
+            {% if settings_obj.current_project_rera %}
+                <div class="w-full md:w-auto text-center md:text-right">
+                    <p class="text-gray-400 text-sm sm:text-[15px] md:text-[16px] leading-6 break-words">
+                        <span class="text-[#D79A2B] font-medium">
+                            RERA No.
+                        </span>
+                        :
+                        <span class="break-all">
+                            {{ settings_obj.current_project_rera }}
+                        </span>
+                    </p>
+                </div>
+                {% else %}
+                
+                {% endif %}
 
 
 

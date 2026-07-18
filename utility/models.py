@@ -40,9 +40,6 @@ class City(MPTTModel):
         # Admin mein hierarchy path dikhayega (e.g., Delhi / Vasant Kunj)
         full_path = [node.name for node in self.get_ancestors(include_self=True)]
         return ' / '.join(full_path)
-# --- 2. Locality Model (MPTT Child Structure) ---
-
-# --- 2. Locality Model (MPTT Child Structure) ---
 class Locality(MPTTModel):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
@@ -62,9 +59,6 @@ class Locality(MPTTModel):
     def __str__(self):
         path = [node.name for node in self.get_ancestors(include_self=True)]
         return f"{' / '.join(path)} ({self.city.name})"
-
-
-
 class PropertyType(MPTTModel):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True, null=True, blank=True)
@@ -92,12 +86,8 @@ class PropertyType(MPTTModel):
         full_path = [node.name for node in self.get_ancestors(include_self=True)]
         return ' / '.join(full_path)
     
-    
 class PossessionIn(models.Model):
-    year = models.PositiveIntegerField(
-        unique=True,
-        help_text="e.g. 2025"
-    )
+    year = models.PositiveIntegerField(unique=True,help_text="e.g. 2025")
 
     class Meta:
         verbose_name = "Possession Year"
@@ -106,9 +96,6 @@ class PossessionIn(models.Model):
 
     def __str__(self):
         return str(self.year)
-
-from django.db import models
-from django.utils.html import mark_safe
 
 class ProjectAmenities(models.Model):
     title = models.CharField(max_length=100)
@@ -133,6 +120,7 @@ class Bank(models.Model):
     
     class Meta:
         verbose_name_plural='03. Bank'
+
 
 class PropertyAmenities(models.Model):
     name = models.CharField(max_length=100)

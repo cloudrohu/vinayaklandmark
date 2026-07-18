@@ -347,6 +347,7 @@ class Amenities(models.Model):
     
     def __str__(self):
         return f"{self.Project.project_name} - {self.amenities.title}"
+    
 class Gallery(models.Model):
     Project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="gallery")
     image = models.ImageField(upload_to='gallery/')

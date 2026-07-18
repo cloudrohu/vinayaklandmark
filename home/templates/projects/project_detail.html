@@ -218,7 +218,7 @@
 
         background:#fff;
         padding:28px;
-        border-radius:18px;
+        border-radius:1px;
         box-shadow:0 15px 40px rgba(0,0,0,.08);
 
     }
@@ -702,8 +702,6 @@
 
                 <a href="#floorplan" class="project-nav">Floor Plans</a>
 
-                <a href="#payment" class="project-nav">Payment Plan</a>
-
                 <a href="#banks" class="project-nav">Bank Offers</a>
 
                 <a href="#emi" class="project-nav">EMI Calculator</a>
@@ -832,7 +830,7 @@
     <div class="max-w-7xl mx-auto px-4">
 
         <!-- Heading -->
-        <div class="text-center mb-12">
+        <div class="text-center mb-8">
 
             <span class="inline-flex px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold uppercase tracking-[3px]">
                 Pricing & Floor Plan
@@ -845,7 +843,7 @@
         </div>
 
         <!-- Navigation -->
-        <div class="hidden lg:flex justify-end gap-3 mb-6">
+        <div class="flex justify-end gap-3 mb-6">
 
             <button id="prevPricing" class="w-11 h-11 rounded-full border border-gray-300 hover:bg-[#C89B2C] hover:text-white duration-300">
 
@@ -1163,10 +1161,9 @@
         </div>
 
         <!-- Bottom -->
-        <div class="mt-16 rounded-3xl bg-gradient-to-r from-[#C89B2C] to-[#d8b65b] p-8 text-white">
+        <div class="mt-16 rounded-lg bg-gradient-to-r from-[#C89B2C] to-[#d8b65b] p-8 text-white">
 
-            <div
-                class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
 
                 <div>
 
@@ -1225,278 +1222,122 @@
 <!-- Amenities End Here -->
 
 <!-- Floor Plan Start Here -->
-<!--=========================================
-        FLOOR PLAN & MASTER PLAN
-==========================================-->
+<section id="floorplan" class="py-20 bg-[#faf8f3]">
 
-<section id="floor-plan" class="py-24 bg-[#faf8f3]">
-
-    <div class="max-w-7xl mx-auto px-4 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4">
 
         <!-- Heading -->
         <div class="text-center max-w-3xl mx-auto mb-14">
 
-            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold uppercase tracking-[3px]">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-xs font-semibold tracking-[3px] uppercase">
 
                 <span class="w-2 h-2 rounded-full bg-[#C89B2C] animate-pulse"></span>
 
-                Floor Plans
+                Project Layout
 
             </span>
 
-            <h2 class="mt-5 text-4xl lg:text-5xl font-bold text-gray-900">
+            <h2 class="mt-5 text-4xl md:text-5xl font-bold text-gray-900">
 
-                Master Plan &
-                <span class="text-[#C89B2C]">
-                    Floor Plans
-                </span>
+                Floor Plan & <span class="text-[#C89B2C]">Master Plan </span>
 
             </h2>
 
-            <p class="mt-5 text-gray-500 leading-7">
+            <p class="mt-3 text-gray-500 leading-7">
 
-                Explore thoughtfully designed layouts crafted to suit every
-                lifestyle and family requirement.
+                Explore detailed layouts designed to maximize
+                comfort, functionality and modern living.
 
             </p>
 
         </div>
 
-        <!-- Tabs -->
+        <!-- Cards -->
+        <div class="grid lg:grid-cols-2 gap-8">
 
-        <div class="flex justify-center">
+            <!-- Floor Plan -->
+            <div class="plan-card group cursor-pointer" data-image="{{project.floor_plan.url}}">
 
-            <div class="plan-tabs flex gap-3 overflow-x-auto pb-3 no-scrollbar">
+                <div class="relative overflow-hidden rounded-xl shadow-xl border border-gray-200 bg-white">
 
-                <button class="plan-tab active"
-                    data-image="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200">
+                    <img src="{{project.floor_plan.url}}" class="w-full h-[500px] object-cover transition duration-700 group-hover:scale-105">
 
-                    Master Plan
+                    <!-- Overlay -->
 
-                </button>
-
-                <button class="plan-tab"
-                    data-image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200">
-
-                    Floor Plan
-
-                </button>
-
-                <button class="plan-tab"
-                    data-image="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200">
-
-                    2 BHK
-
-                </button>
-
-                <button class="plan-tab"
-                    data-image="https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200">
-
-                    3 BHK
-
-                </button>
-
-                <button class="plan-tab"
-                    data-image="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200">
-
-                    Typical Plan
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- Main Area -->
-
-        <div class="grid lg:grid-cols-[1fr_330px] gap-8 mt-12">
-
-            <!-- Preview -->
-
-            <div
-                class="relative rounded-[30px] overflow-hidden bg-white shadow-xl">
-
-                <img id="mainPlanImage"
-
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200"
-
-                    class="w-full h-[600px] object-cover">
-
-                <!-- Badge -->
-
-                <div
-                    class="absolute top-6 left-6 bg-white rounded-full px-5 py-2 shadow">
-
-                    <span id="planTitle"
-
-                        class="font-semibold">
-
-                        Master Plan
-
-                    </span>
-
-                </div>
-
-                <!-- Buttons -->
-
-                <div
-                    class="absolute bottom-6 left-6 flex gap-3">
-
-                    <button class="view-plan-btn px-6 py-3 rounded-full bg-white font-semibold">
-
-                        <i class="fa-solid fa-expand mr-2"></i>
-
-                        View Full Plan
-
-                    </button>
-
-                    <button class="download-plan-btn px-6 py-3 rounded-full bg-[#C89B2C] text-white font-semibold">
-
-                        Download
-
-                    </button>
-
-                </div>
-
-            </div>
-
-            <!-- Right Card -->
-
-            <div
-                class="bg-white rounded-[30px] p-8 shadow-xl">
-
-                <h3 class="text-2xl font-bold">
-
-                    Plan Information
-
-                </h3>
-
-                <div class="mt-8 space-y-6">
-
-                    <div class="flex justify-between">
-
-                        <span class="text-gray-500">
-
-                            Configuration
-
-                        </span>
-
-                        <strong>
-
-                            2 & 3 BHK
-
-                        </strong>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
 
                     </div>
 
-                    <div class="flex justify-between">
+                    <!-- Content -->
 
-                        <span class="text-gray-500">
+                    <div class="absolute bottom-0 left-0 w-full p-8 text-white">
 
-                            Carpet Area
+                        <span class="inline-block px-4 py-2 rounded-lg bg-white/20 backdrop-blur">
 
-                        </span>
-
-                        <strong>
-
-                            742 - 1185 Sq.ft.
-
-                        </strong>
-
-                    </div>
-
-                    <div class="flex justify-between">
-
-                        <span class="text-gray-500">
-
-                            Floors
+                            Floor Plan
 
                         </span>
 
-                        <strong>
+                        <h3 class="mt-4 text-3xl font-bold">
 
-                            G + 32
+                            Explore Floor Layout
 
-                        </strong>
+                        </h3>
 
-                    </div>
+                        <button class="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[#C89B2C] hover:bg-[#b8891f] transition">
 
-                    <div class="flex justify-between">
+                            <i class="fa-solid fa-expand"></i>
 
-                        <span class="text-gray-500">
+                            View Full Plan
 
-                            Facing
-
-                        </span>
-
-                        <strong>
-
-                            East / West
-
-                        </strong>
+                        </button>
 
                     </div>
 
                 </div>
 
-                <button
-                    class="w-full mt-10 py-4 rounded-2xl bg-[#C89B2C] text-white font-semibold">
-
-                    Request Floor Plan
-
-                </button>
-
             </div>
 
-        </div>
+            <!-- Master Plan -->
+            <div class="plan-card group cursor-pointer" data-image="{{project.master_plan.url}}">
 
-        <!-- Gallery -->
+                <div class="relative overflow-hidden rounded-xl shadow-xl border border-gray-200 bg-white">
 
-        <div
-            class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 mt-10">
+                    <img src="{{project.master_plan.url}}" class="w-full h-[500px] object-cover transition duration-700 group-hover:scale-105">
 
-            <div class="plan-thumb">
+                    <!-- Overlay -->
 
-                <img
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
 
-                <h4>Master Plan</h4>
+                    </div>
 
-            </div>
+                    <!-- Content -->
 
-            <div class="plan-thumb">
+                    <div class="absolute bottom-0 left-0 w-full p-8 text-white">
 
-                <img
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500">
+                        <span class="inline-block px-4 py-2 rounded-lg bg-white/20 backdrop-blur">
 
-                <h4>Floor Plan</h4>
+                            Master Plan
 
-            </div>
+                        </span>
 
-            <div class="plan-thumb">
+                        <h3 class="mt-4 text-3xl font-bold">
 
-                <img
-                    src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500">
+                            Explore Master Layout
 
-                <h4>2 BHK</h4>
+                        </h3>
 
-            </div>
+                        <button class="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[#C89B2C] hover:bg-[#b8891f] transition">
 
-            <div class="plan-thumb">
+                            <i class="fa-solid fa-expand"></i>
 
-                <img
-                    src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=500">
+                            View Full Plan
 
-                <h4>3 BHK</h4>
+                        </button>
 
-            </div>
+                    </div>
 
-            <div class="plan-thumb">
-
-                <img
-                    src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=500">
-
-                <h4>Typical Plan</h4>
+                </div>
 
             </div>
 
@@ -1507,13 +1348,64 @@
 </section>
 <!-- Floor Plan End Here -->
 
+<!-- Bank Offer Start Here -->
+<section class="py-20 bg-gradient-to-b from-white to-gray-50" id="banks">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="text-center max-w-3xl mx-auto mb-14">
+
+            <span
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-sm font-semibold tracking-wide">
+                🏦 Home Loan Assistance
+            </span>
+
+            <h2 class="mt-5 text-3xl md:text-4xl font-bold text-gray-900">
+                Finance Your Dream Home with Trusted Banks
+            </h2>
+
+            <p class="mt-4 text-gray-600 leading-8">
+                Get attractive interest rates, quick loan approvals and expert guidance
+                from India's leading banking partners.
+            </p>
+
+        </div>
+
+        <!-- Bank Logos -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            {% for bank in project.bookingoffer.all %}
+            <div class="group bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-6 flex flex-col items-center justify-center">
+
+                {% if bank.image %}
+                    <img src="{{ bank.image.url }}"
+                        alt="{{ bank.title }}"
+                        class="h-12 object-contain grayscale group-hover:grayscale-0 transition duration-500">
+                {% endif %}
+
+                <h4 class="mt-4 font-semibold text-gray-800">
+                    {{ bank.title }}
+                </h4>
+
+            </div>
+            {% empty %}
+            <p>No Bank Available</p>
+            {% endfor %}
+
+        </div>
+
+
+    </div>
+</section>
+<!-- Bank Offer End Here -->
+
 
 </main>
 
 <!-- Popup -->
 <div id="popup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
 
-    <div  class="relative w-full max-w-md overflow-hidden rounded-[28px] bg-white shadow-[0_30px_80px_rgba(0,0,0,.25)] border border-[#E8DFC9] animate-popup">
+    <div  class="relative w-full max-w-md overflow-hidden rounded-[8px] bg-white shadow-[0_30px_80px_rgba(0,0,0,.25)] border border-[#E8DFC9] animate-popup">
 
         <!-- Gold Line -->
         <div class="h-1 w-full bg-gradient-to-r from-[#C89B2C] via-[#F5D67A] to-[#C89B2C]"></div>
@@ -1635,6 +1527,22 @@
         </div>
 
     </div>
+
+</div>
+
+
+
+<div id="planLightbox" class="fixed inset-0 bg-black/90 z-[9999] hidden items-center justify-center p-5">
+
+    <!-- Close -->
+
+    <button id="closePlan" class="absolute top-6 right-6 text-white text-4xl">
+
+        &times;
+
+    </button>
+
+    <img id="lightboxImage" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl">
 
 </div>
 
@@ -2089,11 +1997,86 @@
 
 
 
-    slider.addEventListener("scroll",updateCards);
+        slider.addEventListener("scroll",updateCards);
 
-    updateCards();
+        updateCards();
 
-});
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const cards = document.querySelectorAll(".plan-card");
+        const lightbox = document.getElementById("planLightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const closeBtn = document.getElementById("closePlan");
+
+        // ==========================
+        // Open Lightbox
+        // ==========================
+
+        cards.forEach(card => {
+
+            card.addEventListener("click", function () {
+
+                const image = this.dataset.image;
+
+                lightboxImage.src = image;
+
+                lightbox.classList.remove("hidden");
+                lightbox.classList.add("flex");
+
+                document.body.style.overflow = "hidden";
+
+            });
+
+        });
+
+        // ==========================
+        // Close Function
+        // ==========================
+
+        function closeLightbox() {
+
+            lightbox.classList.remove("flex");
+            lightbox.classList.add("hidden");
+
+            lightboxImage.src = "";
+
+            document.body.style.overflow = "auto";
+
+        }
+
+        // Close Button
+
+        closeBtn.addEventListener("click", closeLightbox);
+
+        // Click Outside Image
+
+        lightbox.addEventListener("click", function (e) {
+
+            if (e.target === lightbox) {
+
+                closeLightbox();
+
+            }
+
+        });
+
+        // ESC Key
+
+        document.addEventListener("keydown", function (e) {
+
+            if (e.key === "Escape") {
+
+                closeLightbox();
+
+            }
+
+        });
+
+    });
+
 </script>
+
 
 {% endblock %}

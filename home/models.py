@@ -17,7 +17,7 @@ class Setting(ImageCompressionMixin, models.Model):
     rera_number = models.CharField(max_length=150, blank=True)
     googletagmanager = models.CharField(max_length=150, blank=True)
     site_name = models.CharField(max_length=150)
-    address = models.CharField(blank=True, max_length=100)
+    address = models.CharField(blank=True, max_length=500)
     phone = models.CharField(blank=True, max_length=15)
     whatsapp = models.CharField(blank=True, max_length=15)
     email = models.CharField(blank=True, max_length=50)
