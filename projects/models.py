@@ -394,11 +394,7 @@ class BankOffer(models.Model):
     def __str__(self):
         return f"{self.Project.project_name} - {self.bank.title}"
 class ProjectFAQ(models.Model):
-    project = models.ForeignKey(
-        Project,
-        on_delete=models.CASCADE,
-        related_name="faqs"
-    )
+    project = models.ForeignKey(Project,on_delete=models.CASCADE,related_name="faqs")
     question = models.CharField(max_length=255)
     answer = models.TextField()
     order = models.PositiveIntegerField(default=0)

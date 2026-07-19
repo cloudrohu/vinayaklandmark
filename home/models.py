@@ -36,7 +36,9 @@ class Setting(ImageCompressionMixin, models.Model):
     disclaimer = RichTextUploadingField(blank=True)
     cookies = RichTextUploadingField(blank=True)
     current_project_rera = models.CharField(max_length=150, blank=True, null=True)
+    working_days = models.CharField(max_length=100,blank=True,help_text="Example: Mon - Sun")
 
+    working_hours = models.CharField(max_length=100,blank=True,help_text="Example: 10:00 AM - 6:00 PM")
 
 
     STATUS = (

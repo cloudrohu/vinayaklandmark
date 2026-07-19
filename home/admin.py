@@ -49,6 +49,8 @@ class SettingAdmin(ImportExportModelAdmin):
                 "address",
                 "phone",
                 "whatsapp",
+                "working_days",
+                "working_hours",
                 "email",
                 "google_map",
             )

@@ -5,6 +5,26 @@
 <title>{{ project.project_name }} by {{ project.developer }} {{ project.locality }} ,{{ project.city }}</title>
 
 <style>
+    .scrollbar-hide::-webkit-scrollbar{
+        display:none;
+    }
+
+    .scrollbar-hide{
+        scrollbar-width:none;
+    }
+
+    .fireworks{
+        width:250px;
+        height:70px;
+    }
+
+    .bank-card{
+        transition:.4s;
+    }
+
+    .bank-card:hover{
+        transform:translateY(-10px);
+    }
     .no-scrollbar::-webkit-scrollbar{
         display:none;
     }
@@ -676,7 +696,7 @@
 <!-- Images Section End Here -->
 
 <!-- Nav Links Start Here -->
-<section class="sticky top-0 z-50 bg-white border-y border-gray-200 shadow-sm">
+<section class="sticky top-0 z-50 bg-white border-y border-gray-200 shadow-sm"> 
 
     <div class="max-w-7xl mx-auto flex items-center">
 
@@ -704,11 +724,9 @@
 
                 <a href="#banks" class="project-nav">Bank Offers</a>
 
-                <a href="#emi" class="project-nav">EMI Calculator</a>
+                <a href="#emi_calculator" class="project-nav">EMI Calculator</a>
 
-                <a href="#developer" class="project-nav">Developer</a>
-
-                <a href="#faq" class="project-nav">FAQs</a>
+                <a href="#faqs" class="project-nav">FAQs</a>
 
                 <a href="#contact" class="project-nav">Contact</a>
 
@@ -1077,8 +1095,6 @@
 
     </div>
 </section>
-
-
 <!-- Location End Here -->
 
 <!-- Amenities Start Here -->
@@ -1349,63 +1365,411 @@
 <!-- Floor Plan End Here -->
 
 <!-- Bank Offer Start Here -->
-<section class="py-20 bg-gradient-to-b from-white to-gray-50" id="banks">
+<section class="max-w-7xl mx-auto p-4 scroll-mt-[130px]">
+
+        <!-- HEADER -->
+        <div class="bg-[#e8eff5] px-5 py-3 border rounded-t-lg">
+            <h2 class="text-lg font-semibold text-[#1b4d6b]">Project approved by</h2>
+        </div>
+
+        <!-- SLIDER CONTAINER -->
+        <div class="bg-white border border-t-0 rounded-b-lg p-16">
+
+            <div class="swiper bankSwiper">
+                <div class="swiper-wrapper">
+
+                  {% for offer in bank_offers %}
+                    <div class="swiper-slide">
+                        <div class="min-w-[150px] h-[70px] bg-white shadow-md rounded-xl border flex items-center justify-center p-2">
+                        <img src="{{ offer.bank.image.url }}"
+                            alt="{{ offer.bank.name }}"
+                            class="h-10 object-contain">
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+
+        </div>
+
+</section>
+<!-- Bank Offer End Here -->
+
+<!-- EMI Calculator Start Here -->
+        <section class="py-20" id="emi_calculator">
+
+    <div class="max-w-6xl mx-auto px-4">
+
+        <div class="grid lg:grid-cols-2 gap-10">
+
+            <div class="bg-white rounded shadow-xl p-8">
+
+                <h2 class="text-3xl font-bold mb-8">
+                    EMI Calculator
+                </h2>
+
+                <!-- Loan -->
+                <div class="mb-8">
+                    <div class="flex justify-between mb-2">
+                    <span class="font-semibold">Loan Amount</span>
+                    <span id="loanValue" class="text-[#c89b2c] font-bold">₹50,00,000</span>
+                </div>
+
+                <input type="range" id="loan" min="100000" max="100000000" step="100000" value="5000000">
+
+                </div>
+
+                <!-- Interest -->
+                <div class="mb-8">
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Interest Rate</span>
+                        <span id="interestValue" class="text-[#c89b2c] font-bold">8.5%</span>
+                    </div>
+
+                    <input type="range" id="interest" min="1" max="20" step="0.1" value="8.5">
+
+                </div>
+
+               <!-- Tenure -->
+                <div class="mb-10">
+
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold">Loan Tenure</span>
+                        <span id="yearValue" class="text-[#c89b2c] font-bold">20 Years</span>
+                    </div>
+
+                    <input type="range" id="years" min="1" max="30" step="1" value="20">
+
+                </div>
+
+                <button onclick="calculateEMI()" class="w-full bg-[#c89b2c] hover:bg-[#b07f12] text-white py-4 rounded-xl font-semibold transition">
+
+                    Calculate EMI
+
+                </button>
+
+            </div>
+
+
+            <div class="bg-[#425466] rounded p-10 text-white">
+
+                <h3 class="text-3xl font-bold mb-10">
+                    Loan Summary
+                </h3>
+
+                <div class="space-y-6">
+
+                    <div class="flex justify-between">
+                        <span>Monthly EMI</span>
+                        <h2 id="emi" class="text-2xl font-bold text-[#FBBF24]">
+                            ₹0
+                        </h2>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Total Interest</span>
+                        <h2 id="interestAmount">
+                            ₹0
+                        </h2>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <span>Total Payment</span>
+                        <h2 id="totalPayment">
+                            ₹0
+                        </h2>
+                    </div>
+
+                </div>
+
+                <div class="mt-12">
+
+                    <div class="flex justify-between mb-3">
+                        <span>Loan</span>
+                        <span>Interest</span>
+                    </div>
+
+                    <div class="h-5 bg-gray-700 rounded-full overflow-hidden">
+
+                        <div id="progress" class="bg-[#c89b2c] h-full w-0 transition-all duration-700">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- EMI Calculator End Here -->
+
+
+<!-- FAQs Start Here -->
+<section class="py-20 bg-gradient-to-b from-gray-50 to-white" id="faqs">
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="text-center max-w-3xl mx-auto mb-14">
+
+            <span class="inline-flex items-center px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] font-semibold uppercase tracking-widest text-sm">
+                Frequently Asked Questions
+            </span>
+
+            <h2 class="mt-5 text-4xl md:text-5xl font-bold text-gray-900">
+                Got Questions? We've Got Answers.
+            </h2>
+
+            <p class="mt-5 text-lg text-gray-600">
+                Find answers to the most commonly asked questions about the project,
+                pricing, possession, amenities, financing and more.
+            </p>
+
+        </div>
+
+        <div class="space-y-5">
+
+            {% if project.faqs.exists %}
+             {% for faq in project.faqs.all %}
+                <div class="faq-item bg-white shadow-sm border border-gray-200 overflow-hidden">
+
+                    <button class="faq-btn w-full flex justify-between items-center text-left p-6">
+
+                        <span class="text-lg font-semibold text-gray-900">
+                            {{ faq.question }}
+                        </span>
+
+                        <span class="faq-icon text-[#C89B2C] text-3xl font-light">+</span>
+
+                    </button>
+
+                    <div class="faq-content max-h-0 overflow-hidden transition-all duration-500">
+
+                        <p class="px-6 pb-6 text-gray-600 leading-8">
+                            {{ faq.answer }}
+                        </p>
+
+                    </div>
+
+                </div>
+              {% endfor %}
+            {% endif %}
+
+        </div>
+
+      <div class="mt-12 text-center bg-gradient-to-r from-[#C89B2C] to-[#B68622] rounded-md  px-6 py-7 shadow-lg">
+
+        <h3 class="text-2xl md:text-3xl font-bold text-white">
+            Still Have Any Questions?
+        </h3>
+
+        <p class="mt-2 text-white/90 max-w-xl mx-auto text-sm md:text-base">
+            Can't find the answer you're looking for? Our sales experts are here to help.
+        </p>
+
+        <button onclick="openFaqPopup()" class="mt-5 inline-flex items-center gap-2 bg-white text-[#C89B2C] hover:bg-gray-100 px-5 h-11 rounded-lg font-semibold shadow-sm hover:shadow-md transition-all duration-300">
+
+            <i class="fa-regular fa-comments"></i>
+            Ask Your Query
+
+        </button>
+
+      </div>
+
+    </div>
+
+</section>
+<!-- FAQs End Here -->
+
+<section class="py-20 bg-gradient-to-b from-white to-gray-50" id="contact">
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Heading -->
         <div class="text-center max-w-3xl mx-auto mb-14">
 
-            <span
-                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] text-sm font-semibold tracking-wide">
-                🏦 Home Loan Assistance
+            <span  class="inline-flex items-center px-4 py-2 bg-[#C89B2C]/10 text-[#C89B2C] text-sm font-semibold uppercase tracking-widest">
+                Contact Us
             </span>
 
-            <h2 class="mt-5 text-3xl md:text-4xl font-bold text-gray-900">
-                Finance Your Dream Home with Trusted Banks
+            <h2 class="mt-5 text-4xl md:text-5xl font-bold text-gray-900">
+                Let's Connect
             </h2>
 
-            <p class="mt-4 text-gray-600 leading-8">
-                Get attractive interest rates, quick loan approvals and expert guidance
-                from India's leading banking partners.
+            <p class="mt-4 text-lg text-gray-600">
+                Whether you're planning to book a site visit or need project information,
+                our team is ready to assist you.
             </p>
 
         </div>
 
-        <!-- Bank Logos -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid lg:grid-cols-2 gap-10">
 
-            {% for bank in project.bookingoffer.all %}
-            <div class="group bg-white rounded-3xl border border-gray-200 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-6 flex flex-col items-center justify-center">
+            <!-- Left -->
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
 
-                {% if bank.image %}
-                    <img src="{{ bank.image.url }}"
-                        alt="{{ bank.title }}"
-                        class="h-12 object-contain grayscale group-hover:grayscale-0 transition duration-500">
-                {% endif %}
+                <h3 class="text-3xl font-bold text-gray-900 mb-2">
+                    Get in Touch
+                </h3>
 
-                <h4 class="mt-4 font-semibold text-gray-800">
-                    {{ bank.title }}
-                </h4>
+                <p class="text-gray-600 mb-8">
+                    Contact our property experts for pricing, site visits and exclusive offers.
+                </p>
+
+                <div class="space-y-5">
+
+                    <!-- Phone -->
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#C89B2C]/10 text-[#C89B2C] flex items-center justify-center">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Call Us</h4>
+                            <a href="tel:+91{{settings_obj.phone}}" class="text-gray-600 hover:text-[#C89B2C]">
+                                +91 {{settings_obj.phone}}
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Email -->
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#C89B2C]/10 text-[#C89B2C] flex items-center justify-center">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Email</h4>
+                            <a href="mailto:{{settings_obj.email}}" class="text-gray-600 hover:text-[#C89B2C]">
+                                {{settings_obj.email}}
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- WhatsApp -->
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#C89B2C]/10 text-[#C89B2C] flex items-center justify-center">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900">WhatsApp</h4>
+                            <a href="https://wa.me/91{{settings_obj.whatsapp}}" target="_blank"
+                                class="text-gray-600 hover:text-[#C89B2C]">
+                                Chat Instantly
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <!-- Address -->
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#C89B2C]/10 text-[#C89B2C] flex items-center justify-center">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Office Address</h4>
+                            <p class="text-gray-600">
+                                {{settings_obj.address}}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Timing -->
+                     {% if settings_obj.working_days %}
+                    <div class="flex items-start gap-4">
+
+                        <div class="w-12 h-12 rounded-xl bg-[#C89B2C]/10 text-[#C89B2C] flex items-center justify-center">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Working Hours</h4>
+                            <p class="text-gray-600">
+                                {{ settings_obj.working_days }} : {{ settings_obj.working_hours }}
+                            </p>
+                        </div>
+
+                    </div>
+                    {% else %}
+                    {% endif %}
+
+                </div>
 
             </div>
-            {% empty %}
-            <p>No Bank Available</p>
-            {% endfor %}
+
+            <!-- Right -->
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+
+                <h3 class="text-2xl font-bold text-gray-900">
+                    Send an Enquiry
+                </h3>
+
+                <p class="text-gray-600 mt-2 mb-6">
+                    Fill out the form and we'll contact you shortly.
+                </p>
+
+                <form class="space-y-4" method="post" action="{% url 'submit_enquiry' project.id %}" id="inlineEnquiryForm">
+                   {% csrf_token %} 
+
+                    <div class="relative">
+                        <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" placeholder="Full Name" name="name" class="w-full h-11 rounded-lg border border-gray-300 pl-11 pr-4 focus:border-[#C89B2C] outline-none">
+                    </div>
+
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="tel" maxlength="10" name="phone" placeholder="Mobile Number" class="w-full h-11 rounded-lg border border-gray-300 pl-11 pr-4 focus:border-[#C89B2C] outline-none">
+                    </div>
+
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="email" name="email" placeholder="Email Address" class="w-full h-11 rounded-lg border border-gray-300 pl-11 pr-4 focus:border-[#C89B2C] outline-none">
+                    </div>
+
+                    <div class="relative">
+                        <i class="fa-regular fa-comment absolute left-4 top-4 text-gray-400"></i>
+                        <textarea rows="4" name="message" placeholder="Your Message" class="w-full rounded-lg border border-gray-300 pl-11 pr-4 pt-3 focus:border-[#C89B2C] outline-none resize-none"></textarea>
+                    </div>
+
+                    <button
+                        class="w-full h-11 rounded-lg bg-[#C89B2C] hover:bg-[#B68622] text-white font-semibold transition">
+
+                        Submit Enquiry
+
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
 
-
     </div>
-</section>
-<!-- Bank Offer End Here -->
 
+</section>
 
 </main>
 
 <!-- Popup -->
 <div id="popup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/70 backdrop-blur-md p-4">
 
-    <div  class="relative w-full max-w-md overflow-hidden rounded-[8px] bg-white shadow-[0_30px_80px_rgba(0,0,0,.25)] border border-[#E8DFC9] animate-popup">
+    <div  class="relative w-full max-w-[430px] overflow-hidden rounded-[8px] bg-white shadow-[0_30px_80px_rgba(0,0,0,.25)] border border-[#E8DFC9] animate-popup">
 
         <!-- Gold Line -->
         <div class="h-1 w-full bg-gradient-to-r from-[#C89B2C] via-[#F5D67A] to-[#C89B2C]"></div>
@@ -1419,7 +1783,7 @@
             class="absolute -bottom-20 -left-16 h-44 w-44 rounded-full bg-[#C89B2C]/5 blur-3xl">
         </div>
 
-        <div class="relative p-8">
+        <div class="relative p-6">
 
             <!-- Close -->
             <button id="closePopup"  class="absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition duration-300 hover:bg-[#C89B2C] hover:text-white">
@@ -1429,7 +1793,7 @@
             </button>
 
             <!-- Icon -->
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#C89B2C] to-[#B88A1F] shadow-lg">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#C89B2C] to-[#B88A1F] shadow-lg">
 
                 <i class="fa-solid fa-building text-white text-2xl"></i>
 
@@ -1461,8 +1825,8 @@
             </div>
 
             <!-- Form -->
-            <form id="enquiryForm" class="mt-8 space-y-5">
-
+            <form id="enquiryForm" class="mt-8 space-y-3"  method="post" action="{% url 'submit_enquiry' project.id %}" id="inlineEnquiryForm">
+                {% csrf_token %}
                 <!-- Name -->
                 <div class="relative">
 
@@ -1491,6 +1855,15 @@
                     </i>
 
                     <input id="phone" type="tel" name="phone" required maxlength="10" placeholder="Mobile Number" class="w-full rounded-2xl border border-gray-200 bg-[#FAFAFA] py-4 pl-12 pr-4 outline-none transition-all duration-300 focus:border-[#C89B2C] focus:bg-white focus:shadow-lg">
+
+                </div>
+
+                <!-- Message -->
+                <div class="relative">
+
+                    <i class="fa-regular fa-message absolute left-4 top-4 text-[#C89B2C]"></i>
+
+                    <textarea name="message" rows="3" placeholder="Your Message" class="w-full rounded-xl border border-gray-200 bg-[#FAFAFA] pt-3 pl-12 pr-4 text-sm resize-none outline-none transition-all duration-300 focus:border-[#C89B2C] focus:bg-white focus:shadow-md"></textarea>
 
                 </div>
 
@@ -1530,7 +1903,124 @@
 
 </div>
 
+<div id="faqPopup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/70 p-4">
 
+    <div class="relative w-full max-w-lg rounded bg-white shadow-2xl">
+
+        <button onclick="closeFaqPopup()" class="absolute top-5 right-5 w-11 h-11 rounded-full bg-[#C89B2C]/10 text-[#C89B2C] border border-[#C89B2C]/20 flex items-center justify-center text-2xl hover:bg-[#C89B2C] hover:text-white transition-all duration-300">
+
+            &times;
+
+        </button>
+
+        <div class="p-8">
+
+            <h2 class="text-3xl font-bold text-gray-900">
+                Any Query?
+            </h2>
+
+            <p class="mt-2 text-gray-500">
+                Fill in your details and our team will contact you shortly.
+            </p>
+
+            <form class="mt-6 space-y-3" method="post" action="{% url 'submit_enquiry' project.id %}" id="inlineEnquiryForm">
+                {% csrf_token %}
+                <!-- Name -->
+                <div class="relative">
+                    <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" name="name" required placeholder="Full Name" class="w-full h-11 rounded-lg border border-gray-300 pl-11 pr-4 text-sm focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition">
+                </div>
+
+                <!-- Email -->
+                <div class="relative">
+                    <i class="fa-regular fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="email" name="email" required placeholder="Email Address" class="w-full h-11 rounded-lg border border-gray-300 pl-11 pr-4 text-sm focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition">
+                </div>
+
+                <!-- Phone -->
+                <div class="relative">
+                    <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="tel" name="phone" required maxlength="10" minlength="10" pattern="[0-9]{10}" placeholder="Mobile Number" class="w-full h-11 rounded-lg border border-gray-300 pl-11 pr-4 text-sm focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition">
+                </div>
+
+                            <!-- Message -->
+                    <div class="relative">
+                        <i class="fa-regular fa-message absolute left-4 top-4 text-gray-400"></i>
+
+                        <textarea name="message" rows="3" placeholder="Your Message" class="w-full rounded-lg border border-gray-300 pl-11 pr-4 pt-3 text-sm resize-none focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition"></textarea>
+                    </div>
+
+                <!-- Submit -->
+                <button type="submit" class="w-full h-11 rounded-lg bg-[#C89B2C] hover:bg-[#B68622] text-white text-sm font-semibold transition duration-300">
+
+                    <i class="fa-solid fa-paper-plane mr-2"></i>
+                    Submit Enquiry
+
+                </button>
+
+            </form>
+
+            <!-- Divider -->
+            <div class="my-6 flex items-center">
+
+                <div class="flex-1 h-px bg-gray-200"></div>
+
+                <span class="px-4 text-gray-400 text-sm">
+                    OR
+                </span>
+
+                <div class="flex-1 h-px bg-gray-200"></div>
+
+            </div>
+
+        <!-- Action Buttons -->
+            <div class="flex justify-center gap-3 mt-5">
+
+                <!-- Call -->
+                <a href="tel:+91{{settings_obj.phone}}" class="inline-flex items-center gap-2 px-4 h-10 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium transition">
+
+                    <i class="fa-solid fa-phone text-xs"></i>
+                    <span>Call Now</span>
+
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/91{{settings_obj.whatsapp}}" target="_blank"
+                    class="inline-flex items-center gap-2 px-4 h-10 rounded-lg bg-[#C89B2C] hover:bg-[#B68622] text-white text-sm font-medium transition">
+
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>WhatsApp</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<style>
+    input[type=range]{
+        -webkit-appearance:none;
+        width:100%;
+        height:8px;
+        border-radius:20px;
+        background:#ddd;
+    }
+    input[type=range]::-webkit-slider-thumb{
+        -webkit-appearance:none;
+        width:20px;
+        height:20px;
+        border-radius:50%;
+        background:#c89b2c;
+        cursor:pointer;
+    }
+</style>
 
 <div id="planLightbox" class="fixed inset-0 bg-black/90 z-[9999] hidden items-center justify-center p-5">
 
@@ -1545,6 +2035,89 @@
     <img id="lightboxImage" class="max-w-full max-h-[90vh] rounded-xl shadow-2xl">
 
 </div>
+
+
+<script>
+    const loan=document.getElementById("loan");
+    const interest=document.getElementById("interest");
+    const years=document.getElementById("years");
+
+        loan.oninput=()=>{
+            loanValue.innerHTML="₹"+Number(loan.value).toLocaleString('en-IN');
+            calculateEMI();
+        }
+
+        interest.oninput=()=>{
+            interestValue.innerHTML=interest.value+"%";
+            calculateEMI();
+        }
+
+        years.oninput=()=>{
+            yearValue.innerHTML=years.value+" Years";
+            calculateEMI();
+        }
+
+        function money(x){
+            return "₹"+Math.round(x).toLocaleString('en-IN');
+        }
+
+        function calculateEMI(){
+
+            let P=parseFloat(loan.value);
+
+            let annual=parseFloat(interest.value);
+
+            let N=parseFloat(years.value)*12;
+
+            let R=annual/12/100;
+
+            let EMI=(P*R*Math.pow((1+R),N))/(Math.pow((1+R),N)-1);
+
+            let total=EMI*N;
+
+            let totalInterest=total-P;
+
+            document.getElementById("emi").innerHTML=money(EMI);
+
+            document.getElementById("interestAmount").innerHTML=money(totalInterest);
+
+            document.getElementById("totalPayment").innerHTML=money(total);
+
+            let percent=(P/total)*100;
+
+            document.getElementById("progress").style.width=percent+"%";
+
+        }
+
+        calculateEMI();
+
+        function openFaqPopup(){
+
+            document.getElementById("faqPopup").classList.remove("hidden");
+            document.getElementById("faqPopup").classList.add("flex");
+
+        }
+
+        function closeFaqPopup(){
+
+            document.getElementById("faqPopup").classList.add("hidden");
+            document.getElementById("faqPopup").classList.remove("flex");
+
+        }
+
+        window.onclick=function(e){
+
+            let popup=document.getElementById("faqPopup");
+
+            if(e.target===popup){
+
+                closeFaqPopup();
+
+            }
+
+        }
+
+</script>
 
 <script>
 
@@ -1734,6 +2307,43 @@
             e.preventDefault();
             alert("Please enter a valid 10 digit mobile number.");
         }
+
+    });
+
+    const faqs = document.querySelectorAll(".faq-item");
+
+    faqs.forEach((faq) => {
+
+        const button = faq.querySelector(".faq-btn");
+        const content = faq.querySelector(".faq-content");
+        const icon = faq.querySelector(".faq-icon");
+
+        button.addEventListener("click", () => {
+
+            faqs.forEach((item) => {
+
+                if(item !== faq){
+
+                    item.querySelector(".faq-content").style.maxHeight = null;
+                    item.querySelector(".faq-icon").textContent = "+";
+
+                }
+
+            });
+
+            if(content.style.maxHeight){
+
+                content.style.maxHeight = null;
+                icon.textContent = "+";
+
+            }else{
+
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.textContent = "−";
+
+            }
+
+        });
 
     });
 
@@ -2076,6 +2686,21 @@
 
     });
 
+        var swiper = new Swiper(".bankSwiper", {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 1500,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                0: { slidesPerView: 2 },
+                480: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 5 }
+            }
+        });
 </script>
 
 
