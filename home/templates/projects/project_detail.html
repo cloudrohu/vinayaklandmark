@@ -586,19 +586,15 @@
 
                     <div class="mt-5 space-y-3">
 
-                        <a href="#" class="h-11 flex items-center justify-center gap-2 rounded-md bg-[#C89B2C] hover:bg-[#b88b23] text-white font-semibold duration-300">
-                            <i class="fa-solid fa-download"></i>
+                   <a href="#" onclick="openEnquiryPopup('brochure')"  class="h-11 flex items-center justify-center gap-2 rounded-md bg-[#C89B2C] hover:bg-[#b88b23] text-white font-semibold transition-all duration-300">
+                        <i class="fa-solid fa-download"></i>
+                        Download Brochure
+                    </a>
 
-                            Download Brochure
-
-                        </a>
-
-                        <a href="#" class="h-11 flex items-center justify-center gap-2 rounded-md border border-[#C89B2C] text-[#C89B2C] hover:bg-[#C89B2C] hover:text-white duration-300">
-                            <i class="fa-solid fa-calendar-check"></i>
-
-                            Book Site Visit
-
-                        </a>
+                    <a href="#" onclick="openEnquiryPopup('site_visit')" class="h-11 flex items-center justify-center gap-2 rounded-md border border-[#C89B2C] text-[#C89B2C] hover:bg-[#C89B2C] hover:text-white transition-all duration-300">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Book Site Visit
+                    </a>
 
                         <div class="grid grid-cols-2 gap-3">
 
@@ -2025,7 +2021,74 @@
 </div>
 
 
+<div id="enquiryPopup" class="fixed inset-0 z-[999] hidden items-center justify-center bg-black/70 backdrop-blur-sm">
 
+    <div class="relative w-full max-w-md bg-white rounded-2xl p-8 mx-4">
+
+        <button onclick="closeEnquiryPopup()"  class="absolute top-4 right-4 text-gray-500 hover:text-black">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+
+        <h3 id="popupTitle" class="text-2xl font-bold text-gray-900">
+            Download Brochure
+        </h3>
+
+        <p class="text-gray-500 mt-2">
+            Fill your details and we'll get in touch.
+        </p>
+
+        <form class="mt-6 space-y-4" method="post" action="{% url 'submit_enquiry' project.id %}" id="inlineEnquiryForm">
+
+            {% csrf_token %}
+
+            <input type="hidden" id="popupAction" name="action">
+
+            <!-- Name -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Full Name <span class="text-red-500">*</span>
+                </label>
+
+                <input type="text" name="name" placeholder="Enter your full name" required class="w-full h-12 rounded-lg border border-gray-300 px-4 focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition-all">
+            </div>
+
+            <!-- Mobile -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Mobile Number <span class="text-red-500">*</span>
+                </label>
+
+                <input type="tel" name="phone" maxlength="10" placeholder="Enter your mobile number" required class="w-full h-12 rounded-lg border border-gray-300 px-4 focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition-all">
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Email Address <span class="text-red-500">*</span>
+                </label>
+
+                <input type="email" name="email" required="" placeholder="Enter your email" class="w-full h-12 rounded-lg border border-gray-300 px-4 focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition-all">
+            </div>
+
+            <!-- Message -->
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Message
+                </label>
+
+                <textarea name="message" rows="4" placeholder="Write your message..." class="w-full rounded-lg border border-gray-300 px-4 py-3 resize-none focus:border-[#C89B2C] focus:ring-2 focus:ring-[#C89B2C]/20 outline-none transition-all"></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="w-full h-12 rounded-lg bg-[#C89B2C] hover:bg-[#b88b23] text-white font-semibold transition-all duration-300">
+                Submit Enquiry
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 <style>
     input[type=range]{
@@ -2753,6 +2816,38 @@
                 1024: { slidesPerView: 5 }
             }
         });
+
+        function openEnquiryPopup(type){
+
+        document.getElementById("enquiryPopup").classList.remove("hidden");
+        document.getElementById("enquiryPopup").classList.add("flex");
+
+        document.getElementById("popupAction").value = type;
+
+        if(type==="brochure"){
+            document.getElementById("popupTitle").innerHTML="Download Brochure";
+        }else{
+            document.getElementById("popupTitle").innerHTML="Book Site Visit";
+        }
+
+        }
+
+        function closeEnquiryPopup(){
+
+            document.getElementById("enquiryPopup").classList.remove("flex");
+            document.getElementById("enquiryPopup").classList.add("hidden");
+
+        }
+
+        window.onclick=function(e){
+
+            const popup=document.getElementById("enquiryPopup");
+
+            if(e.target===popup){
+                closeEnquiryPopup();
+            }
+
+    }
 </script>
 
 
