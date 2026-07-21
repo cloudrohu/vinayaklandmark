@@ -50,9 +50,6 @@ INSTALLED_APPS = [
     'easy_thumbnails',
 ]
 
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
