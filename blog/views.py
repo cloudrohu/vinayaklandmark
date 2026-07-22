@@ -94,3 +94,4 @@ def post_comment(request, slug):
         comment.active = False   # moderation
         comment.save()
     return redirect(post.get_absolute_url())
+

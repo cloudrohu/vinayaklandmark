@@ -348,3 +348,4 @@ def calculator(request):
         "menu_projects": menu_projects,
     }
     return render(request, 'home/calculator.html', context)
+
