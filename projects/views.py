@@ -255,7 +255,11 @@ def project_details(request, id, slug):
         )
 
     related_projects = related_projects[:8]
-    bank_offers = project.bank_offers.all()
+
+
+    bank = Bank.objects.all()
+    print("Bank Count:", bank.count())
+
 
     context = {
         "menu_projects": menu_projects,
@@ -265,11 +269,13 @@ def project_details(request, id, slug):
         "related_projects": related_projects,
         "project_faqs": project.faqs.all().order_by("order"),
         "menu_projects": menu_projects,
-        "bank_offers": bank_offers,
+        "bank": bank,
+
 
     }
 
     return render(request, "projects/project_detail.html", context)
+
 
 # 🏢 Commercial Projects
 def commercial_projects(request):

@@ -112,6 +112,7 @@ class ProjectAmenities(models.Model):
         return self.title
 
 
+
 class Bank(models.Model):
     title = models.CharField(max_length=50,blank=True)
     image = models.ImageField(upload_to='images/')
@@ -120,7 +121,6 @@ class Bank(models.Model):
     
     class Meta:
         verbose_name_plural='03. Bank'
-
 
 class PropertyAmenities(models.Model):
     name = models.CharField(max_length=100)
