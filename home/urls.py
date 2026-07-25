@@ -22,5 +22,7 @@ urlpatterns = [
     path('calculator/', views.calculator, name='calculator'),
     path("submit-enquiry/",views.submit_home_enquiry,name="submit_home_enquiry",), 
 
+    path("schedule-visit/",views.schedule_visit,name="schedule_visit",),
+
     
 ]

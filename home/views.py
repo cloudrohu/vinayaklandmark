@@ -6,7 +6,7 @@ from properties.models import Property
 from utility.models import Locality,PropertyType,City,Bank
 from .models import (
     Setting, Slider, Testimonial, About, Leadership,
-    Contact_Page, FAQ, Our_Team,Why_Choose, ImpactMetric,Slider, Enquiry,USP
+    Contact_Page, FAQ, Our_Team,Why_Choose, ImpactMetric,Slider, Enquiry,USP,ScheduleVisit,GalleryCategory,Gallery
 )
 from user.models import Developer  
 
@@ -238,15 +238,23 @@ def faq_view(request):
 def gallery_view(request):
     settings_obj = Setting.objects.first()
     project = Project.objects.filter(active=True, featured_property=True).first()
+    menu_projects = Project.objects.filter(active=True, featured_property=True)
 
-    menu_projects = Project.objects.filter(active=True,featured_property=True)
+    categories = GalleryCategory.objects.filter(is_active=True).order_by("order")
+
+    galleries = Gallery.objects.filter(is_active=True).select_related("category").order_by("order", "-created_at")
 
     context = {
         "settings_obj": settings_obj,
         "project": project,
         "menu_projects": menu_projects,
+
+        # Gallery
+        "categories": categories,
+        "galleries": galleries,
     }
-    return render(request, 'home/gallery.html', context)
+
+    return render(request, "home/gallery.html", context)
 
 def configs_view(request):
     settings_obj = Setting.objects.first()
@@ -349,3 +357,16 @@ def calculator(request):
     }
     return render(request, 'home/calculator.html', context)
 
+def schedule_visit(request):
+    if request.method == "POST":
+        ScheduleVisit.objects.create(
+            name=request.POST.get("name"),
+            email=request.POST.get("email"),
+            phone=request.POST.get("phone"),
+            visit_date=request.POST.get("date"),
+            visit_time=request.POST.get("time"),
+        )
+
+        return redirect("/projects/thank-you/")
+
+    return redirect("/")

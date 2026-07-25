@@ -53,10 +53,10 @@
                 <div class="mt-8 flex flex-wrap gap-3">
 
 
-                   <button class="h-14 px-7 border border-white/70 text-white rounded-lg font-semibold flex items-center gap-3 backdrop-blur-[1px] hover:bg-white/10 hover:backdrop-blur-md hover:border-white transition-all duration-300">
-                        <i class="fa-regular fa-calendar text-xl"></i>
-                        Schedule Visit
-                    </button>
+                <button id="openScheduleModal" class="h-14 px-7 border border-white/70 text-white rounded-lg font-semibold flex items-center gap-3 backdrop-blur-[1px] hover:bg-white/10 hover:backdrop-blur-md hover:border-white transition-all duration-300">
+                    <i class="fa-regular fa-calendar text-xl"></i>
+                    Schedule Visit
+                </button>
 
                     {% if slider.button_link %}
                         <a target="_blank" href="{{slider.button_link}}" class="h-14 px-7 border text-2xl border-white/70 text-white rounded-lg font-semibold text-base flex items-center gap-3 backdrop-blur-sm  hover:backdrop-blur-md hover:border-white transition-all duration-300">
@@ -65,7 +65,7 @@
                         </a>
                     {% else %}
                     <a target="_blank" href="{{settings_obj.phone}}" class="h-14 px-7 border text-2xl border-white/70 text-white rounded-lg font-semibold text-base flex items-center gap-3 backdrop-blur-sm  hover:backdrop-blur-md hover:border-white transition-all duration-300">
-                        <i class="fa-solid fa-phone text-2xl"></i>
+                        
                         Call Now
                     </a>
                     {% endif %}
@@ -247,5 +247,102 @@
 
 {% endif %}
 
+<!-- Schedule Visit Modal -->
+<div id="scheduleModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+
+    <div class="bg-white w-full max-w-md shadow-2xl relative overflow-hidden">    
+
+        <div class="bg-gradient-to-r from-amber-600 to-yellow-500 text-white px-5 py-4">    
+            <h2 class="text-2xl font-bold">Schedule a Site Visit</h2>
+            <p class="text-white/80 text-sm mt-1">
+                Fill in your details and we'll contact you shortly.
+            </p>
+
+            <button id="closeScheduleModal"  class="absolute top-4 right-4 text-white text-2xl hover:rotate-90 transition">
+                &times;
+            </button>
+        </div>
+
+        <form action="{% url 'schedule_visit' %}" method="POST" class="p-6 space-y-5">
+            {% csrf_token %}
+
+            <div>
+                <label class="font-medium text-gray-700">Full Name</label>
+                <input type="text" name="name" class="w-full h-11 px-4 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" required>
+            </div>
+
+            <div>
+                <label class="font-medium text-gray-700">Email Address</label>
+                <input type="email" name="email" class="w-full h-11 px-4 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" required>
+            </div>
+
+            <div>
+                <label class="font-medium text-gray-700">Phone Number</label>
+                <input type="tel" name="phone" maxlength="10" pattern="[0-9]{10}" class="w-full h-11 px-4 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" placeholder="10 Digit Mobile Number" required>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-5">
+
+                <div>
+                    <label class="font-medium text-gray-700">Schedule Date</label>
+                    <input type="date" id="visitDate" name="date" class="w-full h-11 px-4 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" required>
+                </div>
+
+                    <div>
+                        <label class="font-medium text-gray-700">Schedule Time</label>
+                        <input type="time" id="visitTime" name="time" class="w-full h-11 px-4 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none" required>
+                </div>
+
+            </div>
+
+            <button class="w-full h-12 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold transition">
+                Schedule Visit
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 <!-- Luxury Download Brochure CTA -->
+<script>
+    const modal = document.getElementById("scheduleModal");
+
+    document.getElementById("openScheduleModal").addEventListener("click", () => {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+    });
+
+    document.getElementById("closeScheduleModal").addEventListener("click", () => {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+    });
+
+    // Close when clicking outside
+    modal.addEventListener("click", function(e){
+        if(e.target === modal){
+            modal.classList.add("hidden");
+            modal.classList.remove("flex");
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateInput = document.getElementById("visitDate");
+        const timeInput = document.getElementById("visitTime");
+
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.min = today;
+
+        dateInput.addEventListener("change", function () {
+            if (this.value === today) {
+                const now = new Date();
+                const hours = String(now.getHours()).padStart(2, "0");
+                const minutes = String(now.getMinutes()).padStart(2, "0");
+                timeInput.min = `${hours}:${minutes}`;
+            } else {
+                timeInput.removeAttribute("min");
+            }
+        });
+    });
+</script>

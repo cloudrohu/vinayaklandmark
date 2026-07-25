@@ -5,7 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 from .models import (
     Setting, Slider, Leadership, Why_Choose,
     About, Contact_Page, Our_Team,
-    Testimonial, FAQ, ImpactMetric, Enquiry,USP
+    Testimonial, FAQ, ImpactMetric, Enquiry,USP,ScheduleVisit,GalleryCategory, Gallery
 )
 
 @admin.register(Setting)
@@ -304,3 +304,52 @@ class ImpactMetricAdmin(ImportExportModelAdmin):
 @admin.register(Enquiry)
 class EnquiryAdmin(ImportExportModelAdmin):
     list_display = ("name", "email", "phone", "message", "created_at")
+
+@admin.register(ScheduleVisit)
+class ScheduleVisitAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "phone",
+        "email",
+        "visit_date",
+        "visit_time",
+        "created_at",
+    )
+
+    list_filter = (
+        "visit_date",
+        "created_at",
+    )
+
+    search_fields = (
+        "name",
+        "phone",
+        "email",
+    )
+
+    ordering = ("-created_at",)
+
+    readonly_fields = ("created_at",)    
+
+@admin.register(GalleryCategory)
+class GalleryCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "order", "is_active")
+    list_editable = ("order", "is_active")
+    prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "category",
+        "featured",
+        "order",
+        "is_active",
+        "created_at",
+    )
+
+    list_filter = ("category", "featured", "is_active")
+    list_editable = ("featured", "order", "is_active")
+    search_fields = ("title", "description")
+

@@ -80,7 +80,6 @@ class Setting(ImageCompressionMixin, models.Model):
              self.image = compress_image(self.image)
 
             super().save(*args, **kwargs)
-
 class Slider(models.Model):
 
     #################### BASIC INFO ####################
@@ -126,7 +125,6 @@ class Slider(models.Model):
              self.image = compress_image(self.image)
 
             super().save(*args, **kwargs)
-
 class Leadership(models.Model):
     name = models.CharField(max_length=100, help_text="Full name of the team member")
     designation = models.CharField(max_length=150, help_text="Position or title (e.g., CEO, Managing Director)")
@@ -155,7 +153,6 @@ class Leadership(models.Model):
              self.image = compress_image(self.image)
 
             super().save(*args, **kwargs)    
-
 class Why_Choose(models.Model):
     icons = models.CharField(max_length=20, blank=True, null=True, help_text="Font Awesome icon class (e.g., 'fa-solid fa-star')")
     title = models.CharField(max_length=200)
@@ -169,8 +166,6 @@ class Why_Choose(models.Model):
 
     def __str__(self):
         return self.title
-
-
 class About(models.Model):
 
 
@@ -229,8 +224,6 @@ class About(models.Model):
 
     def __str__(self):
         return self.title
-
-
 class USP(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
@@ -251,7 +244,6 @@ class USP(models.Model):
 
     def __str__(self):
         return self.title
-
 class Contact_Page(models.Model):
     heading = models.CharField(max_length=200)
     sub_heading = models.CharField(max_length=300, blank=True, null=True)
@@ -272,7 +264,6 @@ class Contact_Page(models.Model):
             self.image = compress_image(self.image)
 
         super().save(*args, **kwargs)    
-
 class Enquiry(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
@@ -283,7 +274,6 @@ class Enquiry(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.phone}"
-
 class Our_Team(models.Model):
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=100)
@@ -302,7 +292,6 @@ class Our_Team(models.Model):
             self.image = compress_image(self.image)
 
         super().save(*args, **kwargs)         
-
 class Testimonial(models.Model):
     name = models.CharField(max_length=100)
     designation = models.CharField(max_length=100, blank=True, null=True)
@@ -322,7 +311,6 @@ class Testimonial(models.Model):
              self.image = compress_image(self.image)
 
             super().save(*args, **kwargs)    
-
 class FAQ(models.Model):
     question = models.CharField(max_length=300)
     answer = RichTextUploadingField()
@@ -338,7 +326,6 @@ class FAQ(models.Model):
             self.image = compress_image(self.image)
 
         super().save(*args, **kwargs)     
-
 class ImpactMetric(models.Model):
     title = models.CharField(max_length=255)
     value = models.CharField(max_length=100, help_text='E.g. "10,000+" or "95%"')
@@ -357,3 +344,55 @@ class ImpactMetric(models.Model):
             self.image = compress_image(self.image)
 
         super().save(*args, **kwargs)  
+class ScheduleVisit(models.Model):
+    name = models.CharField(max_length=150)
+    email = models.EmailField()
+    phone = models.CharField(max_length=10)
+    visit_date = models.DateField()
+    visit_time = models.TimeField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Schedule Visit"
+        verbose_name_plural = "Schedule Visits"
+
+    def __str__(self):
+        return f"{self.name} - {self.phone}"
+class GalleryCategory(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True)
+    icon = models.CharField(max_length=100, blank=True, null=True)  # Optional
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["order", "name"]
+        verbose_name = "Gallery Category"
+        verbose_name_plural = "Gallery Categories"
+
+    def __str__(self):
+        return self.name
+class Gallery(models.Model):
+    category = models.ForeignKey(GalleryCategory,on_delete=models.CASCADE,related_name="galleries")
+
+    title = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="gallery/")
+    description = models.TextField(blank=True, null=True)
+
+    featured = models.BooleanField(default=False)
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["order", "-created_at"]
+        verbose_name = "Gallery"
+        verbose_name_plural = "Gallery"
+
+    def __str__(self):
+        return self.title
+
