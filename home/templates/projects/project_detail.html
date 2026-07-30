@@ -921,17 +921,12 @@
 
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="grid grid-cols-1 gap-3 mt-4">
 
-                            <a href="{% url 'configuration_pdf' config.id %}" target="_blank" class="border border-[#C89B2C] text-[#C89B2C] py-2 rounded-lg text-center hover:bg-[#C89B2C] hover:text-white">
 
-                                Download
-
-                            </a>
-
-                        <button class="openEnquiry bg-[#C89B2C] text-white py-2 rounded-lg w-full hover:bg-[#b48720] duration-300">
-                            Enquire
-                        </button>
+                            <button class="openEnquiry bg-[#C89B2C] text-white py-2 rounded-lg w-full hover:bg-[#b48720] duration-300">
+                                Enquire
+                            </button>
 
                         </div>
 
@@ -1091,6 +1086,20 @@
     </div>
 </section>
 <!-- Location End Here -->
+
+<script>
+    document.getElementById("videoPlayBtn").addEventListener("click", function () {
+
+        const iframe = document.getElementById("youtubeFrame");
+        const videoId = "{{ project.youtube_embed_id }}";
+
+        iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+        iframe.classList.remove("hidden");
+
+        document.getElementById("videoThumb").classList.add("hidden");
+        this.classList.add("hidden");
+    });
+</script>
 
 <!-- Amenities Start Here -->
 {% if project.amenities.all %}
