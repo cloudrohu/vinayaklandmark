@@ -868,136 +868,70 @@
 
         <!-- Cards -->
 
-        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-16">
+        <div class="swiper testimonialSwiper mt-16">
 
-            <!-- Card 1 -->
+            <div class="swiper-wrapper">
 
-            <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100">
+                <!-- Card 1 -->
+                <div class="swiper-slide">
+                    <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100 h-full">
 
-                <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
+                        <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
 
-                <p class="mt-6 text-gray-600 leading-8">
-                    The entire buying experience was smooth and transparent.
-                    The construction quality exceeded our expectations, and
-                    we are delighted with our new home.
-                </p>
-
-                <div class="flex mt-6 text-[#DDB367]">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-
-                <div class="flex items-center gap-4 mt-8">
-
-                    <img src="https://i.pravatar.cc/100?img=12"
-                        class="w-16 h-16 rounded-full object-cover border-2 border-[#DDB367]">
-
-                    <div>
-
-                        <h4 class="font-semibold text-lg">
-                            Rahul Sharma
-                        </h4>
-
-                        <p class="text-gray-500 text-sm">
-                            Homeowner
+                        <p class="mt-6 text-gray-600 leading-8">
+                            The entire buying experience was smooth and transparent.
+                            The construction quality exceeded our expectations.
                         </p>
 
-                    </div>
+                        <div class="flex mt-6 text-[#DDB367]">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
 
+                        <div class="flex items-center gap-4 mt-8">
+
+                            <img src="https://i.pravatar.cc/100?img=12"
+                                class="w-16 h-16 rounded-full border-2 border-[#DDB367]">
+
+                            <div>
+                                <h4 class="font-semibold text-lg">
+                                    Rahul Sharma
+                                </h4>
+
+                                <p class="text-gray-500 text-sm">
+                                    Homeowner
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="swiper-slide">
+                    ....
+                </div>
+
+                <!-- Card 3 -->
+                <div class="swiper-slide">
+                    ....
                 </div>
 
             </div>
 
-            <!-- Card 2 -->
-
-            <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100">
-
-                <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
-
-                <p class="mt-6 text-gray-600 leading-8">
-                    Excellent project planning, timely delivery, and
-                    outstanding customer support. Investing here was
-                    one of the best decisions for our family.
-                </p>
-
-                <div class="flex mt-6 text-[#DDB367]">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-
-                <div class="flex items-center gap-4 mt-8">
-
-                    <img src="https://i.pravatar.cc/100?img=32"
-                        class="w-16 h-16 rounded-full object-cover border-2 border-[#DDB367]">
-
-                    <div>
-
-                        <h4 class="font-semibold text-lg">
-                            Priya Mehta
-                        </h4>
-
-                        <p class="text-gray-500 text-sm">
-                            Investor
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Card 3 -->
-
-            <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100">
-
-                <i class="fa-solid fa-quote-left text-4xl text-[#DDB367]"></i>
-
-                <p class="mt-6 text-gray-600 leading-8">
-                    The project location, premium amenities, and
-                    professional approach made us confident in our
-                    investment. Highly recommended builder.
-                </p>
-
-                <div class="flex mt-6 text-[#DDB367]">
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                    <i class="fa-solid fa-star"></i>
-                </div>
-
-                <div class="flex items-center gap-4 mt-8">
-
-                    <img src="https://i.pravatar.cc/100?img=68"
-                        class="w-16 h-16 rounded-full object-cover border-2 border-[#DDB367]">
-
-                    <div>
-
-                        <h4 class="font-semibold text-lg">
-                            Amit Patel
-                        </h4>
-
-                        <p class="text-gray-500 text-sm">
-                            Business Owner
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
+            <!-- Pagination -->
+            <div class="swiper-pagination mt-8"></div>
 
         </div>
 
     </div>
 
 </section>
+
 <!-- ================= TESTIMONIAL SECTION END ================= -->
 
 <!-- ================= LOCATIONS SECTION ================= -->
@@ -1455,6 +1389,22 @@
 
 
 <style>
+    .testimonialSwiper {
+        padding-bottom: 60px;
+    }
+
+    .testimonialSwiper .swiper-pagination-bullet{
+        width:12px;
+        height:12px;
+        background:#DDB367;
+        opacity:.35;
+    }
+
+    .testimonialSwiper .swiper-pagination-bullet-active{
+        opacity:1;
+        width:28px;
+        border-radius:999px;
+    }
     .table-scroll,.bhk-tabs,.bhk-panel div{
     scrollbar-width:thin;
     scrollbar-color:#fb923c transparent
@@ -1584,6 +1534,37 @@
             });
 
         });
+
+    });
+    new Swiper(".testimonialSwiper",{
+
+        loop:true,
+
+        spaceBetween:30,
+
+        grabCursor:true,
+
+        autoplay:{
+            delay:4000,
+            disableOnInteraction:false,
+        },
+
+        pagination:{
+            el:".swiper-pagination",
+            clickable:true,
+        },
+
+        breakpoints:{
+            0:{
+                slidesPerView:1,
+            },
+            768:{
+                slidesPerView:2,
+            },
+            1024:{
+                slidesPerView:3,
+            }
+        }
 
     });
 </script>
