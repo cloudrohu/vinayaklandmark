@@ -251,53 +251,40 @@
 
                     </h3>
 
-                    <form method="POST"
-                        action="{% url 'submit_home_enquiry' %}"
-                        class="mt-8 space-y-6">
+                    <form method="POST" action="{% url 'submit_home_enquiry' %}" class="mt-8 space-y-6">
 
                         {% csrf_token %}
 
                         <div>
 
-                            <input
-                                type="text"
-                                name="name"
-                                required
-                                placeholder="Full Name"
-                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
+                            <input type="text" name="name" required placeholder="Full Name" class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
 
                         </div>
 
                         <div>
 
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="Email Address"
-                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
+                            <input type="email" name="email" placeholder="Email Address" class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
 
                         </div>
 
                         <div>
 
-                            <input
-                                type="tel"
-                                name="phone"
-                                required
-                                placeholder="Phone Number"
-                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
+                            <input type="tel" name="phone" required placeholder="Phone Number" class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none">
 
                         </div>
 
                         <div>
 
-                            <textarea
-                                rows="4"
-                                name="message"
-                                placeholder="Tell us about your requirement..."
-                                class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none resize-none"></textarea>
+                            <textarea rows="4" name="message" placeholder="Tell us about your requirement..." class="w-full border-0 border-b-2 border-gray-200 focus:border-[#C5A46D] bg-transparent py-4 outline-none resize-none"></textarea>
 
                         </div>
+
+                        <!-- Google reCAPTCHA -->
+                        <div class="pt-2">
+                            <div class="g-recaptcha"
+                                data-sitekey="6LfzjYgtAAAAAIGCYxyQoz25RmmAQIRVZ4lyr3_C">
+                            </div>
+                         </div>
 
                         <button
                             class="w-full h-14 rounded-full bg-[#111111] text-white font-semibold hover:bg-[#C5A46D] duration-300">

@@ -3,9 +3,12 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-iun@so+p=hbx3%)7!+qbd8kzacliac-uu+$(3c6lhpb_434cr('
+SECRET_KEY = 'ds^vwqw^fwphi$nh-!j#4n$r_8w%0t*_(xo+ml3_-o-@b9b&9i'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
+
+RECAPTCHA_SITE_KEY = '6LfzjYgtAAAAAIGCYxyQoz25RmmAQIRVZ4lyr3_C'
+RECAPTCHA_SECRET_KEY = '6LfzjYgtAAAAAELRXuuey148KvD0dev123eqivvX'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
