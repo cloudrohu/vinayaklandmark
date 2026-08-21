@@ -7,8 +7,9 @@ SECRET_KEY = 'ds^vwqw^fwphi$nh-!j#4n$r_8w%0t*_(xo+ml3_-o-@b9b&9i'
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-RECAPTCHA_SITE_KEY = '6LfzjYgtAAAAAIGCYxyQoz25RmmAQIRVZ4lyr3_C'
-RECAPTCHA_SECRET_KEY = '6LfzjYgtAAAAAELRXuuey148KvD0dev123eqivvX'
+
+RECAPTCHA_SITE_KEY = '6LcM-ZAtAAAAAIsdTkeea5pqHEiH44H-mETTOfsT'
+RECAPTCHA_SECRET_KEY = os.getenv("6LcM-ZAtAAAAAKg9a1z8f0wTVfdxhdMRWZYacvj3")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -20,7 +21,6 @@ DATABASES = {
     }
 }
 
-META_WEBHOOK_VERIFY_TOKEN = "SAYBANOOR_WEBHOOK_TOKEN_2026"
 
 
 # 🧠 4️⃣ Installed Apps
